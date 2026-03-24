@@ -38,6 +38,19 @@
       color: rgba(255,255,255,0.5);
       margin-top: 0.35rem;
     }
+    .note strong {
+      font-weight: 600;
+      color: #c8a864;
+    }
+    .note-list {
+      margin: 0.5rem 0 0;
+      padding-left: 1.1rem;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.7);
+    }
+    .note-list li + li {
+      margin-top: 0.2rem;
+    }
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -126,8 +139,20 @@
       Exploration tools conceived by Kevin Fine · Built with Claude AI
     </div>
     <div class="note">
-      Tip: In each visualization, click the title or “About” button for a full explanation of filters, controls, and data sources.
+      <strong>How this page works</strong>
     </div>
+    <ul class="note-list">
+      <li>
+        Each visualization opens as its own stand‑alone page. To return to this landing page, use your browser’s Back button (or Alt+Left / Cmd+&#91; / Ctrl+&#91; depending on your browser).
+      </li>
+      <li>
+        The military visualizations do not include built‑in zoom controls. After many attempts, adding in‑page zoom broke other interaction logic, so please use your browser’s zoom instead:
+        <br>
+        – Windows / Linux: <strong>Ctrl +</strong> to zoom in, <strong>Ctrl −</strong> to zoom out, <strong>Ctrl 0</strong> to reset.
+        <br>
+        – macOS: <strong>Cmd +</strong> to zoom in, <strong>Cmd −</strong> to zoom out, <strong>Cmd 0</strong> to reset.
+      </li>
+    </ul>
   </header>
 
   <div class="grid">
@@ -142,7 +167,7 @@
         Interactive heliocentric simulator that lets you orbit the Sun alongside the planets, moons, and deep-space probes to feel the real scale, timing, and geometry of the solar system.
       </p>
       <p class="details">
-        Includes all eight planets with realistic orbital periods and rotation, 14 key moons, and 12 historic probes from Pioneer and Voyager through New Horizons, Juno, Dawn, Rosetta, and Parker Solar Probe. 
+        Includes all eight planets with realistic orbital periods and rotation, 14 key moons, and 12 historic probes from Pioneer and Voyager through New Horizons, Juno, Dawn, Rosetta, and Parker Solar Probe. *  
         Time controls let you play, pause, reverse, and change simulation speed, use date search to jump to any calendar date, and focus the camera on any object while toggling orbits, moons, and probe trajectories.
       </p>
       <p class="cta">
@@ -161,11 +186,11 @@
         <span><strong>Focus:</strong> Aircraft lineages & eras</span>
       </div>
       <p class="summary">
-        Timeline map of American military aviation, from WWI biplanes through strategic bombers, carrier air wings, transports, rotary-wing aircraft, and the full UAV/drone lineage.
+        Timeline map of American military aviation, from WWI biplanes through strategic bombers, carrier attack jets, cargo airlifters, rotary‑wing aircraft, and the complete UAV lineage.
       </p>
       <p class="details">
-        Nodes represent significant aircraft families across eight lanes (USAF/Army, naval aviation, attack/CAS, bombers, transport, flying boats, rotary wing, and UAVs), with gold lines for Republic Thunderbolt lineage and teal for the Maryland-built Martin flying boat/bomber chain.  
-        Filters for service, nation, conflict era, and UAVs, plus an “Active at year” slider and Surprise button, help you see which aircraft were flying in any year and trace design evolution and influence.
+        Nodes represent significant aircraft families across eight lanes (USAF/Army, naval aviation, attack/CAS, bombers, transport, flying boats, rotary wing, and UAVs), with gold lines for the Republic Thunderbolt lineage and teal lines for the Maryland‑built Glenn L. Martin flying boat and bomber chain. *  
+        Filters for service, nation, conflict era, and UAV/Drone, plus an “Active at year” slider and Surprise button, let you see which aircraft were flying in any given year and trace both direct design descent and looser influence relationships.
       </p>
       <p class="cta">
         <a href="us-aircraft.html">
@@ -183,11 +208,11 @@
         <span><strong>Focus:</strong> Armor & support</span>
       </div>
       <p class="summary">
-        Evolution of US ground combat power, from WWI trucks and motorcycles through the Sherman and Patton families, M1 Abrams, Bradley, MRAPs, HIMARS, and the new M10 Booker light tank.
+        Evolution of US ground combat power, from WWI trucks and motorcycles through the Sherman and Patton series, M1 Abrams, Bradley, MRAPs, HIMARS, and the new M10 Booker Mobile Protected Firepower vehicle.
       </p>
       <p class="details">
-        Covers 89 vehicles across ten lanes including wheeled recon, light/medium/heavy tanks and TDs, SP artillery and MLRS, trucks and logistics, recovery/engineering, APCs/IFVs/LVTs, and missile TELs.  
-        Category, nation, and conflict-era filters isolate families like NATO Cold War armor, Lend-Lease exports, and Sparrows Point–armored vehicles, while the year slider and lineage highlighting show what was fielded in WWII, Vietnam, Cold War, Gulf War, and OIF/OEF (Operation Iraqi Freedom and Operation Enduring Freedom).
+        Covers 89 vehicles across ten lanes including wheeled recon, half‑tracks, light/medium/heavy tanks and tank destroyers, self‑propelled artillery and rocket systems, trucks and logistics (including DUKWs and MRAPs), recovery and engineering vehicles, APCs/IFVs/LVTs, and missile launchers/TELs.  *  
+        Category, nation, and conflict‑era filters highlight families such as NATO Cold War armor, Lend‑Lease exports, and Sparrows Point armor‑plate vehicles, while the “Active at year” slider and lineage highlighting reveal exactly what was fielded in WWII, Vietnam, the Cold War, Gulf War, and OIF/OEF (Operation Iraqi Freedom/Operation Enduring Freedom).
       </p>
       <p class="cta">
         <a href="us-ground-vehicles.html">
@@ -205,11 +230,11 @@
         <span><strong>Focus:</strong> Fleet composition</span>
       </div>
       <p class="summary">
-        A 135‑year view of American sea power, from pre‑dreadnought battleships through nuclear supercarriers, ballistic‑missile submarines, modern destroyers, amphibs, auxiliaries, and Coast Guard cutters.
+        A 135‑year view of American sea power, from pre‑dreadnought battleships through nuclear supercarriers, ballistic‑missile submarines, modern destroyers and frigates, amphibious forces, auxiliaries, and Coast Guard cutters.
       </p>
       <p class="details">
-        Twelve lanes cover battleships, carriers, cruisers, destroyers, escorts/frigates, submarines, amphibious ships, auxiliaries, Coast Guard, small combatants, naval/Marine helicopters, and carrier aviation classes.  
-        Cyan lines trace nuclear propulsion from USS Nautilus onward, gold lines show conversions (like battlecruiser hulls to carriers), and filters plus “Active at year” let you see the exact fleet on dates such as Pearl Harbor, D‑Day, or the Cuban Missile Crisis, with ship‑level fates and NavSource links in the variants tab.
+        Twelve lanes cover battleships, aircraft carriers, cruisers, destroyers, escorts/frigates, submarines, amphibious ships, auxiliaries (including Liberty ships and hospital ships), Coast Guard cutters, small combatants, naval/Marine helicopters, and carrier aviation. *  
+        Cyan lines trace nuclear propulsion from USS Nautilus forward, gold lines show conversions (such as Lexington‑class battlecruisers turned into carriers), and filters plus an “Active at year” control let you see the exact fleet on dates like Pearl Harbor, D‑Day, or the Cuban Missile Crisis, with ship‑level fates and NavSource links in the variants tab.
       </p>
       <p class="cta">
         <a href="us-naval-vessels.html">
@@ -227,11 +252,11 @@
         <span><strong>Focus:</strong> Individual & crew‑served</span>
       </div>
       <p class="summary">
-        Dense lineage map of 115 US weapons systems across all four services and SOCOM, from Krag bayonets and early revolvers through the M4A1, Barrett .50, Javelin, TOW, modern mortars, artillery, grenades, mines, and scatterable systems.
+        Dense lineage map of 115 US weapons systems across all four services and SOCOM, from early Krag bayonets and revolvers through the M4A1, Barrett .50, Javelin, TOW, mortars, artillery, grenades, mines, and demolition systems.
       </p>
       <p class="details">
-        Thirteen lanes cover bladed weapons and flamethrowers, handguns, rifles and carbines, SMGs, MGs, mortars, AT rockets/recoilless, MANPADS, pack and field artillery, grenades/demolitions, sniper/precision rifles, rotary/rapid‑fire guns, and mines/area‑denial.  
-        Category, branch, and era filters, plus Lend‑Lease/export and “Active at year,” highlight service‑unique weapons, export stories, and evolutionary chains, with a legend explaining lineage, shared‑platform, and influence connections across a century of US small arms and support weapons.
+        Thirteen lanes cover bladed weapons and flamethrowers, handguns, rifles and carbines, sub‑machine guns, machine guns, mortars, anti‑tank rockets and recoilless rifles, MANPADS, pack and mountain artillery, towed and field artillery, grenades/demolitions, sniper and precision rifles, rotary/rapid‑fire systems, and mines/area‑denial. *  
+        Category, branch, and era filters, plus Lend‑Lease/export and “Active at year” controls, highlight service‑unique weapons, export stories, and evolutionary chains, while the legend explains lineage, shared‑platform, and influence connections across more than a century of US small arms and support weapons.
       </p>
       <p class="cta">
         <a href="us-weapons-systems.html">
