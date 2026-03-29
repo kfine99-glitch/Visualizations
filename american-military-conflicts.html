@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>American Military Conflicts · 1607–2024</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;background:#030810;color:#fff;overflow:hidden;font-family:'JetBrains Mono',monospace}
+#hdr{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(3,8,16,.98);border-bottom:1px solid rgba(255,255,255,.07)}
+#hr1{height:46px;display:flex;align-items:center;padding:0 12px;gap:7px;border-bottom:1px solid rgba(255,255,255,.04);overflow:hidden}
+#hr2{height:32px;display:flex;align-items:center;padding:0 12px;gap:5px;border-bottom:1px solid rgba(255,255,255,.04);overflow:hidden}
+#hr3{height:32px;display:flex;align-items:center;padding:0 12px;gap:5px;overflow:hidden}
+#htitle{font-family:'Orbitron',sans-serif;font-weight:900;font-size:10px;letter-spacing:.16em;color:#c8a864;white-space:nowrap;cursor:pointer;flex-shrink:0}
+#htitle:hover{opacity:.75}
+#hsub{font-size:6px;letter-spacing:.16em;color:rgba(200,168,100,.28);white-space:nowrap;flex-shrink:0}
+.hdiv{width:1px;height:18px;background:rgba(255,255,255,.07);flex-shrink:0;margin:0 1px}
+.fil-lbl{font-size:6.2px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.2);white-space:nowrap;flex-shrink:0}
+.fb{padding:2px 7px;border:1px solid rgba(255,255,255,.1);border-radius:2px;font-family:'JetBrains Mono',monospace;font-size:6.5px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.32);cursor:pointer;transition:all .13s;background:none;white-space:nowrap;flex-shrink:0}
+.fb:hover{border-color:rgba(255,255,255,.28);color:rgba(255,255,255,.7)}
+.fb.on{border-color:rgba(200,168,100,.5);color:#c8a864;background:rgba(200,168,100,.08)}
+.fb.fn.on{border-color:rgba(200,106,24,.55);color:#e07820;background:rgba(200,106,24,.08)}
+.fb.fe.on{border-color:rgba(42,90,210,.55);color:#6699ee;background:rgba(42,90,210,.07)}
+.fb.fi.on{border-color:rgba(210,40,40,.55);color:#ee6666;background:rgba(210,40,40,.07)}
+.fb.fl.on{border-color:rgba(40,180,60,.55);color:#55dd70;background:rgba(40,180,60,.07)}
+.fb.fa.on{border-color:rgba(20,140,160,.55);color:#30c0d8;background:rgba(20,140,160,.07)}
+.fb.fm2.on{border-color:rgba(180,150,20,.55);color:#e0c030;background:rgba(180,150,20,.07)}
+.fb.ov.on{border-color:rgba(40,160,60,.5);color:#55dd77;background:rgba(40,160,60,.07)}
+.fb.od.on{border-color:rgba(200,50,50,.5);color:#ee7777;background:rgba(200,50,50,.07)}
+.fb.os.on{border-color:rgba(80,100,200,.5);color:#8899ee;background:rgba(80,100,200,.07)}
+.fb.oi.on{border-color:rgba(160,140,40,.5);color:#ddcc55;background:rgba(160,140,40,.07)}
+.spacer{flex:1;min-width:4px}
+#srch{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:2px;color:rgba(255,255,255,.7);font-family:'JetBrains Mono',monospace;font-size:6.5px;letter-spacing:.06em;padding:3px 7px;width:130px;outline:none;flex-shrink:0}
+#srch:focus{border-color:rgba(200,168,100,.4);background:rgba(200,168,100,.04)}
+#srch::placeholder{color:rgba(255,255,255,.18)}
+#yr-fil{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:2px;color:rgba(255,255,255,.7);font-family:'JetBrains Mono',monospace;font-size:6.5px;letter-spacing:.06em;padding:3px 6px;width:58px;outline:none;flex-shrink:0;-moz-appearance:textfield}
+#yr-fil::-webkit-inner-spin-button,#yr-fil::-webkit-outer-spin-button{-webkit-appearance:none}
+#yr-fil:focus{border-color:rgba(200,168,100,.4);background:rgba(200,168,100,.04)}
+#yr-fil::placeholder{color:rgba(255,255,255,.18)}
+#yr-clr{padding:2px 5px;border:1px solid rgba(255,255,255,.08);border-radius:2px;font-size:9px;color:rgba(255,255,255,.28);cursor:pointer;background:none;flex-shrink:0;line-height:1}
+#yr-clr:hover{color:#fff;border-color:rgba(255,255,255,.3)}
+#jump-sel{background:rgba(3,8,16,.97);border:1px solid rgba(255,255,255,.1);border-radius:2px;color:rgba(255,255,255,.6);font-family:'JetBrains Mono',monospace;font-size:6.5px;letter-spacing:.05em;padding:3px 6px;outline:none;cursor:pointer;flex-shrink:0;width:170px}
+#jump-sel:focus{border-color:rgba(200,168,100,.4)}
+#jump-sel option,#jump-sel optgroup{background:#030810;color:rgba(255,255,255,.7)}
+#surprisebtn{padding:2px 8px;border:1px solid rgba(200,168,100,.22);border-radius:2px;font-family:'JetBrains Mono',monospace;font-size:6.5px;letter-spacing:.08em;text-transform:uppercase;color:rgba(200,168,100,.5);cursor:pointer;transition:all .14s;background:none;flex-shrink:0}
+#surprisebtn:hover{border-color:rgba(200,168,100,.55);color:#c8a864;background:rgba(200,168,100,.08)}
+#legend-btn{padding:2px 7px;border:1px solid rgba(255,255,255,.1);border-radius:2px;font-family:'JetBrains Mono',monospace;font-size:6.5px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.32);cursor:pointer;transition:all .13s;background:none;flex-shrink:0}
+#legend-btn:hover,#legend-btn.on{border-color:rgba(200,168,100,.4);color:#c8a864;background:rgba(200,168,100,.06)}
+#about-popup{display:none;position:fixed;top:114px;left:50%;transform:translateX(-50%);z-index:600;background:rgba(3,8,16,.97);border:1px solid rgba(255,255,255,.12);border-radius:4px;padding:18px 22px;width:540px;backdrop-filter:blur(20px);box-shadow:0 8px 40px rgba(0,0,0,.85)}
+#about-popup.on{display:block}
+#about-popup h3{font-family:'Orbitron',sans-serif;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.55);margin:0 0 12px;padding-bottom:7px;border-bottom:1px solid rgba(255,255,255,.07)}
+#about-popup p{font-size:7.5px;letter-spacing:.04em;color:rgba(255,255,255,.55);line-height:1.9;margin-bottom:8px}
+#about-popup p:last-child{margin-bottom:0;color:rgba(255,255,255,.26);font-size:7px;border-top:1px solid rgba(255,255,255,.06);padding-top:8px}
+#apx{position:absolute;top:8px;right:10px;color:rgba(255,255,255,.3);cursor:pointer;font-size:15px;line-height:1}
+#apx:hover{color:#fff}
+#legend-popup{display:none;position:fixed;top:114px;right:14px;z-index:600;background:rgba(3,8,16,.97);border:1px solid rgba(255,255,255,.12);border-radius:4px;padding:12px 15px;width:235px;backdrop-filter:blur(20px)}
+#legend-popup.on{display:block}
+#lpx{position:absolute;top:5px;right:7px;color:rgba(255,255,255,.28);cursor:pointer;font-size:13px;line-height:1}
+#lpx:hover{color:#fff}
+.lg-head{font-size:6.2px;letter-spacing:.13em;text-transform:uppercase;color:rgba(200,168,100,.5);margin:8px 0 4px;padding-bottom:3px;border-bottom:1px solid rgba(255,255,255,.05)}
+.lg-head:first-child{margin-top:0}
+.lg-row{display:flex;align-items:center;gap:7px;margin-bottom:4px}
+.lg-sw{width:28px;height:9px;border-radius:2px;flex-shrink:0}
+.lg-lbl{font-size:6.5px;letter-spacing:.05em;color:rgba(255,255,255,.46)}
+.era-lbl{position:fixed;left:0;width:147px;background:rgba(3,8,16,.93);border-right:1px solid rgba(255,255,255,.06);z-index:150;pointer-events:none;transition:top .05s linear;overflow:hidden}
+.era-lname{font-family:'Orbitron',sans-serif;font-size:7px;letter-spacing:.09em;font-weight:700;padding:7px 7px 2px;line-height:1.3;text-shadow:0 0 14px rgba(0,0,0,1)}
+.era-lspan{font-size:5.8px;letter-spacing:.06em;color:rgba(255,255,255,.35);padding:0 7px 3px;display:block}
+.era-lct{font-size:5.5px;letter-spacing:.04em;color:rgba(255,255,255,.18);padding:0 7px 6px;display:block}
+#scroll{position:fixed;top:110px;left:0;right:0;bottom:40px;overflow-x:scroll;overflow-y:scroll;cursor:grab}
+#scroll:active{cursor:grabbing}
+#scroll::-webkit-scrollbar{height:4px;width:4px}
+#scroll::-webkit-scrollbar-track{background:rgba(255,255,255,.02)}
+#scroll::-webkit-scrollbar-thumb{background:rgba(200,168,100,.18);border-radius:2px}
+#canvas{position:relative}
+#ruler{height:34px;background:rgba(3,8,16,.98);border-bottom:1px solid rgba(255,255,255,.06);position:sticky;top:0;z-index:10}
+.dtick{position:absolute;top:0;bottom:0;width:1px;background:rgba(255,255,255,.07)}
+.dlbl{position:absolute;bottom:4px;font-size:7.5px;letter-spacing:.07em;color:rgba(200,168,100,.4);transform:translateX(-50%)}
+.htick{position:absolute;top:20px;bottom:0;width:1px;background:rgba(255,255,255,.04)}
+.era-row{position:absolute;left:0;border-bottom:1px solid rgba(255,255,255,.04)}
+.bar{position:absolute;border-radius:3px;cursor:pointer;display:flex;align-items:center;padding:0 5px;font-size:6.5px;font-family:'JetBrains Mono',monospace;font-weight:500;color:rgba(255,255,255,.9);letter-spacing:.03em;overflow:hidden;white-space:nowrap;border-top:1px solid rgba(255,255,255,.15);transition:filter .12s,transform .1s;user-select:none}
+.bar:hover{filter:brightness(1.5);transform:scaleY(1.09);z-index:8!important}
+.bar.dimmed{opacity:.05;pointer-events:none}
+.bar.lit{box-shadow:0 0 0 2px #c8a864,0 2px 12px rgba(200,168,100,.4);z-index:9!important;filter:brightness(1.2)}
+.bar.chain-connected{box-shadow:0 0 0 1.5px rgba(200,168,100,.45),0 0 8px rgba(200,168,100,.18)!important;filter:brightness(1.12)}
+.chain-path{fill:none;stroke:rgba(200,168,100,.12);stroke-width:1.2;stroke-dasharray:5 3;pointer-events:none;transition:stroke .15s,stroke-width .15s,stroke-opacity .15s}
+.chain-path.active{stroke:rgba(200,168,100,.78);stroke-width:2.2;stroke-dasharray:none}
+.chain-path.faded{stroke:rgba(200,168,100,.02);stroke-dasharray:none}
+.chain-dot{fill:rgba(200,168,100,.2);pointer-events:none;transition:fill .15s}
+.chain-dot.active{fill:rgba(200,168,100,.85)}
+.chain-dot.faded{fill:rgba(200,168,100,.02)}
+#discoverbtn{padding:2px 8px;border:1px solid rgba(200,168,100,.22);border-radius:2px;font-family:'JetBrains Mono',monospace;font-size:6.5px;letter-spacing:.08em;text-transform:uppercase;color:rgba(200,168,100,.5);cursor:pointer;transition:all .14s;background:none;flex-shrink:0}
+#discoverbtn:hover{border-color:rgba(200,168,100,.55);color:#c8a864;background:rgba(200,168,100,.08)}
+#discover-menu{display:none;position:fixed;background:rgba(3,8,16,.97);border:1px solid rgba(255,255,255,.12);border-radius:3px;z-index:600;backdrop-filter:blur(20px);overflow:hidden;min-width:168px}
+#discover-menu.on{display:block}
+.dm-item{padding:7px 11px;font-size:6.5px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.48);cursor:pointer;transition:all .13s;border-bottom:1px solid rgba(255,255,255,.04)}
+.dm-item:last-child{border-bottom:none}
+.dm-item:hover{background:rgba(200,168,100,.08);color:#c8a864}
+.chain-head{font-size:6px;letter-spacing:.12em;text-transform:uppercase;color:rgba(200,168,100,.4);margin:8px 0 5px;padding-bottom:4px;border-top:1px solid rgba(255,255,255,.05);padding-top:8px}
+.chain-link{padding:3px 0;font-size:7px;color:rgba(255,255,255,.48);cursor:pointer;letter-spacing:.03em;transition:color .13s;display:block}
+.chain-link:hover{color:#c8a864}
+.chain-label{font-size:6px;color:rgba(255,255,255,.25);letter-spacing:.04em}
+.bar span{overflow:hidden;text-overflow:ellipsis;pointer-events:none}
+.an{background:linear-gradient(135deg,#7a3d08,#c86a18)}
+.ae{background:linear-gradient(135deg,#0d2d6e,#2050c8)}
+.ai{background:linear-gradient(135deg,#6e1010,#c82020)}
+.al{background:linear-gradient(135deg,#0d5e1a,#28b83a)}
+.aa{background:linear-gradient(135deg,#083a4a,#1878a0)}
+.aq{background:linear-gradient(135deg,#4a3808,#a07810)}
+#tt{position:fixed;display:none;background:rgba(3,8,16,.97);border:1px solid rgba(200,168,100,.4);color:#c8a864;font-size:7px;letter-spacing:.05em;padding:3px 8px;border-radius:3px;pointer-events:none;z-index:999;white-space:nowrap}
+#panel{position:fixed;right:-345px;top:110px;bottom:40px;width:335px;background:rgba(3,8,16,.97);border-left:1px solid rgba(255,255,255,.07);backdrop-filter:blur(20px);z-index:300;transition:right .35s cubic-bezier(.22,1,.36,1);display:flex;flex-direction:column;overflow:hidden}
+#panel.on{right:0}
+#pa{position:absolute;top:0;left:0;width:3px;height:100%}
+#px{position:absolute;top:9px;right:9px;width:22px;height:22px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:rgba(255,255,255,.22);font-size:17px;transition:color .13s;z-index:1}
+#px:hover{color:#fff}
+#phead{padding:12px 13px 9px;border-bottom:1px solid rgba(255,255,255,.05);flex-shrink:0}
+#pname{font-family:'Orbitron',sans-serif;font-weight:700;font-size:12px;letter-spacing:.07em;color:#fff;padding-right:26px;line-height:1.25}
+#pmeta{display:flex;align-items:center;gap:5px;margin-top:5px;flex-wrap:wrap}
+.pbadge{display:inline-block;padding:2px 6px;border-radius:2px;font-size:6px;letter-spacing:.09em;text-transform:uppercase;font-weight:600}
+#pdates{font-size:7px;letter-spacing:.1em;color:rgba(255,255,255,.27);margin-top:3px;text-transform:uppercase}
+#pbody{overflow-y:auto;flex:1;padding:9px 13px}
+#pbody::-webkit-scrollbar{width:2px}
+#pbody::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1)}
+.prow{display:flex;justify-content:space-between;align-items:baseline;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04);gap:8px}
+.prow:last-of-type{border-bottom:none}
+.pl{font-size:6px;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.2);flex-shrink:0}
+.pv{font-size:7px;color:rgba(255,255,255,.7);text-align:right;line-height:1.5;max-width:215px}
+.opill{display:inline-block;padding:1px 7px;border-radius:2px;font-size:6.5px;letter-spacing:.07em;font-weight:600}
+.ov2{background:rgba(40,160,60,.18);border:1px solid rgba(40,160,60,.4);color:#66dd77}
+.od2{background:rgba(200,50,50,.18);border:1px solid rgba(200,50,50,.4);color:#ee7777}
+.os2{background:rgba(80,100,200,.18);border:1px solid rgba(80,100,200,.4);color:#88aaee}
+.oi2{background:rgba(160,140,40,.18);border:1px solid rgba(160,140,40,.4);color:#ddcc55}
+#pdesc{margin-top:7px;font-size:7px;line-height:1.8;color:rgba(255,255,255,.46);letter-spacing:.03em}
+#pwiki{display:block;margin-top:9px;padding:5px 10px;background:rgba(200,168,100,.06);border:1px solid rgba(200,168,100,.2);color:rgba(200,168,100,.7);text-decoration:none;font-size:6.5px;letter-spacing:.09em;text-transform:uppercase;border-radius:2px;text-align:center;transition:all .14s}
+#pwiki:hover{background:rgba(200,168,100,.14);color:#c8a864}
+#scrubbar{position:fixed;bottom:0;left:0;right:0;height:40px;background:rgba(3,8,16,.98);border-top:1px solid rgba(255,255,255,.06);cursor:pointer;z-index:150;overflow:hidden}
+#scrub-inner{position:absolute;left:155px;right:155px;top:0;bottom:0;pointer-events:none}
+.syr{position:absolute;font-size:6.5px;letter-spacing:.06em;color:rgba(200,168,100,.28);transform:translateX(-50%);top:7px;pointer-events:none}
+.stk{position:absolute;top:50%;width:1px;background:rgba(255,255,255,.08);transform:translate(-50%,-50%);pointer-events:none}
+.cdot{position:absolute;top:50%;width:2px;height:2px;border-radius:1px;background:rgba(200,168,100,.4);transform:translate(-50%,-50%);pointer-events:none}
+#scrub-thumb{position:absolute;bottom:5px;width:50px;height:3px;background:rgba(200,168,100,.45);border-radius:2px;pointer-events:none;transition:left .08s}
+#yr-disp{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:7px;letter-spacing:.1em;color:rgba(200,168,100,.45)}
+#ct-disp{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:6.5px;letter-spacing:.07em;color:rgba(255,255,255,.18)}
+</style>
+</head>
+<body>
+<div id="about-popup"><span id="apx">✕</span>
+<h3>American Military Conflicts · 1607–2024</h3>
+<p>An interactive chronological timeline of 76 named conflicts involving the American colonies, territories, and the United States — from the Anglo-Powhatan Wars through the ongoing ISIS campaign. Span: 417 years. Bar width represents actual conflict duration. Campaigns organized by military era.</p>
+<p>Scope includes: colonial interstate disputes (Maryland–Virginia border wars), Native American wars, European colonial conflicts, the full Barbary Wars, Mexican and Latin American campaigns, both World Wars, Korea, Vietnam, and post-Cold War interventions through 2024.</p>
+<p><strong style="color:#c8a864">Controls:</strong> Click bar → detail panel. Adversary / Era / Outcome filters. Year filter: dims conflicts not active in that year. Jump dropdown: scroll &amp; open by name. Drag to pan.</p>
+<p>Developed and researched by Claude AI (Anthropic) · March 2026 · Conceived by Kevin Fine</p>
+</div>
+<div id="legend-popup"><span id="lpx">✕</span>
+<div class="lg-head">Adversary Type</div>
+<div class="lg-row"><div class="lg-sw an"></div><span class="lg-lbl">Indigenous / Native Nations</span></div>
+<div class="lg-row"><div class="lg-sw ae"></div><span class="lg-lbl">European Powers (Britain, France, Spain…)</span></div>
+<div class="lg-row"><div class="lg-sw ai"></div><span class="lg-lbl">Internal / Rebellion / Secession</span></div>
+<div class="lg-row"><div class="lg-sw al"></div><span class="lg-lbl">Latin America, Caribbean & Mexico</span></div>
+<div class="lg-row"><div class="lg-sw aa"></div><span class="lg-lbl">Asia-Pacific</span></div>
+<div class="lg-row"><div class="lg-sw aq"></div><span class="lg-lbl">Middle East & Central Asia</span></div>
+<div class="lg-head">Outcome</div>
+<div class="lg-row"><div style="width:12px;height:9px;border-radius:2px;background:rgba(40,160,60,.25);border:1px solid rgba(40,160,60,.5)"></div><span class="lg-lbl">US Victory</span></div>
+<div class="lg-row"><div style="width:12px;height:9px;border-radius:2px;background:rgba(200,50,50,.25);border:1px solid rgba(200,50,50,.5)"></div><span class="lg-lbl">Defeat / Native Victory</span></div>
+<div class="lg-row"><div style="width:12px;height:9px;border-radius:2px;background:rgba(80,100,200,.25);border:1px solid rgba(80,100,200,.5)"></div><span class="lg-lbl">Stalemate / Status Quo</span></div>
+<div class="lg-row"><div style="width:12px;height:9px;border-radius:2px;background:rgba(160,140,40,.25);border:1px solid rgba(160,140,40,.5)"></div><span class="lg-lbl">Inconclusive / Ongoing</span></div>
+</div>
+<div id="hdr">
+<div id="hr1">
+  <span id="htitle">American Military Conflicts</span>
+  <span id="hsub">1607–2024 · 88 CONFLICTS · COLONIES · TERRITORIES · NATION</span>
+  <div class="hdiv"></div>
+  <span class="fil-lbl">Adversary</span>
+  <button class="fb on" data-adv="all">All</button>
+  <button class="fb fn" data-adv="native">Native</button>
+  <button class="fb fe" data-adv="europe">European</button>
+  <button class="fb fi" data-adv="internal">Internal</button>
+  <button class="fb fl" data-adv="latin">Latin Am.</button>
+  <button class="fb fa" data-adv="asia">Asia-Pac.</button>
+  <button class="fb fm2" data-adv="mideast">Mid East</button>
+  <button id="legend-btn">Legend</button>
+  <button id="surprisebtn">★ Surprise</button>
+  <button id="discoverbtn">✦ Discover</button>
+  <div id="discover-menu">
+    <div class="dm-item" data-discover="deadliest">☠ &nbsp;Deadliest Conflict</div>
+    <div class="dm-item" data-discover="defeat">✗ &nbsp;A US Defeat</div>
+    <div class="dm-item" data-discover="longest">⟷ Longest Conflict</div>
+    <div class="dm-item" data-discover="oneday">⚡ Single-Year Conflict</div>
+    <div class="dm-item" data-discover="connected">⬡ Most Chain-Connected</div>
+    <div class="dm-item" data-discover="unvisited">○ &nbsp;Not Yet Visited</div>
+  </div>
+</div>
+<div id="hr2">
+  <span class="fil-lbl">Era</span>
+  <button class="fb on" data-era="all">All</button>
+  <button class="fb" data-era="colonial">Colonial</button>
+  <button class="fb" data-era="revolutionary">Revolution</button>
+  <button class="fb" data-era="early-republic">Early Rep.</button>
+  <button class="fb" data-era="antebellum">Antebellum</button>
+  <button class="fb" data-era="civil-war">Civil War</button>
+  <button class="fb" data-era="indian-imperial">Indian/Imp.</button>
+  <button class="fb" data-era="world-wars">World Wars</button>
+  <button class="fb" data-era="cold-war">Cold War</button>
+  <button class="fb" data-era="modern">Modern</button>
+</div>
+<div id="hr3">
+  <span class="fil-lbl">Outcome</span>
+  <button class="fb on" data-out="all">All</button>
+  <button class="fb ov" data-out="v">Victory</button>
+  <button class="fb od" data-out="d">Defeat</button>
+  <button class="fb os" data-out="s">Stalemate</button>
+  <button class="fb oi" data-out="i">Inconclusive</button>
+  <div class="spacer"></div>
+  <span class="fil-lbl">Active in year:</span>
+  <input id="yr-fil" type="number" min="1607" max="2024" placeholder="e.g. 1944">
+  <button id="yr-clr" title="Clear">×</button>
+  <div class="hdiv"></div>
+  <select id="jump-sel"><option value="">— Jump to conflict —</option></select>
+  <div class="hdiv"></div>
+  <input id="srch" type="text" placeholder="Search…" autocomplete="off">
+</div>
+</div>
+<div id="scroll"><div id="canvas"><div id="ruler"></div></div></div>
+<div id="panel">
+  <div id="pa"></div><div id="px">✕</div>
+  <div id="phead"><div id="pname"></div><div id="pmeta"></div><div id="pdates"></div></div>
+  <div id="pbody">
+    <div class="prow"><span class="pl">Outcome</span><span class="pv" id="pout"></span></div>
+    <div class="prow"><span class="pl">Adversary</span><span class="pv" id="padv"></span></div>
+    <div class="prow"><span class="pl">Theater</span><span class="pv" id="pthtr"></span></div>
+    <div class="prow"><span class="pl">Forces</span><span class="pv" id="pforc"></span></div>
+    <div class="prow"><span class="pl">Casualties</span><span class="pv" id="pcas"></span></div>
+    <div class="prow"><span class="pl">Commanders</span><span class="pv" id="pcmd"></span></div>
+    <div id="pdesc"></div>
+    <div id="pchain"></div>
+    <a id="pwiki" href="#" target="_blank" rel="noopener">↗ Wikipedia</a>
+  </div>
+</div>
+<div id="scrubbar"><span id="ct-disp"></span><div id="scrub-inner"></div><div id="scrub-thumb"></div><span id="yr-disp"></span></div>
+<div id="tt"></div>
+<script>
+const Y0=1600,Y1=2030,PPY=8,HDR_H=110,SCRUB_H=40;
+const LW=148,BH=20,RH=30,EP=8,MBW=14,RULER_H=34;
+const SW=(Y1-Y0)*PPY;
+function xyr(y){return(y-Y0)*PPY;}
+const ERAS=[
+{id:'colonial',      label:'Colonial Wars',           span:'1607–1774', color:'rgba(60,90,50,.08)',  accent:'#6a9a5a'},
+{id:'revolutionary', label:'Revolution & Independence',span:'1775–1789', color:'rgba(100,80,30,.08)', accent:'#c8a864'},
+{id:'early-republic',label:'Early Republic',          span:'1790–1815', color:'rgba(30,70,110,.08)', accent:'#5090b8'},
+{id:'antebellum',    label:'Antebellum Era',           span:'1816–1860', color:'rgba(65,45,110,.08)', accent:'#9070c8'},
+{id:'civil-war',     label:'Civil War',                span:'1861–1865', color:'rgba(110,50,30,.08)', accent:'#c87850'},
+{id:'indian-imperial',label:'Indian Wars & Imperialism',span:'1866–1917',color:'rgba(30,90,70,.08)', accent:'#50b890'},
+{id:'world-wars',    label:'World Wars',               span:'1917–1945', color:'rgba(110,30,30,.08)', accent:'#c85050'},
+{id:'cold-war',      label:'Cold War',                 span:'1946–1991', color:'rgba(30,55,110,.08)', accent:'#5070b8'},
+{id:'modern',        label:'Post-Cold War & GWOT',     span:'1991–2024', color:'rgba(80,60,20,.08)',  accent:'#d4a040'},
+];
+const C=[
+// ── COLONIAL ──────────────────────────────────────────────────────────────────
+{id:'powhatan-wars',name:'Anglo-Powhatan Wars',start:1610,end:1646,era:'colonial',adv:'native',out:'v',
+ adv_lbl:'Powhatan Confederacy',theater:'Virginia Colony (Tidewater)',
+ forces:'Virginia colonial militia and English settlers',
+ cas:'First War: ~350 colonists killed (1622 Massacre); Second War: ~500 colonists killed (1644 Massacre); Powhatan population catastrophically reduced',
+ cmd:'English: Gov. Francis Wyatt, Gov. William Berkeley · Powhatan: Opechancanough',
+ desc:"Three wars (1610–14, 1622–32, 1644–46) between English settlers at Jamestown and the Powhatan Confederacy under Opechancanough. The 1622 massacre killed ~350 colonists — a third of the Virginia population. The final war ended with Opechancanough's capture and murder; the Powhatan Confederacy was broken and the survivors confined to reservations.",
+ wiki:'https://en.wikipedia.org/wiki/Anglo-Powhatan_Wars'},
+{id:'kief-war',name:"Kieft's War",start:1643,end:1645,era:'colonial',adv:'native',out:'s',
+ adv_lbl:'Lenape, Wappinger, and neighboring Native peoples',theater:'New Netherlands (New York/New Jersey)',
+ forces:'Dutch West India Company soldiers and colonial militia',
+ cas:'Pavonia Massacre: ~120 Native people slaughtered by Dutch; ~1,000 Native killed total; dozens of Dutch settlers killed in raids',
+ cmd:'Dutch: Director-General Willem Kieft · Native: various sachems',
+ desc:"War launched by Dutch Director-General Willem Kieft against Lenape and neighboring peoples in New Netherlands. The Pavonia Massacre (1643) — in which Dutch soldiers slaughtered sleeping Native refugees including infants — sparked retaliatory raids destroying 16 Dutch settlements. The war devastated both sides and led to Kieft\'s recall.",
+ wiki:"https://en.wikipedia.org/wiki/Kieft%27s_War"},
+{id:'maryland-virginia-war',name:'Maryland–Virginia Border Wars',start:1635,end:1655,era:'colonial',adv:'internal',out:'s',
+ adv_lbl:'Virginia Colony / Kent Island settlers (Claiborne faction)',theater:'Chesapeake Bay, Kent Island',
+ forces:'Maryland colonial forces vs. Virginia-backed Kent Island traders',
+ cas:'Several naval skirmishes; Battle of the Severn (1655): ~50 killed; no decisive military resolution',
+ cmd:'Maryland: Gov. Leonard Calvert · Virginia/Kent Island: William Claiborne',
+ desc:"Decades-long armed conflict between the Maryland proprietorship (Calvert family) and Virginia settler William Claiborne over control of Kent Island in the Chesapeake. Involved naval battles, armed seizures, and colonial intrigue. One of the earliest inter-colonial conflicts in North America. The Battle of the Severn (1655) was the only naval battle between English colonists in America.",
+ wiki:'https://en.wikipedia.org/wiki/Battle_of_the_Severn'},
+{id:'esopus-wars',name:'Esopus Wars',start:1659,end:1664,era:'colonial',adv:'native',out:'v',
+ adv_lbl:'Esopus (Lenape) Nation',theater:'Hudson Valley, New Netherlands',
+ forces:'Dutch colonial soldiers and militia',
+ cas:'Dozens killed on both sides; multiple Dutch settlements burned; Esopus captives sold into Caribbean slavery',
+ cmd:'Dutch: Director-General Peter Stuyvesant · Esopus: various sachems',
+ desc:"Two wars (1659–60, 1663–64) between Dutch settlers along the Hudson River and the Esopus people, triggered by land disputes and alcohol-fueled violence. Stuyvesant\'s punitive expeditions culminated in the destruction of Esopus towns. Esopus captives were sold into slavery in Curaçao. The wars ended Dutch expansion and set the stage for English takeover of New Netherlands in 1664.",
+ wiki:'https://en.wikipedia.org/wiki/Esopus_Wars'},
+{id:'king-philips-war',name:"King Philip's War",start:1675,end:1678,era:'colonial',adv:'native',out:'v',
+ adv_lbl:'Wampanoag, Narragansett, Nipmuc, and allied nations',theater:'New England (Massachusetts, Rhode Island, Connecticut)',
+ forces:'New England colonial militia; Mohegan and Pequot allies',
+ cas:'~600 colonists killed in battle; ~3,000 dead total (including disease); ~3,000 Native killed in battle; ~1,000 executed; ~500 enslaved and sold to West Indies',
+ cmd:'Colonial: Maj. John Talcott, Capt. Benjamin Church · Wampanoag: Metacom (King Philip)',
+ desc:"Proportionally, the deadliest war in American history relative to population. Metacom (called King Philip) united Wampanoag, Narragansett, and Nipmuc against English colonial expansion. Dozens of towns were attacked; twelve destroyed. Metacom was killed in August 1676; his head displayed on a pike in Plymouth for 25 years. Ended effective Native resistance in southern New England.",
+ wiki:"https://en.wikipedia.org/wiki/King_Philip%27s_War"},
+{id:'bacons-rebellion',name:"Bacon's Rebellion",start:1676,end:1676,era:'colonial',adv:'internal',out:'v',
+ adv_lbl:'Virginia colonial insurgents under Nathaniel Bacon',theater:'Virginia Colony',
+ forces:'Rebel colonists and indentured servants vs. royal governor\'s loyal militia',
+ cas:'~500 rebel colonists; Jamestown burned; Gov. Berkeley\'s forces eventually prevailed after Bacon\'s death',
+ cmd:'Royal Gov.: Sir William Berkeley · Rebels: Nathaniel Bacon',
+ desc:"First major armed rebellion in the American colonies. Nathaniel Bacon led a coalition of frontier settlers, indentured servants, and enslaved people against Gov. Berkeley\'s Native American policies and political favoritism. Rebels burned Jamestown. The rebellion collapsed when Bacon died of dysentery. Aftermath led colonial planters to shift from indentured servitude toward race-based slavery.",
+ wiki:"https://en.wikipedia.org/wiki/Bacon%27s_Rebellion"},
+{id:'king-williams-war',name:"King William's War",start:1689,end:1697,era:'colonial',adv:'europe',out:'s',
+ adv_lbl:'France, New France, and Wabanaki Confederacy',theater:'New England, New York frontier, Acadia, Hudson Bay',
+ forces:'New England and New York colonial militia + English regulars',
+ cas:'Schenectady Massacre (1690): 60 settlers killed; ~200 French/Native raid casualties; inconclusive',
+ cmd:'English: Gov. Phips, Sir Edmund Andros · French: Count Frontenac',
+ desc:"North American theater of the War of the League of Augsburg — the first of four intercolonial wars between Britain and France. Characterized by devastating frontier raids, including the Schenectady Massacre (Feb. 1690) and Deerfield. A failed English expedition against Quebec (1690). Ended inconclusively with the Treaty of Ryswick, restoring prewar boundaries.",
+ wiki:"https://en.wikipedia.org/wiki/King_William%27s_War"},
+{id:'queen-annes-war',name:"Queen Anne's War",start:1702,end:1713,era:'colonial',adv:'europe',out:'v',
+ adv_lbl:'France, Spain, and their Native allies',theater:'New England, Florida border, Acadia, Caribbean',
+ forces:'New England colonial militia + British regulars; ~7,000 in Acadian campaigns',
+ cas:'Deerfield Massacre (1704): 56 killed, 112 captured; ~500 English killed; Acadia captured',
+ cmd:'English: Col. Francis Nicholson, Gov. Joseph Dudley · French: Marquis de Vaudreuil',
+ desc:"North American theater of the War of the Spanish Succession. The Deerfield Massacre (Feb. 1704) — in which French and Abenaki raiders killed and captured colonists including minister John Williams — became an iconic captivity narrative. English forces captured Acadia (1710), renaming it Nova Scotia. Treaty of Utrecht (1713) gave Britain Acadia, Newfoundland, and Hudson Bay.",
+ wiki:"https://en.wikipedia.org/wiki/Queen_Anne%27s_War"},
+{id:'tuscarora-war',name:'Tuscarora War',start:1711,end:1715,era:'colonial',adv:'native',out:'v',
+ adv_lbl:'Tuscarora Nation',theater:'North Carolina',
+ forces:'North Carolina + South Carolina + Virginia militia; ~1,000',
+ cas:'Tuscarora Massacre (1711): ~130 settlers killed; ~900 Tuscarora killed or enslaved in retaliatory campaigns',
+ cmd:'Colonial: Col. John Barnwell, Col. James Moore Jr. · Tuscarora: King Hancock, Tom Blount',
+ desc:"War sparked by North Carolina settlers\' seizure of Tuscarora lands and enslavement of Tuscarora people. The coordinated Tuscarora attack (September 22, 1711) killed ~130 settlers. South Carolina\'s punitive expeditions destroyed Tuscarora towns. Hundreds of Tuscarora were enslaved. Survivors migrated north to join the Iroquois Confederacy as the Sixth Nation.",
+ wiki:'https://en.wikipedia.org/wiki/Tuscarora_War'},
+{id:'yamasee-war',name:'Yamasee War',start:1715,end:1717,era:'colonial',adv:'native',out:'v',
+ adv_lbl:'Yamasee, Creek, Cherokee, and allied nations',theater:'South Carolina, Georgia region',
+ forces:'South Carolina colonial militia + Cherokee allies (~1,400)',
+ cas:'~400 colonists killed; ~90% of South Carolina settlement destroyed; hundreds of Yamasee killed or enslaved',
+ cmd:'Colonial: Gov. Charles Craven · Yamasee: various chiefs',
+ desc:"The most serious threat to British colonization in the South. A broad Native coalition (Yamasee, Creek, Cherokee, Catawba, and others) nearly destroyed South Carolina, killing ~7% of the white population — proportionally greater than any later American war. The colonial alliance with Cherokee ultimately split the Native coalition and saved the colony.",
+ wiki:'https://en.wikipedia.org/wiki/Yamasee_War'},
+{id:'dummers-war',name:"Dummer's War",start:1722,end:1725,era:'colonial',adv:'native',out:'v',
+ adv_lbl:'Wabanaki Confederacy (Abenaki, Penobscot, Maliseet)',theater:'Maine, New Hampshire, Nova Scotia',
+ forces:'New England colonial rangers (~1,000)',
+ cas:'~80 settlers killed; ~80 Wabanaki killed; Father Rale killed at Norridgewock',
+ cmd:'Colonial: Capt. Jeremiah Moulton, Gov. Samuel Shute · Wabanaki: Father Sébastien Rale',
+ desc:"Also called Father Rale\'s War. Conflict between New England colonists expanding into Maine and the Wabanaki Confederacy, backed by French Jesuit missionaries. The destruction of the Norridgewock mission village (1724) and killing of Father Rale was the decisive action. Treaty of Boston (1725) ended hostilities, opening Maine to rapid English settlement.",
+ wiki:"https://en.wikipedia.org/wiki/Dummer%27s_War"},
+{id:'king-georges-war',name:"King George's War",start:1744,end:1748,era:'colonial',adv:'europe',out:'s',
+ adv_lbl:'France and Wabanaki allies',theater:'New England, Nova Scotia, Great Lakes frontier',
+ forces:'New England colonial militia + British navy; ~4,000 in Louisbourg siege',
+ cas:'~400 New Englanders killed at Louisbourg; frontier raids killed hundreds',
+ cmd:'Colonial: Gov. William Shirley, Col. William Pepperrell · French: Gov. du Quesne',
+ desc:"North American theater of the War of the Austrian Succession. New England colonists captured the fortress of Louisbourg, Cape Breton (1745) in a remarkable amphibious assault — then were outraged when Britain returned it to France in the Treaty of Aix-la-Chapelle (1748) in exchange for Madras, India. The betrayal hardened colonial resentment of British imperial priorities.",
+ wiki:"https://en.wikipedia.org/wiki/King_George%27s_War_(1744%E2%80%931748)"},
+{id:'fi-war',name:'French & Indian War',start:1754,end:1763,era:'colonial',adv:'europe',out:'v',
+ adv_lbl:'France, New France, and allied Native nations',theater:'Northeast, Great Lakes, Ohio Valley, Quebec',
+ forces:'British regulars + colonial militia; peak ~50,000',
+ cas:'~1,500 British/colonial killed in action; 2,000+ total dead',
+ cmd:'British: Braddock, Abercrombie, Amherst, Wolfe · French: Montcalm',
+ desc:"North American theater of the Seven Years\' War — Britain and colonies vs. France and Native allies for control of the continent. Began with Washington\'s defeat at Fort Necessity (1754). British regulars under Braddock were ambushed and annihilated near Fort Duquesne (1755). Wolfe\'s decisive victory on the Plains of Abraham at Quebec (1759) broke French power. Treaty of Paris (1763) expelled France from North America.",
+ wiki:'https://en.wikipedia.org/wiki/French_and_Indian_War'},
+{id:'pontiacs-war',name:"Pontiac's War",start:1763,end:1766,era:'colonial',adv:'native',out:'s',
+ adv_lbl:'Ottawa, Ojibwe, Seneca, and allied Native coalition',theater:'Great Lakes, Ohio Valley',
+ forces:'British regulars and colonial rangers',
+ cas:'~450 British soldiers killed; ~2,000+ settlers killed in raids',
+ cmd:"British: Gen. Amherst (notoriously proposed biological warfare), Col. Bouquet · Native: Chief Pontiac",
+ desc:"Coalition of Native nations resisted British rule after the French departure. Pontiac\'s siege of Detroit and simultaneous attacks on multiple forts demonstrated sophisticated coordination. Britain issued the Proclamation of 1763 restricting westward expansion. Ended in negotiated peace. Amherst infamously suggested distributing smallpox-infected blankets to Native populations.",
+ wiki:"https://en.wikipedia.org/wiki/Pontiac%27s_War"},
+{id:'dunmores-war',name:"Lord Dunmore's War",start:1774,end:1774,era:'colonial',adv:'native',out:'v',
+ adv_lbl:'Shawnee and Mingo Nations',theater:'Ohio Valley, western Virginia',
+ forces:'Virginia colonial militia (~3,000)',
+ cas:'~75 colonial killed; comparable Shawnee losses at Battle of Point Pleasant',
+ cmd:"Colonial: Gov. Lord Dunmore · Shawnee: Chief Cornstalk",
+ desc:"Brief but consequential war between Virginia colonists and Shawnee/Mingo nations for control of the Ohio River valley. The Battle of Point Pleasant was the decisive engagement. The Treaty of Camp Charlotte opened Kentucky to settlement. Occurring on the eve of the Revolution, it demonstrated both the power of colonial militia and the volatility of the western frontier.",
+ wiki:"https://en.wikipedia.org/wiki/Lord_Dunmore%27s_War"},
+{id:'pequot-war',name:'Pequot War',start:1636,end:1638,era:'colonial',adv:'native',out:'v',
+ adv_lbl:'Pequot Nation',theater:'Connecticut Colony (Mystic River, Fairfield Swamp)',
+ forces:'Plymouth, Massachusetts Bay, Connecticut militia (~600) + Mohegan and Narragansett allies (~500)',
+ cas:'Mystic Massacre (May 26, 1637): ~400–700 Pequot killed in burning fort (mostly women and children); ~600 Pequot total dead; ~25 English casualties',
+ cmd:'Colonial: Capt. John Mason, Capt. John Underhill · Pequot: Sachem Sassacus',
+ desc:"First major war in New England and the first documented use of total war against an American Indian people. Colonial forces set fire to the fortified Pequot village at Mystic and shot anyone attempting to escape, killing 400–700 in under an hour — mostly noncombatants. The Treaty of Hartford (1638) banned the Pequot name and language and sold survivors into Caribbean slavery. The war established English dominance in southern New England for nearly four decades until King Philip\'s War.",
+ wiki:'https://en.wikipedia.org/wiki/Pequot_War'},
+{id:'pueblo-revolt',name:'Pueblo Revolt',start:1680,end:1692,era:'colonial',adv:'native',out:'d',
+ adv_lbl:'Spanish colonial authorities in New Mexico',theater:'New Mexico (Santa Fe and Pueblo communities along the Rio Grande)',
+ forces:'~2,000 Pueblo warriors united across 24 pueblos · Spanish: ~170 armed colonists, 2,400 total settlers',
+ cas:'~400 Spanish colonists killed; 21 Franciscan priests killed; all 2,400 Spanish expelled 300 miles south for 12 years',
+ cmd:"Pueblo: Popé (Po'pay) of Ohkay Owingeh · Spanish: Gov. Antonio de Otermín (fled south to El Paso)",
+ desc:"The most successful Native uprising against European colonial rule in North American history. Led by medicine man Popé, 24 Pueblo communities rose simultaneously on August 10, 1680, killing ~400 colonists and driving all remaining Spanish out of New Mexico — then future US territory under Spanish rule. New Mexico remained free of Spanish control for 12 years. The Reconquista (1692) restored Spanish rule, but Spain was forced to end forced labor (encomienda) and permit Pueblo religious practices — one of the only colonial concession driven by military defeat.",
+ wiki:'https://en.wikipedia.org/wiki/Pueblo_Revolt'},
+{id:'natchez-war',name:'Natchez War',start:1729,end:1730,era:'colonial',adv:'native',out:'v',
+ adv_lbl:'Natchez Nation (allied with Chickasaw)',theater:'Lower Mississippi River valley (present-day Mississippi/Louisiana)',
+ forces:'French colonial forces + Choctaw allies vs. Natchez + Chickasaw allies',
+ cas:'Fort Rosalie Massacre (Nov. 28, 1729): ~235 French settlers killed; ~500 Natchez women and children enslaved; Natchez nation effectively destroyed',
+ cmd:'French: Sieur de Périer · Natchez: Great Sun (principal chief)',
+ desc:"The Natchez launched a coordinated surprise attack on Fort Rosalie, killing ~235 French settlers and taking ~400 women and children captive. France responded with overwhelming force using Choctaw allies, nearly exterminating the Natchez as a people. Survivors fled to Chickasaw and Creek communities. The war ended French expansion along the lower Mississippi and devastated Louisiana\'s settler population. Occurred in future US territory then controlled by France.",
+ wiki:'https://en.wikipedia.org/wiki/Natchez_War'},
+{id:'stono-rebellion',name:'Stono Rebellion',start:1739,end:1739,era:'colonial',adv:'internal',out:'v',
+ adv_lbl:'Enslaved people in South Carolina Colony',theater:'Stono River, South Carolina Colony',
+ forces:'South Carolina colonial militia vs. ~60–100 enslaved rebels',
+ cas:'~25 white colonists killed; ~40+ enslaved rebels killed in battle or executed; dozens more executed in weeks following',
+ cmd:"Colonial militia: Lt. Gov. William Bull · Rebellion: Jemmy (also called Cato)",
+ desc:"The largest slave revolt in British North American colonial history before the Revolution. Led by an enslaved man called Jemmy, ~60–100 enslaved people seized weapons, killed ~25 white colonists, and marched south toward Spanish Florida, which promised freedom to escaped British slaves. Colonial militia caught and crushed the revolt within days. South Carolina enacted the Negro Act of 1740, one of the most restrictive slave codes in the colonies, in direct response. Occurred the same year as the War of Jenkins\' Ear — Spain\'s freedom promise was part of the same Anglo-Spanish rivalry.",
+ wiki:'https://en.wikipedia.org/wiki/Stono_Rebellion'},
+{id:'jenkins-ear',name:"War of Jenkins' Ear — Georgia Campaign",start:1739,end:1742,era:'colonial',adv:'europe',out:'v',
+ adv_lbl:'Spain (Spanish Florida)',theater:'Georgia Colony, Spanish Florida (St. Augustine), St. Simons Island',
+ forces:'Georgia Colony militia + Creek allies (~1,000) vs. Spanish invasion force (~4,500–5,000 under Gov. Montiano)',
+ cas:"Oglethorpe's failed siege of St. Augustine (1740); Battle of Bloody Marsh (July 1742): Spanish invasion repulsed; minimal casualties but decisive strategic result",
+ cmd:"British/Georgia: Gen. James Oglethorpe (founder of Georgia) · Spanish Florida: Gov. Manuel de Montiano",
+ desc:"Exactly the English–Spanish Georgia–Florida conflict: war between the British colony of Georgia and Spanish Florida over their disputed border. Named for a Spanish privateer who severed British captain Robert Jenkins\'s ear in 1731 over smuggling accusations. Oglethorpe\'s siege of St. Augustine failed (1740); Spain countered with a 4,500-man invasion of Georgia. At the Battle of Bloody Marsh on St. Simons Island (July 1742), Oglethorpe\'s Georgia militia and Creek allies ambushed and routed the Spanish. The battle saved Georgia and ended Spanish ambitions north of Florida permanently.",
+ wiki:"https://en.wikipedia.org/wiki/War_of_Jenkins%27_Ear"},
+// ── REVOLUTIONARY ─────────────────────────────────────────────────────────────
+{id:'revolution',name:'American Revolutionary War',start:1775,end:1783,era:'revolutionary',adv:'europe',out:'v',
+ adv_lbl:'Great Britain and Loyalist Forces',theater:'Eastern seaboard, frontier, Great Lakes, Gulf Coast',
+ forces:'Continental Army + state militias; peak ~80,000; ~231,000 total served',
+ cas:'~6,800 killed in action; ~17,000 dead from disease; ~8,500 died in captivity',
+ cmd:'American: Washington, Greene, Wayne · British: Howe, Cornwallis, Clinton',
+ desc:"War for independence from Britain. Combining conventional, guerrilla, and diplomatic strategy, the Continental Army and French allies compelled British surrender at Yorktown (1781). The Treaty of Paris (1783) established the United States with territory extending to the Mississippi River.",
+ wiki:'https://en.wikipedia.org/wiki/American_Revolutionary_War'},
+{id:'cherokee-wars',name:'Cherokee–American Wars',start:1776,end:1795,era:'revolutionary',adv:'native',out:'v',
+ adv_lbl:'Cherokee Nation (principally Chickamauga faction)',theater:'Appalachian frontier, Southeast',
+ forces:'Virginia, Carolina, and Georgia militia (multiple campaigns over 19 years)',
+ cas:'Extensive Cherokee town destruction; hundreds of settler deaths; vast land cessions',
+ cmd:"American: Col. Williamson, Col. Campbell, John Sevier · Cherokee: Dragging Canoe",
+ desc:"Wars running concurrently with and after the Revolution as Cherokee aligned with Britain. American militia repeatedly destroyed Cherokee towns. Dragging Canoe and the Chickamauga faction continued guerrilla resistance until his death (1792). The wars resulted in massive Cherokee land cessions and set the pattern for southeastern Indian removal.",
+ wiki:'https://en.wikipedia.org/wiki/Cherokee%E2%80%93American_wars'},
+{id:'sullivan-clinton',name:'Sullivan–Clinton Campaign',start:1779,end:1779,era:'revolutionary',adv:'native',out:'v',
+ adv_lbl:'Iroquois Confederacy (Haudenosaunee) and Loyalists',theater:'Upstate New York, Pennsylvania frontier',
+ forces:'~4,500 Continental troops in two converging columns',
+ cas:'~40 Iroquois warriors killed; light American losses; 40+ Iroquois towns burned',
+ cmd:"American: Maj. Gen. John Sullivan, Brig. Gen. James Clinton · Iroquois/Loyalist: Joseph Brant",
+ desc:"Largest American offensive against a Native nation during the Revolution. Washington ordered systematic destruction of Iroquois towns, orchards, and crops across upstate New York and Pennsylvania. Called \'the Town Destroyer\' campaign by the Haudenosaunee. Ended the Iroquois Confederacy as a political entity. Survivors fled to British Canada.",
+ wiki:'https://en.wikipedia.org/wiki/Sullivan%E2%80%93Clinton_campaign'},
+// ── EARLY REPUBLIC ─────────────────────────────────────────────────────────────
+{id:'shays-rebellion',name:"Shays' Rebellion",start:1786,end:1787,era:'early-republic',adv:'internal',out:'v',
+ adv_lbl:"Massachusetts debtor farmers under Daniel Shays",theater:'Western Massachusetts (Springfield Arsenal)',
+ forces:'Massachusetts state militia (~4,400) vs. ~2,000 rebel farmers',
+ cas:'3 rebels killed at Springfield Arsenal; 1 loyalist killed; rebellion dispersed without major battle',
+ cmd:"State: Gen. Benjamin Lincoln · Rebels: Daniel Shays, Luke Day",
+ desc:"Armed uprising of western Massachusetts farmers crushed by debt and high taxes after the Revolution. Shays led ~2,000 men to seize the federal arsenal at Springfield. Suppressed by Massachusetts militia, but the political impact was enormous: the federal government under the Articles of Confederation was powerless to respond. The rebellion directly convinced Madison, Washington, and Hamilton that the Articles were fatally weak. It is the most direct cause of the Constitutional Convention of 1787 and the creation of the Constitution.",
+ wiki:"https://en.wikipedia.org/wiki/Shays%27_Rebellion"},
+{id:'nw-indian-war',name:'Northwest Indian War',start:1785,end:1795,era:'early-republic',adv:'native',out:'v',
+ adv_lbl:'Western Confederacy (Miami, Shawnee, Lenape, and allies)',theater:'Ohio Valley, Indiana Territory',
+ forces:'US Army regulars and militia; 2,000–5,000 per campaign',
+ cas:"St. Clair\'s Defeat (1791): ~904 US casualties — worst US Army defeat by Native forces in history. Fallen Timbers (1794): decisive US victory.",
+ cmd:"US: Gen. Harmar, Gen. St. Clair, Gen. Anthony Wayne · Native: Little Turtle, Blue Jacket",
+ desc:"Series of campaigns to establish US authority in the Northwest Territory. Two catastrophic defeats preceded Gen. Anthony Wayne\'s decisive victory at Fallen Timbers (1794). St. Clair\'s Defeat (Nov. 1791) remains the worst proportional US military defeat in history — over 600 killed. The Treaty of Greenville (1795) opened Ohio to settlement.",
+ wiki:'https://en.wikipedia.org/wiki/Northwest_Indian_War'},
+{id:'whiskey-rebellion',name:'Whiskey Rebellion',start:1794,end:1794,era:'early-republic',adv:'internal',out:'v',
+ adv_lbl:'Western Pennsylvania insurgents',theater:'Western Pennsylvania',
+ forces:'~13,000 militia mobilized — largest US force since the Revolution',
+ cas:'Minimal; 2 rebels killed; rebellion collapsed without major combat',
+ cmd:'Federal: President Washington, Gen. Henry Lee · Rebellion: David Bradford',
+ desc:"Armed uprising against the federal whiskey excise tax — the first US domestic tax. First test of federal authority under the Constitution. Washington personally led the militia force, unprecedented for a sitting president. The rebellion dissolved on the army\'s approach, establishing the precedent of federal supremacy over internal insurrection.",
+ wiki:'https://en.wikipedia.org/wiki/Whiskey_Rebellion'},
+{id:'quasi-war',name:'Quasi-War',start:1798,end:1800,era:'early-republic',adv:'europe',out:'v',
+ adv_lbl:'France (French Republic)',theater:'Caribbean Sea and Atlantic seaboard',
+ forces:'US Navy; fleet expanded rapidly from ~800 personnel',
+ cas:'Light; primarily naval engagements; USS Constellation defeated L\'Insurgente and La Vengeance',
+ cmd:'US: Commodore Thomas Truxtun · French: Capt. Barreaut',
+ desc:"Undeclared naval war with France following the XYZ Affair. First major test of the newly established US Navy, which performed well against French frigates in the Caribbean. Truxtun\'s victories in two frigate duels established US naval prestige. Ended with the Convention of 1800.",
+ wiki:'https://en.wikipedia.org/wiki/Quasi-War'},
+{id:'barbary-war-1',name:'First Barbary War',start:1801,end:1805,era:'early-republic',adv:'mideast',out:'v',
+ adv_lbl:'Tripoli (Pasha Yusuf Karamanli)',theater:'Mediterranean Sea, Tripoli (Libya)',
+ forces:'US Navy squadron; ~100 Marines (Derna land assault)',
+ cas:'~35 US killed; USS Philadelphia captured then destroyed; Derna seized by combined force',
+ cmd:'US: Commodore Edward Preble, Consul William Eaton · Tripoli: Pasha Yusuf Karamanli',
+ desc:"First US war outside North America. Jefferson refused tribute demands and sent naval squadrons to blockade Tripoli. The Philadelphia ran aground and was captured; Lt. Decatur\'s daring night raid burned her at the harbor. William Eaton\'s overland march with Marines and mercenaries from Egypt captured Derna — immortalized in the Marine Hymn (\'shores of Tripoli\').",
+ wiki:'https://en.wikipedia.org/wiki/First_Barbary_War'},
+{id:'tecumsehs-war',name:"Tecumseh's War",start:1811,end:1812,era:'early-republic',adv:'native',out:'v',
+ adv_lbl:"Tecumseh\'s Pan-Tribal Confederacy",theater:'Indiana Territory, Great Lakes frontier',
+ forces:'US Army regulars + Indiana militia (~1,000 at Tippecanoe)',
+ cas:"Battle of Tippecanoe: ~188 US casualties; ~50–60 Native killed; Prophet\'s Town burned",
+ cmd:"US: Gov. William Henry Harrison · Native: Tecumseh, Tenskwatawa (The Prophet)",
+ desc:"Conflict arising from Tecumseh\'s attempt to forge a pan-tribal confederacy to resist US expansion, with tacit British support. The Battle of Tippecanoe (1811) disrupted the confederacy while Tecumseh was absent. He allied with Britain in the War of 1812 and was killed at the Battle of the Thames (1813). Harrison\'s slogan \'Tippecanoe and Tyler Too\' won the 1840 presidency.",
+ wiki:"https://en.wikipedia.org/wiki/Tecumseh%27s_War"},
+{id:'war-1812',name:'War of 1812',start:1812,end:1815,era:'early-republic',adv:'europe',out:'s',
+ adv_lbl:'Great Britain, Canada, and Native Allies',theater:'Great Lakes, Canadian border, Chesapeake Bay, Gulf Coast',
+ forces:'US regulars + militia; peak ~35,000; ~286,730 total enlistments',
+ cas:'~2,260 US killed in action; ~17,000 dead from disease',
+ cmd:'US: Hull, Brown, Jackson · British: Gen. Isaac Brock, Adm. George Cockburn',
+ desc:"War against Britain over maritime impressment, trade restrictions, and frontier expansion. The British burned Washington DC (August 1814) — the only foreign capture of the capital. Jackson\'s victory at New Orleans (January 1815) came after peace was signed. Ended in Treaty of Ghent restoring prewar boundaries. Established the US as a sovereign power respected by Britain.",
+ wiki:'https://en.wikipedia.org/wiki/War_of_1812'},
+{id:'creek-war-1813',name:'Creek War',start:1813,end:1814,era:'early-republic',adv:'native',out:'v',
+ adv_lbl:'Red Stick Creek',theater:'Alabama, Georgia, Mississippi Territory',
+ forces:'Tennessee/Mississippi militia + US regulars + Cherokee/Lower Creek allies (~5,000)',
+ cas:"Fort Mims Massacre: ~500 settlers killed; Battle of Horseshoe Bend: ~800 Red Sticks killed",
+ cmd:'US: Gen. Andrew Jackson · Red Stick: Menawa, William Weatherford (Red Eagle)',
+ desc:"Civil war within the Creek Nation that drew in US forces. The Fort Mims Massacre (August 1813) triggered US intervention. Jackson\'s overwhelming victory at Horseshoe Bend (March 1814) crushed Red Stick resistance — 800 Creek died in a single battle. The Treaty of Fort Jackson extracted 23 million acres from the entire Creek Nation including US allies.",
+ wiki:'https://en.wikipedia.org/wiki/Creek_War'},
+{id:'barbary-war-2',name:'Second Barbary War',start:1815,end:1815,era:'early-republic',adv:'mideast',out:'v',
+ adv_lbl:'Dey of Algiers',theater:'Mediterranean Sea, Algiers harbor',
+ forces:'US Navy: two squadrons (~10 warships) under Commodore Decatur',
+ cas:'Minimal; USS Guerriere captured the Algerine flagship; treaty signed under cannon',
+ cmd:'US: Commodore Stephen Decatur · Algiers: Dey Omar Agha (capitulated)',
+ desc:"The decisive end of US tribute payments to North African Barbary states. Congress declared war on Algiers in March 1815. Decatur\'s squadron captured two Algerine warships within weeks, then sailed directly into Algiers harbor and dictated peace at gunpoint — the Dey signed a treaty abolishing tribute entirely and releasing all American prisoners. Britain and the Netherlands followed with their own ultimatums, ending the Barbary corsair system permanently. Closes the chain opened by the First Barbary War (1801–05).",
+ wiki:'https://en.wikipedia.org/wiki/Second_Barbary_War'},
+// ── ANTEBELLUM ─────────────────────────────────────────────────────────────────
+{id:'first-seminole',name:'First Seminole War',start:1817,end:1818,era:'antebellum',adv:'native',out:'v',
+ adv_lbl:'Seminole Nation and allied escaped enslaved people',theater:'Spanish Florida',
+ forces:'US regulars + Tennessee militia (~3,000–5,000)',
+ cas:'Light US losses; heavy Seminole village destruction; two British subjects executed',
+ cmd:'US: Gen. Andrew Jackson · Seminole: Neamathla, Chief Bowlegs',
+ desc:"Jackson\'s unauthorized campaign into Spanish Florida against Seminole raiders and communities harboring escaped enslaved people. Jackson seized two Spanish forts and executed two British subjects, creating an international incident. The resulting diplomatic vacuum led to the Adams–Onís Treaty (1819) in which Spain ceded Florida to the United States.",
+ wiki:'https://en.wikipedia.org/wiki/First_Seminole_War'},
+{id:'black-hawk-war',name:'Black Hawk War',start:1832,end:1832,era:'antebellum',adv:'native',out:'v',
+ adv_lbl:"Black Hawk\'s Sauk and Fox band",theater:'Illinois and Wisconsin Territory',
+ forces:'US regulars + Illinois/Michigan/Indiana militia (~7,000 total)',
+ cas:"~450+ Sauk/Fox killed including Bad Axe Massacre; ~70 US soldiers killed",
+ cmd:'US: Gen. Henry Atkinson, Gen. Winfield Scott · Sauk: Black Hawk',
+ desc:"Black Hawk led a band of Sauk and Fox back into Illinois to reclaim lands ceded in a disputed treaty. A brutal campaign ended with the massacre of fleeing Sauk at the Battle of Bad Axe. Abraham Lincoln served (without combat) as a militia captain. Jefferson Davis was among the officers. Ended Sauk and Fox presence east of the Mississippi River.",
+ wiki:'https://en.wikipedia.org/wiki/Black_Hawk_War'},
+{id:'second-seminole',name:'Second Seminole War',start:1835,end:1842,era:'antebellum',adv:'native',out:'v',
+ adv_lbl:'Seminole Nation',theater:'Florida (swamps, hammocks, Everglades)',
+ forces:'US Army; ~30,000–40,000 troops rotated through over 7 years',
+ cas:"~1,500 US soldiers killed (mostly disease); ~1,500 Seminole killed; ~$30–40 million cost",
+ cmd:"US: Gaines, Jesup, Worth · Seminole: Osceola, Alligator, Wildcat (Coacoochee)",
+ desc:"The longest and most costly of the Seminole Wars. Seminoles conducted brilliant guerrilla warfare in Florida swamps, frustrating every US offensive. Osceola was captured under a flag of truce (1837) and died in captivity. Most Seminoles were eventually removed to Indian Territory; a small unconquered band remained in the Everglades — their descendants today.",
+ wiki:'https://en.wikipedia.org/wiki/Second_Seminole_War'},
+{id:'mexican-american-war',name:'Mexican–American War',start:1846,end:1848,era:'antebellum',adv:'latin',out:'v',
+ adv_lbl:'Mexico',theater:'Texas, New Mexico, California, Veracruz, Mexico City',
+ forces:'US regulars + volunteers; ~79,000 total enlistments',
+ cas:'~1,773 US killed in action; ~11,550 dead from disease',
+ cmd:'US: Gen. Zachary Taylor, Gen. Winfield Scott, Col. Kearny · Mexican: Santa Anna, Gen. Arista',
+ desc:"War resulting from Texas annexation and disputed southern border. US forces won every major engagement from Palo Alto to Mexico City. Ulysses Grant, Robert E. Lee, and most future Civil War generals gained experience here. The Treaty of Guadalupe Hidalgo (1848) transferred 525,000 square miles — California, New Mexico, Nevada, Utah, Arizona — to the United States.",
+ wiki:'https://en.wikipedia.org/wiki/Mexican%E2%80%93American_War'},
+{id:'apache-wars',name:'Apache Wars',start:1849,end:1886,era:'antebellum',adv:'native',out:'v',
+ adv_lbl:'Apache (Chiricahua, Mescalero, Western Apache)',theater:'Arizona, New Mexico, Texas, northern Mexico',
+ forces:'Up to 5,000 US soldiers in final Geronimo campaign; Apache scouts critical',
+ cas:'Hundreds of soldiers and civilians killed over nearly four decades',
+ cmd:'US: Gen. George Crook, Gen. Nelson Miles · Apache: Cochise, Victorio, Geronimo',
+ desc:"Longest continuous conflict in US military history — 37 years. Apache guerrilla warfare in desert mountains repeatedly frustrated conventional forces. Cochise negotiated peace (1872). War resumed under Victorio (killed 1880) then Geronimo. Gen. Crook used Apache scouts effectively. Geronimo\'s final surrender (September 1886) ended organized Native resistance in the Southwest.",
+ wiki:'https://en.wikipedia.org/wiki/Apache_Wars'},
+{id:'cayuse-war',name:'Cayuse War',start:1848,end:1850,era:'antebellum',adv:'native',out:'v',
+ adv_lbl:'Cayuse Nation',theater:'Oregon Territory (present-day Washington/Oregon)',
+ forces:'Oregon territorial militia',
+ cas:'Whitman Massacre: 13 settlers killed; 5 Cayuse leaders hanged',
+ cmd:'US: Col. Cornelius Gilliam (killed) · Cayuse: various chiefs',
+ desc:"War following the Whitman Massacre (1847), in which Cayuse killed missionary Marcus Whitman and 12 others, blaming him for a measles epidemic that killed half the tribe. First significant US military action in the Pacific Northwest. Hastened Oregon\'s organization as a formal US territory.",
+ wiki:'https://en.wikipedia.org/wiki/Cayuse_War'},
+{id:'third-seminole',name:'Third Seminole War',start:1855,end:1858,era:'antebellum',adv:'native',out:'i',
+ adv_lbl:'Remaining Florida Seminole band',theater:'Florida Everglades',
+ forces:'US Army regulars (~1,000)',
+ cas:'Light on both sides; ~40 Seminole removed; ~200 remained unconquered',
+ cmd:'US: Col. Harvey Brown · Seminole: Billy Bowlegs',
+ desc:"Final chapter of the Seminole Wars, triggered by a survey team\'s destruction of a Seminole garden. Small-scale guerrilla conflict in the Everglades. About 40 Seminoles accepted removal; approximately 200 remained unconquered in the Everglades — ancestors of today\'s Seminole Tribe of Florida and Miccosukee Tribe.",
+ wiki:'https://en.wikipedia.org/wiki/Third_Seminole_War'},
+{id:'utah-war',name:'Utah War',start:1857,end:1858,era:'antebellum',adv:'internal',out:'s',
+ adv_lbl:'Utah Territory (Nauvoo Legion / theocratic governance)',theater:'Utah Territory',
+ forces:'US Army (Army of Utah): ~5,600 · Nauvoo Legion: ~4,000',
+ cas:'No major battles; Mountain Meadows Massacre: ~120 California-bound emigrants killed by Mormon militia and Paiute',
+ cmd:'US: Gen. Albert Sidney Johnston · Utah: Brigham Young',
+ desc:"Federal military expedition to enforce US civil authority over theocratic Mormon governance in Utah Territory. No significant battles; negotiated settlement allowed Brigham Young to step down as governor. The Mountain Meadows Massacre (Sept. 1857) — in which Mormon militia massacred an emigrant wagon train — occurred during the tensions and was later prosecuted.",
+ wiki:'https://en.wikipedia.org/wiki/Utah_War'},
+{id:'arikara-war',name:'Arikara War',start:1823,end:1823,era:'antebellum',adv:'native',out:'i',
+ adv_lbl:'Arikara Nation',theater:'Upper Missouri River (present-day South Dakota)',
+ forces:'US Army + fur trappers + Sioux allies (~1,000)',
+ cas:'~13 fur trappers killed (Ashley-Henry party); moderate Arikara losses; Arikara withdrew without submitting',
+ cmd:'US: Col. Henry Leavenworth · Arikara: Grey Eyes',
+ desc:"First US military operation on the Great Plains, triggered by Arikara attacks on fur trading parties. Col. Leavenworth\'s punitive expedition was widely criticized as ineffective — the Arikara withdrew rather than submitting. The Army could not project decisive force onto the Plains. Highlighted the fundamental gap between US military capability and the scale of the task ahead, foreshadowing the prolonged Plains Wars.",
+ wiki:'https://en.wikipedia.org/wiki/Arikara_War'},
+{id:'winnebago-war',name:'Winnebago War',start:1827,end:1827,era:'antebellum',adv:'native',out:'v',
+ adv_lbl:'Ho-Chunk (Winnebago) Nation',theater:'Wisconsin and Illinois',
+ forces:'US regulars + Michigan/Illinois militia',
+ cas:'Minimal combat; Red Bird surrendered himself to spare his people further bloodshed',
+ cmd:'US: Gen. Henry Atkinson · Ho-Chunk: Red Bird (surrendered)',
+ desc:"Brief conflict after Ho-Chunk leader Red Bird led attacks on settlers in protest of federal policies and the unjust imprisonment of Ho-Chunk men. The US mobilized significant forces; Red Bird surrendered to prevent reprisals, dying in captivity before trial. Led to major Ho-Chunk land cessions in Wisconsin. Established the coercive pattern: mount a military show of force, extract a land cession, call it peace.",
+ wiki:'https://en.wikipedia.org/wiki/Winnebago_War'},
+{id:'creek-war-1836',name:'Creek War of 1836',start:1836,end:1837,era:'antebellum',adv:'native',out:'v',
+ adv_lbl:'Creek Nation (factions resisting removal)',theater:'Alabama and Georgia',
+ forces:'US regulars + Alabama/Georgia militia',
+ cas:'Light combat; ~15,000 Creek forcibly removed; thousands died en route to Indian Territory',
+ cmd:'US: Gen. Winfield Scott, Gen. Thomas Jesup',
+ desc:"Renewed Creek resistance to forced removal under the Indian Removal Act (1830). US forces rapidly suppressed armed resistance. About 15,000 Creek were then forcibly marched to Indian Territory — part of the Trail of Tears. The military operation transitioned immediately from combat suppression to forced deportation, with soldiers overseeing a march that killed thousands from disease, exposure, and starvation.",
+ wiki:'https://en.wikipedia.org/wiki/Creek_War_of_1836'},
+{id:'aroostook-war',name:"Aroostook War ('Pork and Beans War')",start:1838,end:1839,era:'antebellum',adv:'europe',out:'v',
+ adv_lbl:'Great Britain / New Brunswick (disputed Maine border)',theater:'Maine–New Brunswick border, Aroostook Valley',
+ forces:'~10,000 Maine militia called up; New Brunswick forces mobilized on both sides; US Army deployed to negotiate',
+ cas:'No combat deaths; 1 US soldier killed by a falling tree; resolved by negotiation and treaty',
+ cmd:'US: Gen. Winfield Scott (negotiator) · British/NB: Sir John Harvey',
+ desc:"The only US-Canadian \'war\' — a bloodless confrontation over the disputed Maine–New Brunswick border that brought both nations to the brink of actual war. Competing lumber camps in the Aroostook Valley led to armed standoffs and militia mobilizations on both sides. Gen. Scott negotiated a truce; the Webster-Ashburton Treaty (1842) settled the border. Called the \'Pork and Beans War\' for the diet of the mobilized troops. Notable as the only near-conflict with Canada in US history.",
+ wiki:'https://en.wikipedia.org/wiki/Aroostook_War'},
+{id:'nat-turner',name:"Nat Turner's Rebellion",start:1831,end:1831,era:'antebellum',adv:'internal',out:'v',
+ adv_lbl:'Enslaved people in Southampton County, Virginia',theater:'Southampton County, Virginia',
+ forces:'Virginia militia + US Army + local vigilantes vs. ~70 enslaved rebels',
+ cas:'~55 white Virginians killed over two days; ~120 Black Virginians killed in reprisals (most uninvolved); Turner captured and hanged',
+ cmd:'Virginia: Gov. John Floyd · Rebellion: Nat Turner',
+ desc:"The largest and most consequential slave uprising in US history. Nat Turner led ~70 enslaved people through Southampton County for two days, killing ~55 white residents. The militia response killed ~120 Black Virginians — most uninvolved in the rebellion. Turner hid for two months before capture and execution. Southern states responded with severe new restrictions on enslaved and free Black people. The rebellion hardened sectional divisions: the last serious debate over voluntary emancipation in a Southern legislature (Virginia, 1832) was sparked by and ultimately defeated in the rebellion\'s aftermath.",
+ wiki:"https://en.wikipedia.org/wiki/Nat_Turner%27s_slave_rebellion"},
+{id:'bleeding-kansas',name:'Bleeding Kansas / Border War',start:1854,end:1859,era:'antebellum',adv:'internal',out:'v',
+ adv_lbl:"Pro-slavery 'Border Ruffians' vs. Free-State settlers",theater:'Kansas Territory and western Missouri border',
+ forces:'Pro-slavery Missouri militias (Border Ruffians) vs. Free-State jayhawkers and abolitionist settlers; ~56 killed',
+ cas:"Pottawatomie Massacre (May 1856): John Brown executed 5 pro-slavery settlers; Sack of Lawrence (May 1856); Marais des Cygnes Massacre (1858): 5 Free-Staters killed; ~56 total dead",
+ cmd:"Pro-Slavery: Sen. David Atchison, 'Sheriff' Samuel Jones · Free-State: John Brown, Charles Robinson",
+ desc:"Guerrilla civil war in Kansas Territory between pro-slavery settlers backed by Missouri 'Border Ruffians' and Free-State settlers, following the Kansas-Nebraska Act (1854) which gave settlers the right to decide slavery by popular vote. John Brown\'s Pottawatomie Massacre (May 1856) escalated into open guerrilla warfare. Two rival territorial governments existed simultaneously. Called the first skirmish of the Civil War; it directly launched the Republican Party nationally and sent John Brown east to plan Harper\'s Ferry.",
+ wiki:'https://en.wikipedia.org/wiki/Bleeding_Kansas'},
+{id:'harpers-ferry',name:"John Brown's Raid on Harper's Ferry",start:1859,end:1859,era:'antebellum',adv:'internal',out:'d',
+ adv_lbl:"John Brown's abolitionist raiders",theater:"Harper's Ferry, Virginia (present-day West Virginia)",
+ forces:"US Marines under Lt. Col. Robert E. Lee vs. ~21 raiders",
+ cas:"5 locals killed; 1 Marine killed; 10 of Brown's raiders killed in assault; Brown captured, tried, and hanged Dec. 2, 1859",
+ cmd:"US: Lt. Col. Robert E. Lee, Lt. J.E.B. Stuart · Raiders: John Brown",
+ desc:"John Brown\'s attempt to seize the federal arsenal at Harper\'s Ferry and trigger a general slave uprising across the South. Suppressed in 36 hours by US Marines under Robert E. Lee — who would face those same Marines\' successors at Antietam three years later, and Lt. Stuart who would lead Confederate cavalry. Brown was tried for treason and hanged December 2, 1859. His execution made Civil War feel inevitable: Southerners cited it as proof of Northern aggression; Northern abolitionists canonized him as a martyr.",
+ wiki:"https://en.wikipedia.org/wiki/John_Brown%27s_raid_on_Harper%27s_Ferry"},
+// ── CIVIL WAR ──────────────────────────────────────────────────────────────────
+{id:'civil-war',name:'American Civil War',start:1861,end:1865,era:'civil-war',adv:'internal',out:'v',
+ adv_lbl:'Confederate States of America',theater:'Eastern, Western, and Trans-Mississippi theaters; Atlantic blockade',
+ forces:'Union: ~2.1 million enrolled · Confederate: ~700,000–1 million',
+ cas:'Union: ~360,000 dead · Confederate: ~260,000 dead · total ~620,000',
+ cmd:'Union: Grant, Sherman, Sheridan · Confederate: Lee, Johnston, Jackson, Longstreet',
+ desc:"The defining conflict of American history. Four years of warfare across the continent including the first ironclad naval battles and sustained trench warfare at Petersburg. Ended with Confederate surrender at Appomattox (April 9, 1865). The 13th Amendment constitutionally abolished slavery. The war killed more Americans than all other US wars combined.",
+ wiki:'https://en.wikipedia.org/wiki/American_Civil_War'},
+{id:'dakota-war',name:'Dakota War of 1862',start:1862,end:1862,era:'civil-war',adv:'native',out:'v',
+ adv_lbl:'Eastern Dakota (Santee Sioux)',theater:'Minnesota',
+ forces:'US regulars + Minnesota militia (~4,000)',
+ cas:'~77 US soldiers killed; ~400–800 settlers killed; ~300–400 Dakota killed in battle',
+ cmd:'US: Gen. John Pope, Col. Henry Sibley · Dakota: Little Crow, Mankato',
+ desc:"Major Dakota uprising triggered by broken treaty promises and deliberate starvation. Six weeks of warfare ended with Little Crow\'s defeat at Wood Lake. Thirty-eight Dakota men were hanged simultaneously at Mankato (December 26, 1862) — the largest mass execution in US history. Surviving Dakota were expelled from Minnesota; their reservation was dissolved.",
+ wiki:'https://en.wikipedia.org/wiki/Dakota_War_of_1862'},
+{id:'navajo-campaign',name:'Navajo Campaign (Long Walk)',start:1863,end:1864,era:'civil-war',adv:'native',out:'v',
+ adv_lbl:'Navajo Nation',theater:'New Mexico and Arizona Territories (Canyon de Chelly)',
+ forces:'California and New Mexico volunteers (~2,000) under Kit Carson',
+ cas:'Moderate combat; hundreds of Navajo died on 300+ mile forced march to Bosque Redondo',
+ cmd:'US: Col. Kit Carson · Navajo: Manuelito, Barboncito',
+ desc:"Carson systematically destroyed Navajo crops, orchards, and livestock in Canyon de Chelly, forcing mass surrender through starvation. ~8,500 Navajo endured the Long Walk to Bosque Redondo internment camp in brutal conditions — hundreds died en route. The disastrous experiment led to the Treaty of 1868 allowing their return to a permanent homeland reservation.",
+ wiki:'https://en.wikipedia.org/wiki/Long_Walk_of_the_Navajo'},
+{id:'colorado-war',name:'Colorado War',start:1864,end:1865,era:'civil-war',adv:'native',out:'i',
+ adv_lbl:'Cheyenne and Arapaho',theater:'Colorado Territory and Kansas',
+ forces:'Colorado Territory volunteer militia + US cavalry',
+ cas:"Sand Creek Massacre (Nov. 29, 1864): ~150–200 Cheyenne/Arapaho killed (mostly women and children); ~10 US soldiers killed",
+ cmd:'US: Col. John Chivington · Cheyenne: Black Kettle, White Antelope',
+ desc:"Col. Chivington\'s dawn attack on Black Kettle\'s peaceful camp at Sand Creek was condemned as a massacre even by contemporaries; Chivington was censured by Congress. White Antelope died singing his death song. The atrocity inflamed Plains warfare for a decade. Black Kettle survived Sand Creek only to be killed by Custer four years later at the Washita.",
+ wiki:'https://en.wikipedia.org/wiki/Colorado_War'},
+// ── INDIAN WARS & IMPERIAL ─────────────────────────────────────────────────────
+{id:'snake-war',name:'Snake War',start:1864,end:1868,era:'indian-imperial',adv:'native',out:'v',
+ adv_lbl:'Northern Paiute, Bannock, and Western Shoshone',theater:'Oregon, Idaho, Nevada, California',
+ forces:'US cavalry + Oregon volunteers',
+ cas:'~158 US killed; ~329 Native killed — costliest of the Pacific Northwest Indian Wars',
+ cmd:"US: Gen. George Crook · Paiute: Paulina (killed 1867), Weahwewa",
+ desc:"The longest and most costly Pacific Northwest Indian War. Series of raids across the high desert. Gen. Crook\'s aggressive mobile tactics — pursuing trails relentlessly regardless of terrain or season — broke resistance. Marked Crook\'s emergence as the leading Indian Wars field commander.",
+ wiki:'https://en.wikipedia.org/wiki/Snake_War'},
+{id:'red-clouds-war',name:"Red Cloud's War",start:1866,end:1868,era:'indian-imperial',adv:'native',out:'d',
+ adv_lbl:'Lakota Sioux, Northern Cheyenne, and Arapaho',theater:'Wyoming and Montana Territories (Powder River Country)',
+ forces:"US Army regulars; Fetterman command (80 men); Fort Phil Kearny garrison",
+ cas:"Fetterman Fight (Dec. 21, 1866): 81 US soldiers killed — largest defeat of the era",
+ cmd:"US: Col. Henry Carrington, Gen. William Sherman · Lakota: Red Cloud, Crazy Horse",
+ desc:"One of the rare clear Native American military victories over the US Army. Red Cloud\'s coalition destroyed the Fetterman command and maintained relentless pressure on Bozeman Trail forts. The Treaty of Fort Laramie (1868) closed the trail and established the Great Sioux Reservation — a historic US diplomatic retreat. The only US war ended by Native victory.",
+ wiki:"https://en.wikipedia.org/wiki/Red_Cloud%27s_War"},
+{id:'sheridans-campaign',name:"Sheridan's Winter Campaign",start:1868,end:1869,era:'indian-imperial',adv:'native',out:'v',
+ adv_lbl:'Southern Cheyenne, Arapaho, Kiowa, and Comanche',theater:'Kansas and Indian Territory (Oklahoma)',
+ forces:'US cavalry (~3,000)',
+ cas:"Battle of the Washita: ~103 Cheyenne killed including Black Kettle; 2 officers/19 troopers killed",
+ cmd:"US: Gen. Philip Sheridan, Lt. Col. George Custer · Cheyenne: Black Kettle",
+ desc:"Sheridan\'s winter campaign targeting Native villages in Indian Territory. Custer\'s dawn attack on Black Kettle\'s Washita camp killed the same chief who survived Sand Creek. Custer abandoned a detachment, which was killed. Drove southern plains tribes onto reservations for the first time. Sheridan\'s \'the only good Indians I ever saw were dead\' remark dates from this period.",
+ wiki:'https://en.wikipedia.org/wiki/Southern_Plains_War'},
+{id:'modoc-war',name:'Modoc War',start:1872,end:1873,era:'indian-imperial',adv:'native',out:'v',
+ adv_lbl:"Modoc Nation (Captain Jack\'s band)",theater:'Northern California/Oregon border (Lava Beds)',
+ forces:'US Army regulars + Oregon/California volunteers (~1,000)',
+ cas:"~53 US soldiers killed; 17 Modoc killed in combat; 4 Modoc executed after trial",
+ cmd:"US: Gen. Edward Canby (killed), Gen. Jefferson Davis · Modoc: Captain Jack (Kintpuash)",
+ desc:"~50 Modoc warriors held off 1,000 US soldiers for months in volcanic lava beds — one of the most remarkable asymmetric feats of the era. Modoc leader Captain Jack assassinated Gen. Canby during peace negotiations — the only general killed in the Indian Wars. Captain Jack was hanged. The lava beds are now a National Monument.",
+ wiki:'https://en.wikipedia.org/wiki/Modoc_War'},
+{id:'red-river-war',name:'Red River War',start:1874,end:1875,era:'indian-imperial',adv:'native',out:'v',
+ adv_lbl:'Comanche (Kwahadi), Kiowa, Southern Cheyenne, Arapaho',theater:'Texas Panhandle (Llano Estacado)',
+ forces:'US cavalry columns from five directions (~3,000)',
+ cas:"~20 US killed; deliberate destruction of Comanche horse herds was the decisive weapon",
+ cmd:"US: Gen. Ranald Mackenzie, Col. Nelson Miles · Comanche: Quanah Parker",
+ desc:"Final conflict ending free life for the southern Plains tribes. Mackenzie\'s destruction of the Comanche horse herd at Palo Duro Canyon (September 1874) — more than any battle — broke their ability to survive off-reservation. Quanah Parker surrendered and later became one of the most influential Native American leaders of the reservation era.",
+ wiki:'https://en.wikipedia.org/wiki/Red_River_War'},
+{id:'great-sioux-war',name:'Great Sioux War',start:1876,end:1877,era:'indian-imperial',adv:'native',out:'v',
+ adv_lbl:'Lakota Sioux and Northern Cheyenne',theater:'Montana, Wyoming, and Dakota Territories',
+ forces:'US Army (~2,500 in three campaign columns)',
+ cas:"Battle of Little Bighorn: 268 US soldiers killed (Custer\'s entire command); ~300 total US killed",
+ cmd:'US: Gen. Alfred Terry, Gen. Crook, Lt. Col. Custer · Lakota: Sitting Bull, Crazy Horse, Gall',
+ desc:"Triggered by the Black Hills gold rush violating the 1868 Fort Laramie Treaty. Custer\'s annihilation at Little Bighorn (June 25, 1876) was the greatest tactical Native victory of the wars. The US response was overwhelming; Crazy Horse surrendered in 1877. Congress seized the Black Hills by statute — still legally disputed today.",
+ wiki:'https://en.wikipedia.org/wiki/Great_Sioux_War_of_1876'},
+{id:'nez-perce-war',name:'Nez Perce War',start:1877,end:1877,era:'indian-imperial',adv:'native',out:'v',
+ adv_lbl:"Non-treaty Nez Perce (Chief Joseph\'s and allied bands)",theater:'Idaho, Montana, Wyoming — 1,170-mile fighting retreat',
+ forces:'US Army (~700 in pursuit across multiple commands)',
+ cas:"~127 US soldiers killed; ~120 Nez Perce killed; ~100 women and children killed",
+ cmd:"US: Gen. Oliver Howard, Col. Nelson Miles · Nez Perce: Chief Joseph, Looking Glass, White Bird",
+ desc:"A 1,170-mile fighting retreat as Chief Joseph\'s band attempted to reach Canada, winning multiple battles while moving families through mountain and plains. Captured 40 miles from the border. Chief Joseph\'s surrender speech — containing \'I will fight no more forever\' — became one of the most celebrated in American history. Joseph never returned to his homeland.",
+ wiki:'https://en.wikipedia.org/wiki/Nez_Perce_War'},
+{id:'bannock-war',name:'Bannock War',start:1878,end:1878,era:'indian-imperial',adv:'native',out:'v',
+ adv_lbl:'Bannock and Northern Paiute',theater:'Idaho, Oregon, Wyoming',
+ forces:'US cavalry + Oregon volunteers (~1,000)',
+ cas:'~9 US killed; ~78 Native killed; Buffalo Horn killed in early fighting',
+ cmd:'US: Gen. Oliver Howard · Bannock: Buffalo Horn (killed), Egan',
+ desc:"Conflict triggered by non-Native encroachment on camas root gathering grounds guaranteed by treaty, combined with harsh reservation conditions. The Bannock/Paiute coalition raided widely across the Pacific Northwest before Howard\'s rapid pursuit and use of Umatilla scouts broke resistance within months.",
+ wiki:'https://en.wikipedia.org/wiki/Bannock_War'},
+{id:'ghost-dance-war',name:'Ghost Dance War / Wounded Knee',start:1890,end:1891,era:'indian-imperial',adv:'native',out:'v',
+ adv_lbl:'Lakota Sioux',theater:'South Dakota (Pine Ridge and Rosebud Reservations)',
+ forces:'US Army: ~3,500 (7th Cavalry and supporting units)',
+ cas:"Wounded Knee Massacre (Dec. 29, 1890): ~250–300 Lakota killed including ~200 women and children; 25 US soldiers killed",
+ cmd:'US: Gen. Nelson Miles · Lakota: Big Foot (killed), Kicking Bear',
+ desc:"Response to the Ghost Dance spiritual movement promising restoration of Native lands. Sitting Bull was killed during an attempted arrest. The massacre at Wounded Knee Creek killed approximately 300 Lakota — mostly unarmed. Widely considered the final military action of the Indian Wars. Controversially, 20 US soldiers received the Medal of Honor.",
+ wiki:'https://en.wikipedia.org/wiki/Wounded_Knee_Massacre'},
+{id:'spanish-am-war',name:'Spanish–American War',start:1898,end:1898,era:'indian-imperial',adv:'europe',out:'v',
+ adv_lbl:'Spain',theater:'Cuba, Puerto Rico, Philippines; Caribbean naval operations',
+ forces:'US Army + Navy + volunteers; ~274,000 total; ~17,000 in Cuba',
+ cas:'~385 US killed in action; ~2,061 dead from disease (yellow fever, dysentery)',
+ cmd:"US: Gen. Shafter, Adm. Dewey, Col. Theodore Roosevelt · Spanish: Gen. Linares, Adm. Cervera",
+ desc:"The \'splendid little war\' lasted 10 weeks. Explosion of USS Maine triggered war fever. Dewey annihilated the Spanish fleet at Manila Bay without losing a man. Theodore Roosevelt\'s Rough Riders charged San Juan Hill. Spain ceded Cuba (independence), Puerto Rico, Guam, and the Philippines. Launched the US as a Pacific imperial power and Roosevelt to the presidency.",
+ wiki:'https://en.wikipedia.org/wiki/Spanish%E2%80%93American_War'},
+{id:'philippine-am-war',name:'Philippine–American War',start:1899,end:1902,era:'indian-imperial',adv:'asia',out:'v',
+ adv_lbl:'Philippine Republic (First Philippine Republic)',theater:'Luzon, Visayas, and other Philippine islands',
+ forces:'US Army; ~126,000 served in the Philippines',
+ cas:'~4,200 US soldiers killed; ~20,000 Philippine fighters killed; ~200,000–600,000 Filipino civilians dead (disease, famine, atrocities)',
+ cmd:"US: Gen. Elwell Otis, Gen. Arthur MacArthur · Philippine: Gen. Emilio Aguinaldo",
+ desc:"After Spain ceded the Philippines for $20 million, Filipinos who had been fighting for independence turned their guns on US forces. Three years of brutal warfare featuring waterboarding (\'water cure\'), civilian reconcentration camps, and the Balangiga Massacre (where US troops killed ~2,500 Filipino men of military age). Aguinaldo was captured in 1901. Guerrilla resistance continued into 1913.",
+ wiki:'https://en.wikipedia.org/wiki/Philippine%E2%80%93American_War'},
+{id:'moro-rebellion',name:'Moro Rebellion',start:1899,end:1913,era:'indian-imperial',adv:'asia',out:'v',
+ adv_lbl:'Moro (Muslim Filipino) peoples of Mindanao and Sulu',theater:'Mindanao, Sulu Archipelago (southern Philippines)',
+ forces:'US Army; Gen. Leonard Wood commanded at peak',
+ cas:'Battle of Bud Dajo (1906): ~800–1,000 Moro killed including women and children; 18 US killed. Battle of Bud Bagsak (1913): ~500 Moro killed',
+ cmd:'US: Gen. Leonard Wood, Gen. John Pershing · Moro: Datu Ali, Sultan Jamalul Kiram II',
+ desc:"Separate from the Philippine-American War, the Moro people of Mindanao resisted both Spanish and American rule for religious and cultural reasons. The Battle of Bud Dajo (1906) massacre prompted outrage from Mark Twain and others. Gen. Pershing\'s \'Moro Campaigns\' finally suppressed organized resistance in 1913. The conflict seeded resentments that persist in Mindanao today.",
+ wiki:'https://en.wikipedia.org/wiki/Moro_Rebellion'},
+{id:'boxer-rebellion',name:'Boxer Rebellion Intervention',start:1900,end:1901,era:'indian-imperial',adv:'asia',out:'v',
+ adv_lbl:'Boxer militia and Imperial Chinese forces',theater:'Beijing (Peking) and Tianjin, China',
+ forces:'US Army: ~2,500; part of eight-nation allied relief force (~20,000 total)',
+ cas:'~131 US soldiers killed; thousands of Chinese dead',
+ cmd:'US: Maj. Gen. Adna Chaffee · Chinese/Boxer: Prince Duan',
+ desc:"Chinese Boxer militants besieged the foreign legations in Beijing for 55 days. The US joined a multinational alliance (Britain, Germany, France, Japan, Russia, Italy, Austria-Hungary) to relieve the siege. US forces distinguished themselves at the Battle of Tianjin and the march to Beijing. The Boxer Protocol imposed punishing reparations on China.",
+ wiki:'https://en.wikipedia.org/wiki/Boxer_Rebellion'},
+{id:'nicaragua-occupation',name:'Nicaragua Occupation',start:1912,end:1933,era:'indian-imperial',adv:'latin',out:'v',
+ adv_lbl:'Nicaraguan nationalists and Sandinista guerrillas',theater:'Nicaragua',
+ forces:'US Marines: peak ~5,000 (1927); Guardia Nacional trained by US',
+ cas:'~7 Marines killed in occupation; ~47 Marines killed fighting Sandino (1927–33); hundreds of Nicaraguans killed',
+ cmd:'US: Adm. William Merry, Gen. Logan Feland · Nicaraguan: Augusto César Sandino',
+ desc:"The longest of the Banana Wars occupations, almost continuous from 1912–1933. US Marines protected American financial interests and the canal route. Augusto Sandino led a nationalist guerrilla campaign (1927–33) the Marines could never decisively defeat — he was assassinated by the Somoza-led Guardia Nacional after US withdrawal. The US had trained that same Guardia Nacional, which Somoza used to seize power, beginning the Somoza dynasty overthrown by the Sandinista Revolution in 1979.",
+ wiki:'https://en.wikipedia.org/wiki/United_States_occupation_of_Nicaragua'},
+{id:'haiti-occupation',name:'Haiti Occupation',start:1915,end:1934,era:'indian-imperial',adv:'latin',out:'v',
+ adv_lbl:'Haitian Caco insurgents and successive governments',theater:'Haiti',
+ forces:'US Marines: peak ~2,000; US Navy gunboats administered the country',
+ cas:'~3,000 Haitian Cacos killed (1918–19 campaign); ~13 Marines killed; Gen. Smedley Butler earned Medal of Honor here',
+ cmd:'US: Adm. William Caperton, Gen. Smedley Butler · Haitian resistance: Charlemagne Péralte (killed 1919)',
+ desc:"19-year US military occupation begun after political chaos and fears of German influence. US Marines controlled Haiti\'s government, finances, and military. The Caco insurgency under Charlemagne Péralte (1918–19) mobilized ~40,000 fighters and was suppressed with considerable brutality; Péralte was assassinated by Marines who infiltrated his camp. The occupation imposed racial segregation and corvée labor. The US left in 1934 under FDR\'s Good Neighbor Policy, having fundamentally destabilized Haitian institutions for generations.",
+ wiki:'https://en.wikipedia.org/wiki/United_States_occupation_of_Haiti'},
+{id:'dominican-occupation',name:'Dominican Republic Occupation',start:1916,end:1924,era:'indian-imperial',adv:'latin',out:'v',
+ adv_lbl:'Dominican nationalist guerrillas (Gavilleros)',theater:'Dominican Republic (eastern provinces)',
+ forces:'US Marines: ~3,000; US Navy imposed military government',
+ cas:'~20 Marines killed; hundreds of Dominican guerrillas killed; atrocity allegations investigated by US Senate',
+ cmd:'US: Rear Adm. Harry Knapp (military governor) · Dominican resistance: Vicente Evangelista',
+ desc:"8-year US military government imposed over debt disputes. Marines suppressed the Gavillero guerrilla resistance in the east using tactics that prompted US Senate atrocity hearings. The occupation installed a Dominican military that elevated Rafael Trujillo to power — whose 31-year dictatorship caused hundreds of thousands of deaths. The US left in 1924 under international pressure, leaving a constitutional vacuum that Trujillo filled.",
+ wiki:'https://en.wikipedia.org/wiki/United_States_occupation_of_the_Dominican_Republic_(1916%E2%80%931924)'},
+{id:'punitive-expedition',name:'Punitive Expedition (Mexico)',start:1916,end:1917,era:'indian-imperial',adv:'latin',out:'i',
+ adv_lbl:"Pancho Villa\'s Villista forces",theater:'Northern Mexico (Chihuahua state)',
+ forces:'US Army: ~10,000; first operational use of US military aircraft for reconnaissance',
+ cas:"~24 US soldiers killed; ~200+ Villistas killed; Columbus, NM raid: 18 US killed",
+ cmd:"US: Gen. John J. \'Black Jack\' Pershing · Mexican: Pancho Villa",
+ desc:"Response to Pancho Villa\'s March 9, 1916 raid on Columbus, New Mexico — the first foreign armed attack on US soil since 1814. Pershing\'s force pursued Villa 350 miles into Mexico, using aircraft for the first time in US military history. Villa was never captured. The expedition trained and equipped the force that would shortly deploy to France as the American Expeditionary Forces.",
+ wiki:'https://en.wikipedia.org/wiki/Punitive_Expedition'},
+// ── WORLD WARS ────────────────────────────────────────────────────────────────
+{id:'ww1',name:'World War I',start:1917,end:1918,era:'world-wars',adv:'europe',out:'v',
+ adv_lbl:'Imperial Germany, Austria-Hungary, Ottoman Empire',theater:'Western Front (France/Belgium), Atlantic, Middle East',
+ forces:'American Expeditionary Forces: ~2 million deployed; 4.7 million total US served',
+ cas:'~53,402 US killed in action; ~63,114 non-combat deaths (mostly flu); ~204,000 wounded',
+ cmd:'US: Gen. John J. Pershing · Germany: Gen. Hindenburg, Gen. Ludendorff',
+ desc:"The US entered in April 1917 after German unrestricted submarine warfare and the Zimmermann Telegram. The massive influx of fresh American troops at the critical moment — combined with the failure of Germany\'s Spring Offensive (1918) — broke German resistance. The Meuse-Argonne Offensive (Sept.–Nov. 1918) was the largest battle in US military history. Armistice: November 11, 1918.",
+ wiki:'https://en.wikipedia.org/wiki/American_Expeditionary_Forces'},
+{id:'russia-intervention',name:'Russian Civil War Intervention',start:1918,end:1920,era:'world-wars',adv:'europe',out:'i',
+ adv_lbl:'Bolshevik forces; complex multi-faction civil war',theater:'Archangel (Polar Bear Expedition) and Siberia',
+ forces:'US Army: ~13,000 soldiers (5,500 in Arkhangelsk; 7,950 in Siberia)',
+ cas:'~424 US soldiers killed in combat and by disease',
+ cmd:'US: Gen. William Graves (Siberia), Col. George Stewart (Archangel) · Bolshevik: various',
+ desc:"Poorly defined US intervention in the Russian Civil War. The Arkhangelsk force (\'Polar Bear Expedition\') fought Bolshevik forces in brutal Arctic conditions. The Siberian force nominally guarded the Trans-Siberian Railway but also countered Japanese expansion. Graves refused to aid either White or Red forces, irritating all parties. Withdrawal by 1920 with no strategic gains.",
+ wiki:'https://en.wikipedia.org/wiki/American_Expeditionary_Force_Siberia'},
+{id:'ww2-pacific',name:'World War II — Pacific Theater',start:1941,end:1945,era:'world-wars',adv:'asia',out:'v',
+ adv_lbl:'Japan (Empire of Japan)',theater:'Pacific Ocean, Philippines, Iwo Jima, Okinawa, island-hopping campaign',
+ forces:'US military: ~6.7 million served in Pacific/Asia; Navy/Marines bore primary burden',
+ cas:'~111,606 US killed in action; ~253,142 total US deaths in Pacific theater',
+ cmd:'US: Adm. Chester Nimitz, Gen. Douglas MacArthur, Adm. William Halsey · Japan: Gen. Tojo, Adm. Yamamoto',
+ desc:"From Pearl Harbor (Dec. 7, 1941) to Japanese surrender (Sept. 2, 1945). Island-hopping campaign across the Pacific. Midway (1942) broke Japanese naval power. Guadalcanal, Tarawa, Peleliu, Iwo Jima, Okinawa. Atomic bombs on Hiroshima and Nagasaki (August 1945) ended the war. The Pacific war included the largest naval battles in history and the introduction of nuclear weapons.",
+ wiki:'https://en.wikipedia.org/wiki/Pacific_War'},
+{id:'ww2-europe',name:'World War II — European/Atlantic Theater',start:1941,end:1945,era:'world-wars',adv:'europe',out:'v',
+ adv_lbl:'Nazi Germany, Fascist Italy, Vichy France',theater:'North Africa, Italy, France, Germany; Atlantic submarine war',
+ forces:'US military: ~11.2 million served in Europe/Atlantic; Army Air Forces flew strategic bombing campaign',
+ cas:'~185,924 US killed in action; ~318,274 total US deaths in European theater',
+ cmd:'US: Gen. Eisenhower, Gen. Patton, Gen. Bradley · Germany: Rommel, von Rundstedt, Model',
+ desc:"US entered after Pearl Harbor. North Africa (1942–43) cleared Axis forces and gave US troops combat experience. Sicily and Italian campaign (1943–45). D-Day at Normandy (June 6, 1944) — largest amphibious invasion in history. The Battle of the Bulge (Dec. 1944) was the largest US battle ever. Germany surrendered May 8, 1945 (V-E Day).",
+ wiki:'https://en.wikipedia.org/wiki/European_theatre_of_World_War_II'},
+// ── COLD WAR ──────────────────────────────────────────────────────────────────
+{id:'korean-war',name:'Korean War',start:1950,end:1953,era:'cold-war',adv:'asia',out:'s',
+ adv_lbl:'North Korea (DPRK) and People\'s Republic of China',theater:'Korean Peninsula',
+ forces:'US military: ~1.8 million served; ~340,000 in theater at peak',
+ cas:'~36,574 US killed in action; ~103,284 wounded; ~7,896 MIA/POW',
+ cmd:'US/UN: Gen. Douglas MacArthur (fired), Gen. Matthew Ridgway · DPRK/China: Kim Il-sung, Gen. Peng Dehuai',
+ desc:"North Korea invaded South Korea June 25, 1950. UN coalition (led by US) drove north; China intervened when US forces approached the Yalu River, pushing UN forces back to roughly the 38th parallel. MacArthur was fired by Truman for insubordination. The armistice (July 27, 1953) restored prewar boundaries — still technically unresolved. Called \'The Forgotten War.\'",
+ wiki:'https://en.wikipedia.org/wiki/Korean_War'},
+{id:'lebanon-1958',name:'Lebanon Intervention (1958)',start:1958,end:1958,era:'cold-war',adv:'mideast',out:'v',
+ adv_lbl:'Lebanese pro-Nasser insurgents (UAR-backed)',theater:'Beirut, Lebanon',
+ forces:'US Marines and Army: ~14,000 troops landed',
+ cas:'~1 US soldier killed; minimal combat',
+ cmd:'US: Adm. James Holloway · Lebanon: President Camille Chamoun (requesting US help)',
+ desc:"First US military intervention in the Middle East. President Eisenhower sent Marines to Lebanon at President Chamoun\'s request to prevent a pro-Nasser coup following the Iraqi revolution. US troops landed on the beach to find sunbathers. Marines withdrew within months after political stabilization. Established the precedent of US military involvement in Arab political crises.",
+ wiki:'https://en.wikipedia.org/wiki/1958_Lebanon_crisis'},
+{id:'vietnam-war',name:'Vietnam War',start:1955,end:1975,era:'cold-war',adv:'asia',out:'d',
+ adv_lbl:'North Vietnam (DRV), Viet Cong, China, Soviet Union',theater:'South Vietnam, North Vietnam, Laos, Cambodia',
+ forces:'US military: ~2.7 million served in Vietnam; peak ~543,000 in-country (1969)',
+ cas:'~58,220 US killed; ~303,644 wounded; ~1,587 MIA; ~1–3 million Vietnamese dead (all sides)',
+ cmd:'US: Gen. Westmoreland, Gen. Abrams · NVA/VC: Gen. Vo Nguyen Giap, Ho Chi Minh',
+ desc:"The defining American conflict of the Cold War era. US involvement escalated from advisors (1955) to full combat after the Gulf of Tonkin Resolution (1964). Despite tactical successes, the Tet Offensive (1968) shattered public confidence. Nixon\'s Vietnamization policy + Paris Peace Accords (1973) → US withdrawal. Saigon fell April 30, 1975. The war haunted US foreign policy for a generation.",
+ wiki:'https://en.wikipedia.org/wiki/Vietnam_War'},
+{id:'bay-of-pigs',name:'Bay of Pigs Invasion',start:1961,end:1961,era:'cold-war',adv:'latin',out:'d',
+ adv_lbl:'Cuba (Castro government)',theater:'Bay of Pigs, Cuba',
+ forces:'~1,400 CIA-trained Cuban exiles (Brigade 2506); US naval and air support withheld',
+ cas:'~118 exiles killed; 1,202 captured; $53 million ransom for prisoners',
+ cmd:'US: CIA Director Allen Dulles, President Kennedy (withheld air support) · Cuba: Fidel Castro, José Ramón Fernández',
+ desc:"CIA-planned invasion by Cuban exiles to overthrow Castro — a catastrophic failure. Kennedy withheld promised US air cover, dooming the landing force. All 1,202 survivors were captured; Kennedy was forced to ransom them with food and medicine. Emboldened Castro and contributed to the Cuban Missile Crisis (1962). Kennedy accepted public responsibility; privately blamed the CIA.",
+ wiki:'https://en.wikipedia.org/wiki/Bay_of_Pigs_Invasion'},
+{id:'dominican-republic-1965',name:'Dominican Republic Intervention',start:1965,end:1966,era:'cold-war',adv:'latin',out:'v',
+ adv_lbl:'Dominican pro-Bosch constitutionalists',theater:'Santo Domingo, Dominican Republic',
+ forces:'US Army and Marines: ~23,000 troops',
+ cas:'~44 US soldiers killed; ~3,000 Dominican casualties',
+ cmd:'US: Gen. Bruce Palmer Jr. · Dominican: Col. Francisco Caamaño',
+ desc:"Johnson sent Marines citing danger to US citizens, then massively expanded intervention to prevent a \'Communist takeover\' — evidence for which was disputed. The largest US military operation since Korea. Established the \'Johnson Doctrine\': the US would intervene anywhere in the hemisphere to prevent communism. Inter-American force nominally supervised elections.",
+ wiki:'https://en.wikipedia.org/wiki/Dominican_Civil_War'},
+{id:'lebanon-1982',name:'Lebanon Peacekeeping Mission',start:1982,end:1984,era:'cold-war',adv:'mideast',out:'d',
+ adv_lbl:'Hezbollah and Islamic Jihad Organization (Iranian-backed)',theater:'Beirut, Lebanon',
+ forces:'US Marines Multinational Force: ~1,800',
+ cas:"Beirut barracks bombing (Oct. 23, 1983): 241 US Marines killed — largest single-day loss since Iwo Jima; 58 French paratroopers also killed",
+ cmd:'US: Gen. Paul Kelley, Commandant · Hezbollah: Imad Mughniyeh (bomb planner)',
+ desc:"US Marines deployed as part of a multinational peacekeeping force following the Israeli invasion of Lebanon. The barracks bombing by a truck laden with 21,000 lbs of explosives killed 241 Marines in their sleep — the deadliest attack on US military personnel since WWII. Reagan withdrew the force within months. The bombing introduced suicide truck bombing as a terrorist tactic.",
+ wiki:'https://en.wikipedia.org/wiki/Beirut_barracks_bombings'},
+{id:'grenada',name:'Operation Urgent Fury (Grenada)',start:1983,end:1983,era:'cold-war',adv:'latin',out:'v',
+ adv_lbl:'People\'s Revolutionary Government of Grenada and Cuban construction workers/troops',theater:'Grenada',
+ forces:'US Army Rangers, 82nd Airborne, Marines, Delta Force: ~7,000',
+ cas:'19 US killed; 116 wounded; ~45 Cubans killed; ~24 Grenadians killed',
+ cmd:'US: Vice Adm. Joseph Metcalf III · Grenada/Cuba: Gen. Hudson Austin',
+ desc:"First major US offensive military action since Vietnam. Reagan justified intervention on the grounds of protecting American medical students and reversing a Cuban/Soviet-backed coup. Significant operational problems (inter-service coordination failures) despite military success. The UN General Assembly condemned it 108–9. Restored conservative governance to Grenada.",
+ wiki:'https://en.wikipedia.org/wiki/Invasion_of_Grenada'},
+{id:'panama-1989',name:'Operation Just Cause (Panama)',start:1989,end:1990,era:'cold-war',adv:'latin',out:'v',
+ adv_lbl:'Panamanian Defense Forces (Manuel Noriega)',theater:'Panama City, Panama',
+ forces:'US Army, Marines, Rangers, Special Forces: ~27,000',
+ cas:'23 US killed; 325 wounded; ~314 Panamanian military killed; ~200–500 civilians killed',
+ cmd:'US: Gen. Maxwell Thurman, Gen. Carl Stiner · Panama: Gen. Manuel Noriega',
+ desc:"Overthrow of Panamanian dictator Manuel Noriega (former CIA asset) on drug trafficking charges. First post-Cold War US military action. Featured the first combat use of the F-117 Stealth Fighter. Noriega took refuge in the Vatican nunciature; US forces blasted rock music outside to pressure his surrender. He was extradited and convicted in Miami.",
+ wiki:'https://en.wikipedia.org/wiki/United_States_invasion_of_Panama'},
+// ── MODERN ────────────────────────────────────────────────────────────────────
+{id:'gulf-war',name:'Gulf War (Operation Desert Storm)',start:1990,end:1991,era:'modern',adv:'mideast',out:'v',
+ adv_lbl:'Iraq (Saddam Hussein)',theater:'Kuwait, Iraq, Persian Gulf',
+ forces:'US military: ~697,000 deployed to theater; coalition of 35 nations',
+ cas:'148 US killed in action; 145 non-combat deaths; 467 wounded',
+ cmd:'US: Gen. H. Norman Schwarzkopf, Gen. Colin Powell · Iraq: Gen. Saddam Hussein, Gen. al-Rashid',
+ desc:"Response to Iraq\'s invasion of Kuwait (August 2, 1990). Desert Shield built up coalition forces for 6 months. Desert Storm (January 17 – February 28, 1991): 100-hour ground war following 42 days of air campaign. Iraqi forces were routed. Bush halted the offensive 100 hours in, leaving Saddam in power — a decision later criticized. Kuwait liberated. Highway of Death.",
+ wiki:'https://en.wikipedia.org/wiki/Gulf_War'},
+{id:'somalia',name:'Somalia (Operation Restore Hope / Black Hawk Down)',start:1992,end:1994,era:'modern',adv:'mideast',out:'d',
+ adv_lbl:'Somali National Alliance (Mohamed Farrah Aidid)',theater:'Mogadishu and southern Somalia',
+ forces:'US Army Rangers, Delta Force, 10th Mountain Division: ~25,000 at peak (humanitarian + combat)',
+ cas:"Battle of Mogadishu (Oct. 3–4, 1993): 18 US Army Rangers/Delta killed; 73 wounded; 1 captured; ~500 Somalis killed. Depicted in \'Black Hawk Down\'.",
+ cmd:'US: Gen. William Garrison, Adm. Jonathan Howe · SNA: Mohamed Farrah Aidid',
+ desc:"Began as humanitarian intervention to end famine. Mission evolved to capture warlord Aidid; the Battle of Mogadishu (\'Black Hawk Down\') resulted in the bodies of US soldiers being dragged through streets, shocking American public opinion. Clinton withdrew all US forces by March 1994. The \'Somalia Effect\' led to US inaction during the 1994 Rwandan genocide.",
+ wiki:'https://en.wikipedia.org/wiki/Battle_of_Mogadishu_(1993)'},
+{id:'haiti-1994',name:'Operation Uphold Democracy (Haiti)',start:1994,end:1995,era:'modern',adv:'latin',out:'v',
+ adv_lbl:'Military junta (Gen. Raoul Cédras)',theater:'Haiti',
+ forces:'US military: ~20,000 troops; former President Carter negotiated bloodless entry',
+ cas:'No combat casualties; 4 non-combat deaths',
+ cmd:'US: Lt. Gen. Henry Shelton · Haiti: Gen. Raoul Cédras',
+ desc:"Intervention to restore elected President Jean-Bertrand Aristide, ousted in a 1991 coup. Former President Carter negotiated with the junta hours before airborne assault, achieving bloodless entry. US forces restored Aristide to power. The intervention established the pattern of US peacekeeping operations in the post-Cold War era.",
+ wiki:'https://en.wikipedia.org/wiki/Operation_Uphold_Democracy'},
+{id:'bosnia',name:'Bosnia (Operation Deliberate Force)',start:1995,end:1996,era:'modern',adv:'europe',out:'v',
+ adv_lbl:'Bosnian Serb Army (Republika Srpska)',theater:'Bosnia-Herzegovina',
+ forces:'NATO air campaign (US providing ~75% of strike sorties); ~60,000 NATO ground troops post-Dayton',
+ cas:'~12 US troops killed (non-combat) during IFOR deployment; 0 US combat deaths in air campaign',
+ cmd:'US: Gen. Michael Ryan (air), Gen. William Nash (ground) · Bosnian Serb: Gen. Ratko Mladic',
+ desc:"NATO air campaign against Bosnian Serb forces following the Srebrenica massacre (8,000 Bosnian Muslim men and boys killed). The bombing campaign in combination with Croat/Bosnian ground offensives brought Serbia to the negotiating table. The Dayton Accords (November 1995) ended the Bosnian War. US-led Implementation Force (IFOR) enforced the peace.",
+ wiki:'https://en.wikipedia.org/wiki/Operation_Deliberate_Force'},
+{id:'kosovo',name:'Kosovo War (Operation Allied Force)',start:1999,end:1999,era:'modern',adv:'europe',out:'v',
+ adv_lbl:'Federal Republic of Yugoslavia (Slobodan Milosevic)',theater:'Kosovo and Serbia (air campaign)',
+ forces:'NATO air campaign: US flew ~60% of sorties; ~38,000 total sorties',
+ cas:'0 US/NATO combat deaths (air campaign only); ~500 Serbian military killed; 489 civilians killed by NATO strikes',
+ cmd:'US/NATO: Gen. Wesley Clark · Yugoslavia: Gen. Dragoljub Ojdanic',
+ desc:"78-day NATO air campaign to stop Serbian ethnic cleansing of Kosovar Albanians. First war fought entirely from the air at high altitude to avoid casualties. Accidental bombing of Chinese embassy in Belgrade created diplomatic crisis. Milosevic withdrew from Kosovo; NATO/UN administered the territory. Kosovo declared independence in 2008.",
+ wiki:'https://en.wikipedia.org/wiki/NATO_bombing_of_Yugoslavia'},
+{id:'afghanistan',name:'War in Afghanistan',start:2001,end:2021,era:'modern',adv:'mideast',out:'i',
+ adv_lbl:'Taliban, al-Qaeda, and associated groups',theater:'Afghanistan, Pakistan border regions',
+ forces:'US military: ~800,000 served over 20 years; peak ~100,000 in 2010–11',
+ cas:'~2,461 US military killed in action; ~20,000+ wounded; ~3,500 coalition killed; $2.3 trillion cost',
+ cmd:'US: Gen. Tommy Franks, Gen. David Petraeus, Gen. Stanley McChrystal (multiple commanders) · Taliban: Mullah Omar, Haqqani Network',
+ desc:"America\'s longest war. Launched October 7, 2001 in response to 9/11. Taliban quickly overthrown; Bin Laden escaped at Tora Bora. Nation-building mission evolved over 20 years; surge (2010–11) showed tactical gains without strategic shift. Biden withdrew remaining US forces; Taliban retook Kabul August 15, 2021 — ending 20 years of US-backed government in 11 days.",
+ wiki:'https://en.wikipedia.org/wiki/War_in_Afghanistan_(2001%E2%80%932021)'},
+{id:'iraq-war',name:'Iraq War (Operation Iraqi Freedom)',start:2003,end:2011,era:'modern',adv:'mideast',out:'i',
+ adv_lbl:'Iraq (Saddam Hussein), then insurgency and al-Qaeda in Iraq',theater:'Iraq',
+ forces:'US military: ~1.5 million served over 8 years; peak ~170,000 in 2007–08',
+ cas:'~4,431 US killed in action; ~31,994 wounded; $2+ trillion cost',
+ cmd:'US: Gen. Tommy Franks, Gen. David Petraeus · Iraq: Saddam Hussein (executed 2006), Abu Musab al-Zarqawi (killed 2006)',
+ desc:"Invasion launched March 19, 2003 on disputed WMD intelligence. Baghdad fell in 3 weeks. \'Mission Accomplished\' declared May 1, 2003. Dissolution of the Iraqi military created a massive insurgency. The Battle of Fallujah (2004) and Abu Ghraib scandal. The Surge (2007) under Petraeus temporarily reduced violence. US withdrew December 18, 2011. The vacuum enabled ISIS.",
+ wiki:'https://en.wikipedia.org/wiki/Iraq_War'},
+{id:'isis-campaign',name:'Anti-ISIS Campaign (OIR / OFS)',start:2014,end:2024,era:'modern',adv:'mideast',out:'v',
+ adv_lbl:'Islamic State (ISIS/ISIL/Daesh)',theater:'Iraq, Syria, and globally (Libya, Afghanistan, West Africa)',
+ forces:'US military: ~5,000 in Iraq/Syria at peak; combined with air campaign and partner forces',
+ cas:'~8 US military killed in combat; ~80 wounded; hundreds of contractor deaths',
+ cmd:'US: Gen. Lloyd Austin, Gen. Stephen Townsend, Gen. Joseph Votel · ISIS: Abu Bakr al-Baghdadi (killed 2019), Abu Ibrahim al-Hashimi (killed 2022)',
+ desc:"ISIS seized Mosul (June 2014) and declared a \'caliphate\' across territory the size of the UK. US-led coalition air campaign combined with Kurdish Peshmerga, Iraqi Security Forces, and Syrian Democratic Forces. Mosul recaptured (2017); Raqqa (2017); Baghdadi killed in Barisha raid (Oct. 2019). The physical caliphate was destroyed but ISIS remains an active global insurgent network.",
+ wiki:'https://en.wikipedia.org/wiki/American-led_intervention_in_the_Syrian_Civil_War'},
+];
+// ── LAYOUT ────────────────────────────────────────────────────────────────────
+const CHAINS=[
+  // The four intercolonial wars — a single 74-year sequence
+  {from:'king-williams-war', to:'queen-annes-war',  label:'series'},
+  {from:'queen-annes-war',   to:'king-georges-war', label:'series'},
+  {from:'king-georges-war',  to:'fi-war',           label:'series'},
+  // French & Indian War debt → colonial taxation → Revolution
+  {from:'fi-war',            to:'revolution',       label:'war debt caused Revolution'},
+  // New England colonial escalation
+  {from:'pequot-war',        to:'king-philips-war', label:'established total-war precedent'},
+  // Virginia colonial chain
+  {from:'powhatan-wars',     to:'bacons-rebellion', label:'colonial tensions escalated'},
+  // Spanish Florida rivalry
+  {from:'jenkins-ear',       to:'stono-rebellion',  label:'Spain\'s freedom promise inspired revolt'},
+  // Iroquois → Northwest Indian War
+  {from:'sullivan-clinton',  to:'nw-indian-war',    label:'broke Iroquois, opened Ohio Valley'},
+  // Shays → Constitution → Whiskey
+  {from:'shays-rebellion',   to:'whiskey-rebellion',label:'Constitution enabled federal response'},
+  // Tecumseh chain
+  {from:'nw-indian-war',     to:'tecumsehs-war',    label:'same land, same resistance'},
+  {from:'tecumsehs-war',     to:'war-1812',         label:'Tecumseh allied with Britain'},
+  {from:'war-1812',          to:'creek-war-1813',   label:'simultaneous frontier conflict'},
+  // Barbary series
+  {from:'barbary-war-1',     to:'barbary-war-2',    label:'series — tribute ended permanently'},
+  // Creek dispossession chain
+  {from:'creek-war-1813',    to:'creek-war-1836',   label:'same nation — continued removal'},
+  // Seminole series
+  {from:'first-seminole',    to:'second-seminole',  label:'series'},
+  {from:'second-seminole',   to:'third-seminole',   label:'series — final remnant'},
+  // Pre-Civil War escalation chain
+  {from:'nat-turner',        to:'bleeding-kansas',  label:'hardened sectional divide'},
+  {from:'bleeding-kansas',   to:'harpers-ferry',    label:'directly inspired Harper\'s Ferry'},
+  {from:'harpers-ferry',     to:'civil-war',        label:'final trigger for secession'},
+  // Civil War → Indian Wars
+  {from:'civil-war',         to:'red-clouds-war',   label:'post-war Army deployed west'},
+  // Lakota chain
+  {from:'red-clouds-war',    to:'great-sioux-war',  label:'same theater, same stakes'},
+  {from:'great-sioux-war',   to:'ghost-dance-war',  label:'final resistance crushed'},
+  // Imperial chain
+  {from:'spanish-am-war',    to:'philippine-am-war',label:'US acquired Philippines for $20M'},
+  {from:'philippine-am-war', to:'moro-rebellion',   label:'resistance continued in Mindanao'},
+  // Banana Wars parallel occupations
+  {from:'nicaragua-occupation',to:'dominican-occupation',label:'parallel occupation policy'},
+  {from:'haiti-occupation',  to:'dominican-occupation',  label:'parallel occupation policy'},
+  // Punitive Expedition → WWI: same commander, same Army
+  {from:'punitive-expedition',to:'ww1',             label:'Pershing led AEF in France'},
+  // WWI consequences
+  {from:'ww1',               to:'russia-intervention',label:'immediate intervention'},
+  {from:'ww1',               to:'ww2-europe',       label:'Versailles Treaty caused WWII'},
+  // WWII → Cold War
+  {from:'ww2-pacific',       to:'korean-war',       label:'Japan occupation set Cold War stage'},
+  {from:'ww2-europe',        to:'korean-war',       label:'NATO/containment doctrine born'},
+  {from:'korean-war',        to:'vietnam-war',       label:'containment doctrine expanded to Asia'},
+  // Cold War proxy chain
+  {from:'bay-of-pigs',       to:'dominican-republic-1965',label:'Cuba failure → harder line'},
+  // Gulf → Iraq → ISIS
+  {from:'gulf-war',          to:'iraq-war',         label:'unfinished business — 2003'},
+  {from:'iraq-war',          to:'isis-campaign',    label:'power vacuum created ISIS'},
+  {from:'afghanistan',       to:'iraq-war',         label:'War on Terror expanded'},
+];
+const visitedIds=new Set();
+
+function assignRows(camps){
+  const sorted=[...camps].sort((a,b)=>a.start-b.start);
+  const rows=[];
+  sorted.forEach(c=>{
+    let r=0;
+    while(true){
+      if(!rows[r]){rows[r]=[];break;}
+      const conflicts=rows[r].some(x=>c.start<=x.end&&c.end>=x.start);
+      if(!conflicts)break;
+      r++;
+    }
+    rows[r].push({start:c.start,end:c.end});
+    c._row=r;
+  });
+  return Math.max(1,rows.length);
+}
+const advClass={native:'an',europe:'ae',internal:'ai',latin:'al',asia:'aa',mideast:'aq'};
+const advColor={native:'#c86a18',europe:'#2050c8',internal:'#c82020',latin:'#28b83a',asia:'#1878a0',mideast:'#a07810'};
+const outMap={v:['US Victory','ov2'],d:['Defeat / Opponent Victory','od2'],s:['Stalemate / Status Quo','os2'],i:['Inconclusive / Ongoing','oi2']};
+let eraRowMeta={};
+
+// ── CHAIN RENDERING ───────────────────────────────────────────────────────────
+function getBarCoords(id){
+  const c=C.find(x=>x.id===id);
+  if(!c||c._row===undefined)return null;
+  const meta=eraRowMeta[c.era];if(!meta)return null;
+  const barW=Math.max(MBW,(c.end-c.start)*PPY);
+  const x=LW+xyr(c.start);
+  const cy=meta.top+EP+c._row*RH+RH/2;
+  return{lx:x,rx:x+barW,cy,barW};
+}
+function buildChains(){
+  const existSvg=document.getElementById('chains-svg');
+  if(existSvg)existSvg.remove();
+  const canvas=document.getElementById('canvas');
+  const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+  svg.id='chains-svg';
+  svg.style.cssText='position:absolute;top:0;left:0;pointer-events:none;z-index:2;overflow:visible';
+  svg.setAttribute('width',parseInt(canvas.style.width)||2000);
+  svg.setAttribute('height',parseInt(canvas.style.height)||2000);
+  svg.innerHTML='<defs><marker id="arr" markerWidth="5" markerHeight="5" refX="4.5" refY="2.5" orient="auto"><polygon points="0,0 5,2.5 0,5" fill="rgba(200,168,100,0.28)"/></marker></defs>';
+  canvas.appendChild(svg);
+  CHAINS.forEach(ch=>{
+    const src=getBarCoords(ch.from);
+    const tgt=getBarCoords(ch.to);
+    if(!src||!tgt)return;
+    const x1=src.rx,y1=src.cy,x2=tgt.lx,y2=tgt.cy;
+    const dx=Math.max(60,Math.abs(x2-x1)*0.45);
+    const path=document.createElementNS('http://www.w3.org/2000/svg','path');
+    path.dataset.from=ch.from;path.dataset.to=ch.to;
+    path.setAttribute('class','chain-path');
+    path.setAttribute('marker-end','url(#arr)');
+    if(x2>=x1-20){
+      path.setAttribute('d',`M${x1},${y1} C${x1+dx},${y1} ${x2-dx},${y2} ${x2},${y2}`);
+    }else{
+      const arcY=Math.max(y1,y2)+28;
+      path.setAttribute('d',`M${x1},${y1} C${x1+50},${arcY} ${x2-50},${arcY} ${x2},${y2}`);
+    }
+    svg.appendChild(path);
+    const dot=document.createElementNS('http://www.w3.org/2000/svg','circle');
+    dot.setAttribute('cx',x2);dot.setAttribute('cy',y2);dot.setAttribute('r','2.8');
+    dot.setAttribute('class','chain-dot');dot.dataset.from=ch.from;dot.dataset.to=ch.to;
+    svg.appendChild(dot);
+  });
+}
+
+// ── BUILD RULER ───────────────────────────────────────────────────────────────
+function buildRuler(){
+  const ruler=document.getElementById('ruler');
+  ruler.style.width=(LW+SW)+'px';
+  for(let y=Y0;y<=Y1;y+=10){
+    const x=LW+xyr(y);
+    const line=document.createElement('div');
+    line.className='dtick';line.style.left=x+'px';ruler.appendChild(line);
+    if(y%50===0||y>=1600){
+      const lbl=document.createElement('div');
+      lbl.className='dlbl';lbl.style.left=x+'px';
+      lbl.textContent=(y>=1600&&y%10===0)?y:'';
+      if(y%20===0)ruler.appendChild(lbl);
+    }
+    if(y+5<=Y1){
+      const h=document.createElement('div');
+      h.className='htick';h.style.left=(LW+xyr(y+5))+'px';ruler.appendChild(h);
+    }
+  }
+  // clean decade labels
+  ruler.querySelectorAll('.dlbl').forEach(l=>{if(!l.textContent)l.remove();});
+  // re-do labels properly
+  ruler.querySelectorAll('.dlbl').forEach(l=>l.remove());
+  for(let y=1620;y<=Y1;y+=20){
+    const lbl=document.createElement('div');
+    lbl.className='dlbl';lbl.style.left=(LW+xyr(y))+'px';lbl.textContent=y;
+    ruler.appendChild(lbl);
+  }
+}
+
+// ── BUILD TIMELINE ────────────────────────────────────────────────────────────
+function buildTimeline(){
+  document.querySelectorAll('.era-row,.era-lbl-fixed').forEach(e=>e.remove());
+  const canvas=document.getElementById('canvas');
+  canvas.style.width=(LW+SW)+'px';
+  let yOff=RULER_H;
+  ERAS.forEach(era=>{
+    const eraCamps=C.filter(c=>c.era===era.id);
+    eraCamps.forEach(c=>c._row=0);
+    const nRows=assignRows(eraCamps);
+    const rowH=EP+nRows*RH+EP;
+    const row=document.createElement('div');
+    row.className='era-row';row.dataset.era=era.id;
+    row.style.cssText=`top:${yOff}px;height:${rowH}px;width:${LW+SW}px;background:${era.color}`;
+    // accent bar
+    const ab=document.createElement('div');
+    ab.style.cssText=`position:absolute;left:0;top:0;bottom:0;width:3px;background:${era.accent};opacity:.6`;
+    row.appendChild(ab);
+    // bars
+    eraCamps.forEach(c=>{
+      const x=LW+xyr(c.start);
+      const rawW=(c.end-c.start)*PPY;
+      const w=Math.max(MBW,rawW===0?MBW:rawW);
+      const y=EP+c._row*RH+(RH-BH)/2;
+      const bar=document.createElement('div');
+      bar.className='bar '+(advClass[c.adv]||'an');
+      bar.id='b-'+c.id;
+      bar.style.cssText=`left:${x}px;top:${y}px;width:${w}px;height:${BH}px;z-index:${3+c._row}`;
+      bar.innerHTML=`<span>${w>50?c.name:''}</span>`;
+      bar.addEventListener('click',()=>openPanel(c.id));
+      bar.addEventListener('mouseenter',e=>{
+        const tt=document.getElementById('tt');
+        tt.textContent=c.name+(c.start===c.end?` · ${c.start}`:` · ${c.start}–${c.end}`);
+        tt.style.display='block';tt.style.left=(e.clientX+12)+'px';tt.style.top=(e.clientY-8)+'px';
+      });
+      bar.addEventListener('mousemove',e=>{
+        const tt=document.getElementById('tt');tt.style.left=(e.clientX+12)+'px';tt.style.top=(e.clientY-8)+'px';
+      });
+      bar.addEventListener('mouseleave',()=>{document.getElementById('tt').style.display='none';});
+      row.appendChild(bar);
+    });
+    canvas.appendChild(row);
+    // Era label — individually fixed, Chrome-safe
+    const lbl=document.createElement('div');
+    lbl.className='era-lbl era-lbl-fixed';
+    lbl.dataset.era=era.id;
+    lbl.innerHTML=`<div class="era-lname" style="color:${era.accent}">${era.label}</div><span class="era-lspan">${era.span}</span><span class="era-lct">${eraCamps.length} conflict${eraCamps.length!==1?'s':''}</span>`;
+    document.body.appendChild(lbl);
+    eraRowMeta[era.id]={top:yOff,height:rowH};
+    yOff+=rowH;
+  });
+  canvas.style.height=(yOff+60)+'px';
+  buildChains();
+}
+
+// ── ERA LABEL POSITIONING (Chrome-safe fixed) ─────────────────────────────────
+function updateEraLabels(){
+  const sc=document.getElementById('scroll');
+  const st=sc.scrollTop;
+  const vh=window.innerHeight;
+  document.querySelectorAll('.era-lbl-fixed').forEach(el=>{
+    const meta=eraRowMeta[el.dataset.era];
+    if(!meta)return;
+    const rowScreenTop=HDR_H+meta.top-st;
+    const rowScreenBot=rowScreenTop+meta.height;
+    if(rowScreenBot<=HDR_H||rowScreenTop>=vh-SCRUB_H){
+      el.style.visibility='hidden';
+    }else{
+      el.style.visibility='visible';
+      const labelTop=Math.max(HDR_H,rowScreenTop);
+      const labelBot=Math.min(vh-SCRUB_H,rowScreenBot);
+      el.style.top=labelTop+'px';
+      el.style.height=Math.max(0,labelBot-labelTop)+'px';
+    }
+  });
+}
+
+// ── DETAIL PANEL ──────────────────────────────────────────────────────────────
+let curId=null;
+function openPanel(id){
+  const c=C.find(x=>x.id===id);if(!c)return;
+  curId=id;
+  const era=ERAS.find(e=>e.id===c.era);
+  const ac=advColor[c.adv]||'#c8a864';
+  document.getElementById('pname').textContent=c.name;
+  document.getElementById('pmeta').innerHTML=
+    `<span class="pbadge" style="background:rgba(200,168,100,.1);border:1px solid rgba(200,168,100,.3);color:#c8a864">${era?era.label:c.era}</span>`+
+    `<span class="pbadge" style="background:${ac}22;border:1px solid ${ac}66;color:rgba(255,255,255,.75)">${c.adv_lbl||c.adv}</span>`;
+  document.getElementById('pdates').textContent=c.start===c.end
+    ?`${c.start}  ·  single-year conflict`
+    :`${c.start} – ${c.end}  ·  ${c.end-c.start} year${c.end-c.start!==1?'s':''}`;
+  const [outLbl,outCls]=outMap[c.out]||['Unknown','oi2'];
+  document.getElementById('pout').innerHTML=`<span class="opill ${outCls}">${outLbl}</span>`;
+  document.getElementById('padv').textContent=c.adv_lbl||'';
+  document.getElementById('pthtr').textContent=c.theater||'';
+  document.getElementById('pforc').textContent=c.forces||'';
+  document.getElementById('pcas').textContent=c.cas||'';
+  document.getElementById('pcmd').textContent=c.cmd||'';
+  document.getElementById('pdesc').textContent=c.desc||'';
+  const wEl=document.getElementById('pwiki');
+  wEl.href=c.wiki||'#';
+  wEl.textContent=`↗ Wikipedia: ${c.name}`;
+  document.getElementById('pa').style.background=ac;
+  document.getElementById('panel').classList.add('on');
+  document.querySelectorAll('.bar').forEach(b=>b.classList.remove('lit','chain-connected'));
+  const bar=document.getElementById('b-'+id);if(bar)bar.classList.add('lit');
+  // Chain highlighting
+  visitedIds.add(id);
+  const chainIds=new Set([id]);
+  CHAINS.forEach(ch=>{if(ch.from===id||ch.to===id){chainIds.add(ch.from);chainIds.add(ch.to);}});
+  document.querySelectorAll('.chain-path,.chain-dot').forEach(el=>{
+    const f=el.dataset.from,t=el.dataset.to;
+    const active=chainIds.has(f)&&chainIds.has(t);
+    el.classList.toggle('active',active);
+    el.classList.toggle('faded',!active);
+  });
+  chainIds.forEach(cid=>{if(cid!==id){const b=document.getElementById('b-'+cid);if(b)b.classList.add('chain-connected');}});
+  // Chain panel section
+  const relChains=CHAINS.filter(ch=>ch.from===id||ch.to===id);
+  const pchain=document.getElementById('pchain');
+  if(relChains.length){
+    const links=relChains.map(ch=>{
+      const isFrom=ch.from===id;
+      const otherId=isFrom?ch.to:ch.from;
+      const other=C.find(x=>x.id===otherId);
+      if(!other)return'';
+      const arrow=isFrom?'→':'←';
+      return `<div class="chain-link" onclick="openPanel('${otherId}')">${arrow} <span style="color:rgba(200,168,100,.85)">${other.name}</span> <span class="chain-label">&nbsp;·&nbsp;${ch.label}</span></div>`;
+    }).filter(Boolean).join('');
+    pchain.innerHTML=`<div class="chain-head">Conflict Chain</div>${links}`;
+  }else{pchain.innerHTML='';}
+}
+function closePanel(){
+  curId=null;
+  document.getElementById('panel').classList.remove('on');
+  document.querySelectorAll('.bar').forEach(b=>b.classList.remove('lit','chain-connected'));
+  document.querySelectorAll('.chain-path,.chain-dot').forEach(el=>el.classList.remove('active','faded'));
+}
+
+// ── FILTERS ───────────────────────────────────────────────────────────────────
+let fAdv='all',fEra='all',fOut='all',fSrch='',fYear=null;
+function applyFilters(){
+  let ct=0;
+  C.forEach(c=>{
+    const b=document.getElementById('b-'+c.id);if(!b)return;
+    const aOk=fAdv==='all'||c.adv===fAdv;
+    const eOk=fEra==='all'||c.era===fEra;
+    const oOk=fOut==='all'||c.out===fOut;
+    const sOk=!fSrch||c.name.toLowerCase().includes(fSrch)||(c.desc&&c.desc.toLowerCase().includes(fSrch));
+    const yOk=fYear===null||(c.start<=fYear&&c.end>=fYear);
+    const vis=aOk&&eOk&&oOk&&sOk&&yOk;
+    b.classList.toggle('dimmed',!vis);
+    if(vis)ct++;
+  });
+  document.getElementById('ct-disp').textContent=ct+' conflict'+(ct!==1?'s':'');
+}
+document.querySelectorAll('[data-adv]').forEach(btn=>{
+  btn.addEventListener('click',function(){document.querySelectorAll('[data-adv]').forEach(b=>b.classList.remove('on'));this.classList.add('on');fAdv=this.dataset.adv;applyFilters();});
+});
+document.querySelectorAll('[data-era]').forEach(btn=>{
+  btn.addEventListener('click',function(){document.querySelectorAll('[data-era]').forEach(b=>b.classList.remove('on'));this.classList.add('on');fEra=this.dataset.era;applyFilters();});
+});
+document.querySelectorAll('[data-out]').forEach(btn=>{
+  btn.addEventListener('click',function(){document.querySelectorAll('[data-out]').forEach(b=>b.classList.remove('on'));this.classList.add('on');fOut=this.dataset.out;applyFilters();});
+});
+document.getElementById('srch').addEventListener('input',function(){fSrch=this.value.toLowerCase().trim();applyFilters();});
+document.getElementById('yr-fil').addEventListener('input',function(){
+  const v=parseInt(this.value);fYear=isNaN(v)?null:v;applyFilters();
+});
+document.getElementById('yr-clr').addEventListener('click',function(){
+  document.getElementById('yr-fil').value='';fYear=null;applyFilters();
+});
+
+// ── JUMP DROPDOWN ─────────────────────────────────────────────────────────────
+(function populateJump(){
+  const sel=document.getElementById('jump-sel');
+  ERAS.forEach(era=>{
+    const eraCamps=C.filter(c=>c.era===era.id).sort((a,b)=>a.start-b.start);
+    if(!eraCamps.length)return;
+    const og=document.createElement('optgroup');og.label=era.label;
+    eraCamps.forEach(c=>{
+      const opt=document.createElement('option');opt.value=c.id;
+      opt.textContent=c.name+' ('+(c.start===c.end?c.start:c.start+'–'+c.end)+')';
+      og.appendChild(opt);
+    });
+    sel.appendChild(og);
+  });
+  sel.addEventListener('change',function(){
+    if(!this.value)return;
+    const c=C.find(x=>x.id===this.value);if(!c)return;
+    const sc=document.getElementById('scroll');
+    const meta=eraRowMeta[c.era];
+    if(meta)sc.scrollTop=Math.max(0,meta.top-200);
+    sc.scrollLeft=Math.max(0,LW+xyr(c.start)-Math.floor(sc.clientWidth/2)+50);
+    setTimeout(()=>{openPanel(c.id);},150);
+    this.value='';
+  });
+})();
+
+// ── ABOUT / LEGEND ────────────────────────────────────────────────────────────
+(function(){
+  const p=document.getElementById('about-popup');
+  document.getElementById('htitle').addEventListener('click',e=>{e.stopPropagation();p.classList.toggle('on');});
+  document.getElementById('apx').addEventListener('click',()=>p.classList.remove('on'));
+  document.addEventListener('click',e=>{if(!p.contains(e.target)&&e.target.id!=='htitle')p.classList.remove('on');});
+})();
+(function(){
+  const lb=document.getElementById('legend-btn'),lp=document.getElementById('legend-popup');
+  lb.addEventListener('click',e=>{e.stopPropagation();lp.classList.toggle('on');lb.classList.toggle('on');});
+  document.getElementById('lpx').addEventListener('click',()=>{lp.classList.remove('on');lb.classList.remove('on');});
+  document.addEventListener('click',e=>{if(!lp.contains(e.target)&&e.target!==lb){lp.classList.remove('on');lb.classList.remove('on');}});
+})();
+document.getElementById('px').addEventListener('click',closePanel);
+window.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    closePanel();
+    document.getElementById('about-popup').classList.remove('on');
+    document.getElementById('legend-popup').classList.remove('on');
+  }
+});
+document.getElementById('surprisebtn').addEventListener('click',()=>{
+  const pick=C[Math.floor(Math.random()*C.length)];
+  const sc=document.getElementById('scroll');
+  const meta=eraRowMeta[pick.era];
+  if(meta)sc.scrollTop=Math.max(0,meta.top-180);
+  sc.scrollLeft=Math.max(0,LW+xyr(pick.start)-Math.floor(sc.clientWidth/2)+50);
+  setTimeout(()=>openPanel(pick.id),150);
+});
+// ── DISCOVER BUTTON ───────────────────────────────────────────────────────────
+const discoverBtn=document.getElementById('discoverbtn');
+const discoverMenu=document.getElementById('discover-menu');
+document.body.appendChild(discoverMenu); // escape overflow:hidden header
+discoverBtn.addEventListener('click',function(e){
+  e.stopPropagation();
+  const rect=this.getBoundingClientRect();
+  discoverMenu.style.left=rect.left+'px';
+  discoverMenu.style.top=(rect.bottom+3)+'px';
+  discoverMenu.classList.toggle('on');
+});
+document.addEventListener('click',e=>{if(!discoverMenu.contains(e.target)&&e.target!==discoverBtn)discoverMenu.classList.remove('on');});
+const deadliestPool=['civil-war','ww2-europe','ww2-pacific','vietnam-war','ww1','king-philips-war','great-sioux-war','korean-war','revolution','second-seminole'];
+document.querySelectorAll('.dm-item').forEach(item=>{
+  item.addEventListener('click',function(){
+    discoverMenu.classList.remove('on');
+    let pick=null;
+    switch(this.dataset.discover){
+      case 'deadliest':
+        pick=C.find(c=>c.id===deadliestPool[Math.floor(Math.random()*deadliestPool.length)]);
+        break;
+      case 'defeat':{
+        const defeats=C.filter(c=>c.out==='d');
+        if(defeats.length)pick=defeats[Math.floor(Math.random()*defeats.length)];
+        break;
+      }
+      case 'longest':
+        pick=C.reduce((mx,c)=>(c.end-c.start)>(mx.end-mx.start)?c:mx);
+        break;
+      case 'oneday':{
+        const brief=C.filter(c=>c.start===c.end);
+        if(brief.length)pick=brief[Math.floor(Math.random()*brief.length)];
+        break;
+      }
+      case 'connected':{
+        const cnt={};
+        CHAINS.forEach(ch=>{cnt[ch.from]=(cnt[ch.from]||0)+1;cnt[ch.to]=(cnt[ch.to]||0)+1;});
+        const topId=Object.keys(cnt).sort((a,b)=>cnt[b]-cnt[a])[0];
+        pick=C.find(c=>c.id===topId);
+        break;
+      }
+      case 'unvisited':{
+        const unvis=C.filter(c=>!visitedIds.has(c.id));
+        const pool=unvis.length>0?unvis:C;
+        pick=pool[Math.floor(Math.random()*pool.length)];
+        break;
+      }
+    }
+    if(pick){
+      const sc=document.getElementById('scroll');
+      const meta=eraRowMeta[pick.era];
+      if(meta)sc.scrollTop=Math.max(0,meta.top-180);
+      sc.scrollLeft=Math.max(0,LW+xyr(pick.start)-Math.floor(sc.clientWidth/2)+50);
+      setTimeout(()=>openPanel(pick.id),150);
+    }
+  });
+});
+
+// ── DRAG PAN ──────────────────────────────────────────────────────────────────
+const sc=document.getElementById('scroll');
+let drag=false,mdx=0,mdy=0,msx=0,msy=0;
+sc.addEventListener('mousedown',e=>{if(e.target.classList.contains('bar'))return;drag=true;mdx=e.clientX;mdy=e.clientY;msx=sc.scrollLeft;msy=sc.scrollTop;});
+window.addEventListener('mousemove',e=>{if(drag){sc.scrollLeft=msx-(e.clientX-mdx);sc.scrollTop=msy-(e.clientY-mdy);}});
+window.addEventListener('mouseup',()=>drag=false);
+let tpx=0,tpy=0,tsx=0,tsy=0;
+sc.addEventListener('touchstart',e=>{if(e.touches.length===1){tpx=e.touches[0].clientX;tpy=e.touches[0].clientY;tsx=sc.scrollLeft;tsy=sc.scrollTop;}},{passive:true});
+sc.addEventListener('touchmove',e=>{if(e.touches.length===1){sc.scrollLeft=tsx-(e.touches[0].clientX-tpx);sc.scrollTop=tsy-(e.touches[0].clientY-tpy);}},{passive:true});
+sc.addEventListener('scroll',()=>{updateEraLabels();updateScrub();});
+window.addEventListener('resize',updateEraLabels);
+
+// ── SCRUBBER ──────────────────────────────────────────────────────────────────
+(function buildScrub(){
+  const si=document.getElementById('scrub-inner');
+  const sY0=1600,sY1=2030;
+  for(let y=1620;y<=sY1;y+=20){
+    const pct=(y-sY0)/(sY1-sY0)*100;
+    const lbl=document.createElement('div');lbl.className='syr';lbl.style.left=pct+'%';
+    lbl.textContent=y%40===0?y:'';si.appendChild(lbl);
+    const tk=document.createElement('div');tk.className='stk';tk.style.cssText=`left:${pct}%;height:${y%40===0?10:6}px`;si.appendChild(tk);
+  }
+  C.forEach(c=>{
+    const pct=(c.start-sY0)/(sY1-sY0)*100;
+    if(pct<0||pct>100)return;
+    const d=document.createElement('div');d.className='cdot';d.style.left=pct+'%';si.appendChild(d);
+  });
+})();
+function updateScrub(){
+  const tw=sc.scrollWidth-sc.clientWidth;
+  const pct=tw>0?sc.scrollLeft/tw:0;
+  const sb=document.getElementById('scrubbar');
+  const usableW=sb.offsetWidth-310;
+  const thumbX=155+pct*Math.max(0,usableW);
+  document.getElementById('scrub-thumb').style.left=thumbX+'px';
+  const midX=sc.scrollLeft+sc.clientWidth/2;
+  const yr=Math.round(Y0+(midX-LW)/PPY);
+  document.getElementById('yr-disp').textContent=Math.max(Y0,Math.min(Y1,yr));
+}
+document.getElementById('scrubbar').addEventListener('click',function(e){
+  const r=this.getBoundingClientRect();
+  const usableL=155,usableR=r.width-155;
+  if(e.clientX-r.left<usableL||e.clientX-r.left>usableR)return;
+  const pct=Math.max(0,Math.min(1,(e.clientX-r.left-usableL)/(usableR-usableL)));
+  sc.scrollLeft=pct*(sc.scrollWidth-sc.clientWidth);
+});
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+buildRuler();
+buildTimeline();
+applyFilters();
+updateEraLabels();
+setTimeout(()=>{
+  sc.scrollLeft=Math.max(0,LW+xyr(1750)-100);
+  updateScrub();
+  updateEraLabels();
+},100);
+</script>
+</body>
+</html>
