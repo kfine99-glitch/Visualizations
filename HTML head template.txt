@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>PAGE TITLE HERE | Interactive Visualizations</title>
+  <meta name="description" content="ONE-SENTENCE DESCRIPTION HERE. Explain what the visualization shows, the time span or scope, and why it is useful." />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
+
+  <link rel="canonical" href="FULL-PAGE-URL-HERE" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="PAGE TITLE HERE | Interactive Visualizations" />
+  <meta property="og:description" content="ONE-SENTENCE DESCRIPTION HERE." />
+  <meta property="og:url" content="FULL-PAGE-URL-HERE" />
+  <meta property="og:site_name" content="Interactive Visualizations" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="PAGE TITLE HERE | Interactive Visualizations" />
+  <meta name="twitter:description" content="ONE-SENTENCE DESCRIPTION HERE." />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "PAGE TITLE HERE",
+    "url": "FULL-PAGE-URL-HERE",
+    "description": "ONE-SENTENCE DESCRIPTION HERE.",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Interactive Visualizations",
+      "url": "https://kfine99-glitch.github.io/Visualizations/"
+    }
+  }
+  </script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      color: #222;
+      background: #fff;
+    }
+    header, main, footer {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+    .intro, .notes, .sources {
+      margin: 1rem 0 1.5rem;
+    }
+    .viz-container {
+      margin: 1.5rem 0;
+    }
+    a { color: #0a5ea8; }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="https://kfine99-glitch.github.io/Visualizations/">← Back to all visualizations</a>
+    </nav>
+    <h1>PAGE TITLE HERE</h1>
+    <p class="intro">
+      Replace this with 2–4 sentences in plain English describing what the visualization shows,
+      the date span or scope, the main categories or entities included, and what the user can do with it.
+    </p>
+  </header>
+
+  <main>
+    <section class="viz-container" aria-label="Interactive visualization">
+      <!-- Your visualization goes here -->
+    </section>
+
+    <section class="notes">
+      <h2>What this shows</h2>
+      <p>
+        Add a short explanation of the important patterns, relationships, or timeline shown by the chart.
+        This text helps visitors and search engines understand the page even before interacting with it.
+      </p>
+    </section>
+
+    <section class="notes">
+      <h2>How to use it</h2>
+      <p>
+        Describe the controls: filters, hover behavior, time slider, zoom behavior, search, and detail panels.
+      </p>
+    </section>
+
+    <section class="sources">
+      <h2>Sources and notes</h2>
+      <p>
+        List the main data sources, methodology, update date, and any caveats or scope limits.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p><a href="https://kfine99-glitch.github.io/Visualizations/">Return to Interactive Visualizations</a></p>
+  </footer>
+</body>
+</html>
