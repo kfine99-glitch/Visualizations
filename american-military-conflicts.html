@@ -136,6 +136,15 @@ html,body{width:100%;height:100%;background:#030810;color:#fff;overflow:hidden;f
 .os2{background:rgba(80,100,200,.18);border:1px solid rgba(80,100,200,.4);color:#88aaee}
 .oi2{background:rgba(160,140,40,.18);border:1px solid rgba(160,140,40,.4);color:#ddcc55}
 #pdesc{margin-top:7px;font-size:7px;line-height:1.8;color:rgba(255,255,255,.46);letter-spacing:.03em}
+.extra-links-head{font-size:6px;letter-spacing:.14em;text-transform:uppercase;color:rgba(200,168,100,.4);margin:10px 0 5px;padding-top:9px;border-top:1px solid rgba(255,255,255,.05)}
+.ext-link{display:flex;align-items:baseline;gap:5px;margin-bottom:5px}
+.ext-link-type{font-size:5.5px;letter-spacing:.1em;text-transform:uppercase;padding:1px 5px;border-radius:2px;flex-shrink:0}
+.ext-link-type.nps{background:rgba(40,120,60,.2);border:1px solid rgba(40,120,60,.4);color:#50cc70}
+.ext-link-type.tribal{background:rgba(200,106,24,.2);border:1px solid rgba(200,106,24,.4);color:#e07820}
+.ext-link-type.gov{background:rgba(42,90,210,.2);border:1px solid rgba(42,90,210,.4);color:#6699ee}
+.ext-link-type.museum{background:rgba(140,40,220,.2);border:1px solid rgba(140,40,220,.4);color:#aa66ee}
+.ext-link a{font-size:7px;color:rgba(255,255,255,.55);text-decoration:none;letter-spacing:.03em;transition:color .13s}
+.ext-link a:hover{color:#c8a864}
 #pwiki{display:block;margin-top:9px;padding:5px 10px;background:rgba(200,168,100,.06);border:1px solid rgba(200,168,100,.2);color:rgba(200,168,100,.7);text-decoration:none;font-size:6.5px;letter-spacing:.09em;text-transform:uppercase;border-radius:2px;text-align:center;transition:all .14s}
 #pwiki:hover{background:rgba(200,168,100,.14);color:#c8a864}
 #scrubbar{position:fixed;bottom:0;left:0;right:0;height:40px;background:rgba(3,8,16,.98);border-top:1px solid rgba(255,255,255,.06);cursor:pointer;z-index:150;overflow:hidden}
@@ -151,9 +160,11 @@ html,body{width:100%;height:100%;background:#030810;color:#fff;overflow:hidden;f
 <body>
 <div id="about-popup"><span id="apx">✕</span>
 <h3>American Military Conflicts · 1607–2024</h3>
-<p>An interactive chronological timeline of 76 named conflicts involving the American colonies, territories, and the United States — from the Anglo-Powhatan Wars through the ongoing ISIS campaign. Span: 417 years. Bar width represents actual conflict duration. Campaigns organized by military era.</p>
-<p>Scope includes: colonial interstate disputes (Maryland–Virginia border wars), Native American wars, European colonial conflicts, the full Barbary Wars, Mexican and Latin American campaigns, both World Wars, Korea, Vietnam, and post-Cold War interventions through 2024.</p>
-<p><strong style="color:#c8a864">Controls:</strong> Click bar → detail panel. Adversary / Era / Outcome filters. Year filter: dims conflicts not active in that year. Jump dropdown: scroll &amp; open by name. Drag to pan.</p>
+<p>An interactive chronological timeline of 88 named conflicts involving the American colonies, territories, and the United States — from the Anglo-Powhatan Wars through the ongoing anti-ISIS campaign. Span: 417 years. Bar width represents actual conflict duration. Conflicts are organized by military era across nine horizontal lanes.</p>
+<p>Scope includes: colonial interstate disputes, Native American wars, European colonial conflicts, the Barbary Wars, Mexican and Latin American campaigns, both World Wars, Korea, Vietnam, and post-Cold War interventions through 2024. Bar height reflects conflict scale — from civilization-defining wars down to border skirmishes.</p>
+<p><strong style="color:#c8a864">Detail Panels:</strong> Click any bar to open a panel showing dates, theater, forces engaged, casualties, commanders, outcome, and a conflict chain showing causal links to other entries. Every conflict links directly to its <strong style="color:#c8a864">Wikipedia article</strong> for further reading.</p>
+<p><strong style="color:#c8a864">Further Exploration Links:</strong> Many panels — particularly Native American conflicts — include curated links to <span style="color:#50cc70">NPS</span> National Park Service historic sites, <span style="color:#e07820">Tribal</span> official Native nation websites, <span style="color:#6699ee">Gov</span> federal historical offices, and <span style="color:#aa66ee">Museum</span> research centers. <strong style="color:#e07820">The Tribal links are especially important.</strong> Official tribal nation sites — the Oglala Sioux Tribe, the Seminole Tribe of Florida, the Nez Perce Tribe (Nimiipuu), the Navajo Nation, and others — present these conflicts in their own voice, documenting perspectives, losses, and ongoing consequences that standard historical accounts often minimize or omit entirely. For any conflict involving Indigenous peoples, the Tribal link is the most valuable source in the panel.</p>
+<p><strong style="color:#c8a864">Controls:</strong> Adversary / Era / Outcome filters · Year filter (dims conflicts not active in that year) · Jump dropdown · ◀ Era / Era ▶ to step through eras · ★ Surprise and ✦ Discover buttons · Drag to pan · ←/→ arrow keys navigate within an era when a panel is open.</p>
 <p>Developed and researched by Claude AI (Anthropic) · March 2026 · Conceived by Kevin Fine</p>
 </div>
 <div id="legend-popup"><span id="lpx">✕</span>
@@ -254,6 +265,7 @@ html,body{width:100%;height:100%;background:#030810;color:#fff;overflow:hidden;f
     <div class="prow"><span class="pl">Casualties</span><span class="pv" id="pcas"></span></div>
     <div class="prow"><span class="pl">Commanders</span><span class="pv" id="pcmd"></span></div>
     <div id="pdesc"></div>
+    <div id="plinks"></div>
     <div id="pchain"></div>
     <a id="pwiki" href="#" target="_blank" rel="noopener">↗ Wikipedia</a>
   </div>
@@ -916,7 +928,80 @@ function getBarH(id){
   if(MAG_T1.has(id))return 13;
   return 21; // T3 default
 }
-// ── LAYOUT ────────────────────────────────────────────────────────────────────
+// ── EXTRA LINKS (NPS / Tribal / Gov) ─────────────────────────────────────────
+// type: 'nps' | 'tribal' | 'gov' | 'museum'
+const EXTRA_LINKS={
+ 'pequot-war':[
+  {type:'tribal',label:'Mashantucket Pequot Museum & Research Center',url:'https://pequotwar.org/about/'},
+  {type:'museum',label:'Battlefields of King Philip\'s War (MPMRC)',url:'https://www.kpwar.org'}],
+ 'king-philips-war':[
+  {type:'tribal',label:'Battlefields of King Philip\'s War (Mashantucket Pequot Museum)',url:'https://www.kpwar.org'},
+  {type:'nps',label:'NPS: Roger Williams National Memorial',url:'https://www.nps.gov/rowi/learn/historyculture/kingphilip.htm'}],
+ 'pueblo-revolt':[
+  {type:'tribal',label:'Indian Pueblo Cultural Center — Pueblo Revolt history',url:'https://indianpueblo.org/pueblo-revolt/'},
+  {type:'nps',label:'NPS: Pecos National Historical Park',url:'https://www.nps.gov/peco/index.htm'}],
+ 'jenkins-ear':[
+  {type:'museum',label:'New Georgia Encyclopedia: War of Jenkins\' Ear',url:'https://www.georgiaencyclopedia.org/articles/history-archaeology/war-of-jenkins-ear/'}],
+ 'cherokee-wars':[
+  {type:'nps',label:'NPS: Trail of Tears National Historic Trail',url:'https://www.nps.gov/trte/index.htm'}],
+ 'first-seminole':[
+  {type:'tribal',label:'Seminole Tribe of Florida (Official)',url:'https://www.semtribe.com/'},
+  {type:'museum',label:'Florida Dept. of State: Seminole Wars',url:'https://dos.fl.gov/florida-facts/florida-history/seminole-history/the-seminole-wars/'}],
+ 'second-seminole':[
+  {type:'tribal',label:'Seminole Tribe of Florida — "The Unconquered" (Official)',url:'https://www.semtribe.com/'},
+  {type:'museum',label:'FSU: Seminole Wars — Tribal Perspective',url:'https://www.fsu.edu/seminole-tribe/history.html'}],
+ 'third-seminole':[
+  {type:'tribal',label:'Seminole Tribe of Florida (Official)',url:'https://www.semtribe.com/'}],
+ 'creek-war-1813':[
+  {type:'nps',label:'NPS: Horseshoe Bend National Military Park',url:'https://www.nps.gov/hobe/index.htm'}],
+ 'creek-war-1836':[
+  {type:'nps',label:'NPS: Trail of Tears National Historic Trail',url:'https://www.nps.gov/trte/index.htm'}],
+ 'apache-wars':[
+  {type:'nps',label:'NPS: Fort Bowie National Historic Site',url:'https://www.nps.gov/fobo/index.htm'},
+  {type:'nps',label:'NPS: Chiricahua National Monument',url:'https://www.nps.gov/chir/index.htm'}],
+ 'navajo-campaign':[
+  {type:'tribal',label:'Navajo Nation Official History',url:'https://www.navajo-nsn.gov/history'},
+  {type:'nps',label:'NPS: Canyon de Chelly National Monument',url:'https://www.nps.gov/cach/index.htm'}],
+ 'colorado-war':[
+  {type:'nps',label:'NPS: Sand Creek Massacre National Historic Site',url:'https://www.nps.gov/sand/index.htm'},
+  {type:'nps',label:'NPS: Sand Creek Massacre — History & Culture',url:'https://www.nps.gov/sand/learn/historyculture/massacre.htm'}],
+ 'modoc-war':[
+  {type:'nps',label:'NPS: Lava Beds National Monument (Captain Jack\'s Stronghold)',url:'https://www.nps.gov/labe/index.htm'},
+  {type:'nps',label:'NPS: Modoc War History & Culture',url:'https://www.nps.gov/labe/learn/historyculture/modoc-war.htm'}],
+ 'red-clouds-war':[
+  {type:'tribal',label:'Oglala Sioux Tribe (Official)',url:'https://www.oglala.gov/'},
+  {type:'tribal',label:'Rosebud Sioux Tribe: History & Culture',url:'https://www.rosebudsiouxtribe-nsn.gov/history-culture'}],
+ 'sheridans-campaign':[
+  {type:'nps',label:'NPS: Washita Battlefield National Historic Site',url:'https://www.nps.gov/waba/index.htm'}],
+ 'great-sioux-war':[
+  {type:'nps',label:'NPS: Little Bighorn Battlefield National Monument',url:'https://www.nps.gov/libi/index.htm'},
+  {type:'nps',label:'NPS: Indian Memorial at Little Bighorn',url:'https://www.nps.gov/libi/learn/historyculture/indian-memorial.htm'},
+  {type:'tribal',label:'Oglala Sioux Tribe (Official)',url:'https://www.oglala.gov/'}],
+ 'nez-perce-war':[
+  {type:'tribal',label:'Nez Perce Tribe — Nimiipuu (Official)',url:'https://nezperce.org/about/history/'},
+  {type:'nps',label:'NPS: Nez Perce National Historical Park',url:'https://www.nps.gov/nepe/index.htm'},
+  {type:'nps',label:'NPS: Big Hole National Battlefield',url:'https://www.nps.gov/biho/index.htm'}],
+ 'bannock-war':[
+  {type:'nps',label:'NPS: Fort Hall — context for Bannock War',url:'https://www.nps.gov/cali/learn/historyculture/bannock.htm'}],
+ 'dakota-war':[
+  {type:'tribal',label:'Oglala Sioux Tribe (Official)',url:'https://www.oglala.gov/'},
+  {type:'tribal',label:'Rosebud Sioux Tribe: History & Culture',url:'https://www.rosebudsiouxtribe-nsn.gov/history-culture'}],
+ 'ghost-dance-war':[
+  {type:'tribal',label:'Oglala Sioux Tribe (Official)',url:'https://www.oglala.gov/'},
+  {type:'nps',label:'NPS: Wounded Knee at Badlands NP',url:'https://www.nps.gov/wica/learn/historyculture/wounded-knee.htm'}],
+ 'bleeding-kansas':[
+  {type:'nps',label:'NPS: Bleeding Kansas',url:'https://www.nps.gov/articles/bleeding-kansas.htm'}],
+ 'harpers-ferry':[
+  {type:'nps',label:'NPS: Harpers Ferry National Historical Park',url:'https://www.nps.gov/hafe/index.htm'}],
+ 'philippine-am-war':[
+  {type:'museum',label:'Library of Congress: World of 1898 — Filipino Perspective',url:'https://guides.loc.gov/world-of-1898/emilio-aguinaldo-famy'},
+  {type:'gov',label:'US State Dept. Office of the Historian',url:'https://history.state.gov/milestones/1899-1913/war'}],
+ 'moro-rebellion':[
+  {type:'gov',label:'US State Dept.: Philippine-American War context',url:'https://history.state.gov/milestones/1899-1913/war'}],
+ 'civil-war':[
+  {type:'museum',label:'American Battlefield Trust',url:'https://www.battlefields.org/'}],
+};
+// ───────────────────────────────────────────
 const CHAINS=[
   // The four intercolonial wars — a single 74-year sequence
   {from:'king-williams-war', to:'queen-annes-war',  label:'series'},
@@ -1174,6 +1259,14 @@ function openPanel(id){
   document.getElementById('pcas').textContent=c.cas||'';
   document.getElementById('pcmd').textContent=c.cmd||'';
   document.getElementById('pdesc').textContent=c.desc||'';
+  // Extra links (NPS / tribal / gov)
+  const linksEl=document.getElementById('plinks');
+  const extraLinks=EXTRA_LINKS[id]||[];
+  if(extraLinks.length){
+    const typeLabel={nps:'NPS',tribal:'Tribal',gov:'Gov',museum:'Museum'};
+    linksEl.innerHTML='<div class="extra-links-head">Further Exploration</div>'+
+      extraLinks.map(l=>`<div class="ext-link"><span class="ext-link-type ${l.type}">${typeLabel[l.type]||l.type}</span><a href="${l.url}" target="_blank" rel="noopener">↗ ${l.label}</a></div>`).join('');
+  }else{linksEl.innerHTML='';}
   const wEl=document.getElementById('pwiki');
   wEl.href=c.wiki||'#';
   wEl.textContent=`↗ Wikipedia: ${c.name}`;
