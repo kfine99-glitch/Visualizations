@@ -1,270 +1,179 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Interactive Visualizations Index</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    :root {
-      color-scheme: dark;
-    }
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      max-width: 960px;
-      margin: 2rem auto;
-      padding: 0 1rem 3rem;
-      line-height: 1.6;
-      background: #050812;
-      color: #f5f5f5;
-    }
-    header {
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      padding-bottom: 0.75rem;
-      margin-bottom: 1.5rem;
-    }
-    h1 {
-      margin: 0 0 0.25rem;
-      font-size: 1.75rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #c8a864;
-    }
-    .subtitle {
-      font-size: 0.9rem;
-      color: rgba(255,255,255,0.6);
-    }
-    .note {
-      font-size: 0.8rem;
-      color: rgba(255,255,255,0.5);
-      margin-top: 0.35rem;
-    }
-    .note strong {
-      font-weight: 600;
-      color: #c8a864;
-    }
-    .note-list {
-      margin: 0.5rem 0 0;
-      padding-left: 1.1rem;
-      font-size: 0.8rem;
-      color: rgba(255,255,255,0.7);
-    }
-    .note-list li + li {
-      margin-top: 0.2rem;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.25rem;
-      margin-top: 1.5rem;
-    }
-    .card {
-      background: radial-gradient(circle at top, rgba(200,168,100,0.14), rgba(5,8,18,0.95));
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 8px;
-      padding: 1rem 1.1rem 1.1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
-    }
-    .card h2 {
-      margin: 0;
-      font-size: 1.05rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: #f9f7f0;
-    }
-    .meta {
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: rgba(255,255,255,0.55);
-    }
-    .meta span {
-      margin-right: 0.55rem;
-      white-space: nowrap;
-    }
-    .meta strong {
-      font-weight: 600;
-      color: #c8a864;
-    }
-    .summary {
-      font-size: 0.86rem;
-      color: rgba(255,255,255,0.8);
-    }
-    .details {
-      font-size: 0.8rem;
-      color: rgba(255,255,255,0.6);
-    }
-    .cta {
-      margin-top: 0.4rem;
-    }
-    .cta a {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      text-decoration: none;
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      padding: 0.4rem 0.7rem;
-      border-radius: 999px;
-      border: 1px solid rgba(200,168,100,0.6);
-      color: #c8a864;
-      background: rgba(200,168,100,0.08);
-      transition: background 0.15s, color 0.15s, border-color 0.15s, transform 0.08s;
-    }
-    .cta a:hover {
-      background: rgba(200,168,100,0.18);
-      border-color: #c8a864;
-      color: #fff;
-      transform: translateY(-1px);
-    }
-    .cta a span.icon {
-      font-size: 0.95rem;
-    }
-    @media (max-width: 600px) {
-      body {
-        margin-top: 1.25rem;
-      }
-      h1 {
-        font-size: 1.45rem;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interactive Visualizations</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:#030810;color:#fff;font-family:'JetBrains Mono',monospace;min-height:100vh;padding:0 0 80px}
+
+/* ── HEADER ─────────────────────────────────────────────────────────────────── */
+#site-header{padding:52px 0 40px;text-align:center;border-bottom:1px solid rgba(255,255,255,.06);margin-bottom:52px;position:relative}
+#site-header::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:120px;height:1px;background:linear-gradient(90deg,transparent,rgba(200,168,100,.4),transparent)}
+#site-title{font-family:'Orbitron',sans-serif;font-weight:900;font-size:22px;letter-spacing:.22em;color:#c8a864;text-transform:uppercase;margin-bottom:10px}
+#site-sub{font-size:7.5px;letter-spacing:.22em;color:rgba(200,168,100,.35);text-transform:uppercase}
+
+/* ── GRID ────────────────────────────────────────────────────────────────────── */
+#grid{max-width:1060px;margin:0 auto;padding:0 28px;display:grid;grid-template-columns:repeat(auto-fill,minmax(470px,1fr));gap:22px}
+
+/* ── CARDS ───────────────────────────────────────────────────────────────────── */
+.card{background:rgba(255,255,255,.024);border:1px solid rgba(255,255,255,.07);border-radius:4px;padding:28px 28px 22px;display:flex;flex-direction:column;gap:0;transition:border-color .2s,background .2s;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--accent);opacity:.6;transition:opacity .2s}
+.card:hover{border-color:rgba(255,255,255,.14);background:rgba(255,255,255,.035)}
+.card:hover::before{opacity:.9}
+
+.card-meta{display:flex;gap:16px;margin-bottom:10px;flex-wrap:wrap}
+.meta-item{font-size:6px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.28)}
+.meta-item strong{color:rgba(200,168,100,.55);margin-right:4px}
+
+.card-title{font-family:'Orbitron',sans-serif;font-weight:700;font-size:13.5px;letter-spacing:.1em;color:#fff;margin-bottom:12px;line-height:1.3}
+
+.card-body{font-size:7.5px;letter-spacing:.04em;color:rgba(255,255,255,.5);line-height:1.85;flex:1}
+.card-body p{margin-bottom:8px}
+.card-body p:last-of-type{margin-bottom:0}
+.card-body strong{color:rgba(255,255,255,.72);font-weight:500}
+
+.card-link{display:inline-flex;align-items:center;gap:7px;margin-top:18px;padding:7px 14px;background:rgba(200,168,100,.07);border:1px solid rgba(200,168,100,.22);border-radius:3px;color:#c8a864;text-decoration:none;font-size:7px;letter-spacing:.13em;text-transform:uppercase;transition:all .18s;align-self:flex-start}
+.card-link:hover{background:rgba(200,168,100,.14);border-color:rgba(200,168,100,.5);color:#e0c080}
+.card-link span{font-size:11px;line-height:1}
+
+/* ── HOW IT WORKS ────────────────────────────────────────────────────────────── */
+#how{max-width:1060px;margin:0 auto 44px;padding:0 28px}
+.how-box{background:rgba(255,255,255,.018);border:1px solid rgba(255,255,255,.06);border-radius:4px;padding:18px 22px}
+.how-title{font-family:'Orbitron',sans-serif;font-size:7px;letter-spacing:.18em;text-transform:uppercase;color:rgba(200,168,100,.45);margin-bottom:10px}
+.how-body{font-size:7px;letter-spacing:.04em;color:rgba(255,255,255,.38);line-height:1.9}
+.how-body ul{padding-left:14px;margin-top:6px}
+.how-body li{margin-bottom:5px}
+.how-body li::marker{color:rgba(200,168,100,.3)}
+.how-body kbd{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:2px;padding:1px 5px;font-family:'JetBrains Mono',monospace;font-size:6.5px;color:rgba(255,255,255,.55)}
+
+/* ── SECTION DIVIDER ─────────────────────────────────────────────────────────── */
+.section-label{max-width:1060px;margin:0 auto 16px;padding:0 28px;font-size:6.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(200,168,100,.3)}
+</style>
 </head>
 <body>
-  <header>
-    <h1>Interactive Visualizations</h1>
-    <div class="subtitle">
-      Exploration tools conceived by Kevin Fine · Built with Claude AI
+
+<header id="site-header">
+  <div id="site-title">Interactive Visualizations</div>
+  <div id="site-sub">Exploration tools conceived by Kevin Fine &nbsp;·&nbsp; Built with Claude AI</div>
+</header>
+
+<div id="how">
+  <div class="how-box">
+    <div class="how-title">How this page works</div>
+    <div class="how-body">
+      <ul>
+        <li>Each visualization opens as its own stand-alone page. To return here, use your browser's Back button (<kbd>Alt+Left</kbd> / <kbd>Cmd+[</kbd> / <kbd>Ctrl+[</kbd> depending on your browser).</li>
+        <li>The military visualizations do not include built-in zoom controls. After many attempts, adding in-page zoom broke other interaction logic, so please use your browser's zoom instead:
+          <br>&nbsp;&nbsp;&nbsp;– Windows / Linux: <kbd>Ctrl +</kbd> to zoom in, <kbd>Ctrl −</kbd> to zoom out, <kbd>Ctrl 0</kbd> to reset.
+          <br>&nbsp;&nbsp;&nbsp;– macOS: <kbd>Cmd +</kbd> to zoom in, <kbd>Cmd −</kbd> to zoom out, <kbd>Cmd 0</kbd> to reset.</li>
+      </ul>
     </div>
-    <div class="note">
-      <strong>How this page works</strong>
-    </div>
-    <ul class="note-list">
-      <li>
-        Each visualization opens as its own stand‑alone page. To return to this landing page, use your browser’s Back button (or Alt+Left / Cmd+&#91; / Ctrl+&#91; depending on your browser).
-      </li>
-      <li>
-        The military visualizations do not include built‑in zoom controls. After many attempts, adding in‑page zoom broke other interaction logic, so please use your browser’s zoom instead:
-        <br>
-        – Windows / Linux: <strong>Ctrl +</strong> to zoom in, <strong>Ctrl −</strong> to zoom out, <strong>Ctrl 0</strong> to reset.
-        <br>
-        – macOS: <strong>Cmd +</strong> to zoom in, <strong>Cmd −</strong> to zoom out, <strong>Cmd 0</strong> to reset.
-      </li>
-    </ul>
-  </header>
-
-  <div class="grid">
-    <!-- Solar System Explorer -->
-    <article class="card">
-      <h2>Solar System Explorer</h2>
-      <div class="meta">
-        <span><strong>Domain:</strong> Space / astronomy</span>
-        <span><strong>Mode:</strong> 3D time-based simulation</span>
-      </div>
-      <p class="summary">
-        Interactive heliocentric simulator that lets you orbit the Sun alongside the planets, moons, and deep-space probes to feel the real scale, timing, and geometry of the solar system.
-      </p>
-      <p class="details">
-        Includes all eight planets with realistic orbital periods and rotation, 14 key moons, and 12 historic probes from Pioneer and Voyager through New Horizons, Juno, Dawn, Rosetta, and Parker Solar Probe. *  
-        Time controls let you play, pause, reverse, and change simulation speed, use date search to jump to any calendar date, and focus the camera on any object while toggling orbits, moons, and probe trajectories.
-      </p>
-      <p class="cta">
-        <a href="solar-system-explorer.html">
-          <span class="icon">➜</span>
-          Open Solar System Explorer
-        </a>
-      </p>
-    </article>
-
-    <!-- US Military Aircraft -->
-    <article class="card">
-      <h2>US Military Aircraft Evolution</h2>
-      <div class="meta">
-        <span><strong>Span:</strong> 1917 – present</span>
-        <span><strong>Focus:</strong> Aircraft lineages & eras</span>
-      </div>
-      <p class="summary">
-        Timeline map of American military aviation, from WWI biplanes through strategic bombers, carrier attack jets, cargo airlifters, rotary‑wing aircraft, and the complete UAV lineage.
-      </p>
-      <p class="details">
-        Nodes represent significant aircraft families across eight lanes (USAF/Army, naval aviation, attack/CAS, bombers, transport, flying boats, rotary wing, and UAVs), with gold lines for the Republic Thunderbolt lineage and teal lines for the Maryland‑built Glenn L. Martin flying boat and bomber chain. *  
-        Filters for service, nation, conflict era, and UAV/Drone, plus an “Active at year” slider and Surprise button, let you see which aircraft were flying in any given year and trace both direct design descent and looser influence relationships.
-      </p>
-      <p class="cta">
-        <a href="us-aircraft.html">
-          <span class="icon">➜</span>
-          Open Aircraft Evolution
-        </a>
-      </p>
-    </article>
-
-    <!-- US Ground Vehicles -->
-    <article class="card">
-      <h2>US Ground Vehicle Evolution</h2>
-      <div class="meta">
-        <span><strong>Span:</strong> 1915 – present</span>
-        <span><strong>Focus:</strong> Armor & support</span>
-      </div>
-      <p class="summary">
-        Evolution of US ground combat power, from WWI trucks and motorcycles through the Sherman and Patton series, M1 Abrams, Bradley, MRAPs, HIMARS, and the new M10 Booker Mobile Protected Firepower vehicle.
-      </p>
-      <p class="details">
-        Covers 89 vehicles across ten lanes including wheeled recon, half‑tracks, light/medium/heavy tanks and tank destroyers, self‑propelled artillery and rocket systems, trucks and logistics (including DUKWs and MRAPs), recovery and engineering vehicles, APCs/IFVs/LVTs, and missile launchers/TELs.  *  
-        Category, nation, and conflict‑era filters highlight families such as NATO Cold War armor, Lend‑Lease exports, and Sparrows Point armor‑plate vehicles, while the “Active at year” slider and lineage highlighting reveal exactly what was fielded in WWII, Vietnam, the Cold War, Gulf War, and OIF/OEF (Operation Iraqi Freedom/Operation Enduring Freedom).
-      </p>
-      <p class="cta">
-        <a href="us-ground-vehicles.html">
-          <span class="icon">➜</span>
-          Open Ground Vehicle Evolution
-        </a>
-      </p>
-    </article>
-
-    <!-- US Naval Vessels -->
-    <article class="card">
-      <h2>US Naval Vessel Evolution</h2>
-      <div class="meta">
-        <span><strong>Span:</strong> 1895 – 2030</span>
-        <span><strong>Focus:</strong> Fleet composition</span>
-      </div>
-      <p class="summary">
-        A 135‑year view of American sea power, from pre‑dreadnought battleships through nuclear supercarriers, ballistic‑missile submarines, modern destroyers and frigates, amphibious forces, auxiliaries, and Coast Guard cutters.
-      </p>
-      <p class="details">
-        Twelve lanes cover battleships, aircraft carriers, cruisers, destroyers, escorts/frigates, submarines, amphibious ships, auxiliaries (including Liberty ships and hospital ships), Coast Guard cutters, small combatants, naval/Marine helicopters, and carrier aviation. *  
-        Cyan lines trace nuclear propulsion from USS Nautilus forward, gold lines show conversions (such as Lexington‑class battlecruisers turned into carriers), and filters plus an “Active at year” control let you see the exact fleet on dates like Pearl Harbor, D‑Day, or the Cuban Missile Crisis, with ship‑level fates and NavSource links in the variants tab.
-      </p>
-      <p class="cta">
-        <a href="us-naval-vessels.html">
-          <span class="icon">➜</span>
-          Open Naval Vessel Evolution
-        </a>
-      </p>
-    </article>
-
-    <!-- US Weapons Systems -->
-    <article class="card">
-      <h2>US Weapons Systems Evolution</h2>
-      <div class="meta">
-        <span><strong>Span:</strong> 1890 – present</span>
-        <span><strong>Focus:</strong> Individual & crew‑served</span>
-      </div>
-      <p class="summary">
-        Dense lineage map of 115 US weapons systems across all four services and SOCOM, from early Krag bayonets and revolvers through the M4A1, Barrett .50, Javelin, TOW, mortars, artillery, grenades, mines, and demolition systems.
-      </p>
-      <p class="details">
-        Thirteen lanes cover bladed weapons and flamethrowers, handguns, rifles and carbines, sub‑machine guns, machine guns, mortars, anti‑tank rockets and recoilless rifles, MANPADS, pack and mountain artillery, towed and field artillery, grenades/demolitions, sniper and precision rifles, rotary/rapid‑fire systems, and mines/area‑denial. *  
-        Category, branch, and era filters, plus Lend‑Lease/export and “Active at year” controls, highlight service‑unique weapons, export stories, and evolutionary chains, while the legend explains lineage, shared‑platform, and influence connections across more than a century of US small arms and support weapons.
-      </p>
-      <p class="cta">
-        <a href="us-weapons-systems.html">
-          <span class="icon">➜</span>
-          Open Weapons Systems Evolution
-        </a>
-      </p>
-    </article>
   </div>
+</div>
+
+<div class="section-label">Space &amp; Science</div>
+<div id="grid">
+
+<!-- ── SOLAR SYSTEM ─────────────────────────────────────────────────────────── -->
+<div class="card" style="--accent:#5090d8">
+  <div class="card-meta">
+    <span class="meta-item"><strong>Domain</strong>Space / astronomy</span>
+    <span class="meta-item"><strong>Mode</strong>3D time-based simulation</span>
+  </div>
+  <div class="card-title">Solar System Explorer</div>
+  <div class="card-body">
+    <p>Interactive heliocentric simulator that lets you orbit the Sun alongside the planets, moons, and deep-space probes to feel the real scale, timing, and geometry of the solar system.</p>
+    <p>Includes all eight planets with realistic orbital periods and rotation, 14 key moons, and 12 historic probes from Pioneer and Voyager through New Horizons, Juno, Dawn, Rosetta, and Parker Solar Probe. *</p>
+    <p>Time controls let you play, pause, reverse, and change simulation speed, use date search to jump to any calendar date, and focus the camera on any object while toggling orbits, moons, and probe trajectories.</p>
+  </div>
+  <a class="card-link" href="https://kfine99-glitch.github.io/Visualizations/solar-system-explorer.html"><span>➜</span> Open Solar System Explorer</a>
+</div>
+
+</div><!-- /grid -->
+
+<div class="section-label" style="margin-top:36px">US Military History</div>
+<div id="grid2" style="max-width:1060px;margin:0 auto;padding:0 28px;display:grid;grid-template-columns:repeat(auto-fill,minmax(470px,1fr));gap:22px">
+
+<!-- ── AIRCRAFT ──────────────────────────────────────────────────────────────── -->
+<div class="card" style="--accent:#5090b8">
+  <div class="card-meta">
+    <span class="meta-item"><strong>Span</strong>1917 – present</span>
+    <span class="meta-item"><strong>Focus</strong>Aircraft lineages &amp; eras</span>
+  </div>
+  <div class="card-title">US Military Aircraft Evolution</div>
+  <div class="card-body">
+    <p>Timeline map of American military aviation, from WWI biplanes through strategic bombers, carrier attack jets, cargo airlifters, rotary-wing aircraft, and the complete UAV lineage.</p>
+    <p>Nodes represent significant aircraft families across eight lanes (USAF/Army, naval aviation, attack/CAS, bombers, transport, flying boats, rotary wing, and UAVs), with gold lines for the Republic Thunderbolt lineage and teal lines for the Maryland-built Glenn L. Martin flying boat and bomber chain. *</p>
+    <p>Filters for service, nation, conflict era, and UAV/Drone, plus an "Active at year" slider and Surprise button, let you see which aircraft were flying in any given year and trace both direct design descent and looser influence relationships.</p>
+  </div>
+  <a class="card-link" href="https://kfine99-glitch.github.io/Visualizations/us-aircraft.html"><span>➜</span> Open Aircraft Evolution</a>
+</div>
+
+<!-- ── GROUND VEHICLES ────────────────────────────────────────────────────────── -->
+<div class="card" style="--accent:#50a870">
+  <div class="card-meta">
+    <span class="meta-item"><strong>Span</strong>1915 – present</span>
+    <span class="meta-item"><strong>Focus</strong>Armor &amp; support</span>
+  </div>
+  <div class="card-title">US Ground Vehicle Evolution</div>
+  <div class="card-body">
+    <p>Evolution of US ground combat power, from WWI trucks and motorcycles through the Sherman and Patton series, M1 Abrams, Bradley, MRAPs, HIMARS, and the new M10 Booker Mobile Protected Firepower vehicle.</p>
+    <p>Covers 89 vehicles across ten lanes including wheeled recon, half-tracks, light/medium/heavy tanks and tank destroyers, self-propelled artillery and rocket systems, trucks and logistics (including DUKWs and MRAPs), recovery and engineering vehicles, APCs/IFVs/LVTs, and missile launchers/TELs. *</p>
+    <p>Category, nation, and conflict-era filters highlight families such as NATO Cold War armor, Lend-Lease exports, and Sparrows Point armor-plate vehicles, while the "Active at year" slider and lineage highlighting reveal exactly what was fielded in WWII, Vietnam, the Cold War, Gulf War, and OIF/OEF.</p>
+  </div>
+  <a class="card-link" href="https://kfine99-glitch.github.io/Visualizations/us-ground-vehicles.html"><span>➜</span> Open Ground Vehicle Evolution</a>
+</div>
+
+<!-- ── NAVAL VESSELS ──────────────────────────────────────────────────────────── -->
+<div class="card" style="--accent:#2080b0">
+  <div class="card-meta">
+    <span class="meta-item"><strong>Span</strong>1895 – 2030</span>
+    <span class="meta-item"><strong>Focus</strong>Fleet composition</span>
+  </div>
+  <div class="card-title">US Naval Vessel Evolution</div>
+  <div class="card-body">
+    <p>A 135-year view of American sea power, from pre-dreadnought battleships through nuclear supercarriers, ballistic-missile submarines, modern destroyers and frigates, amphibious forces, auxiliaries, and Coast Guard cutters.</p>
+    <p>Twelve lanes cover battleships, aircraft carriers, cruisers, destroyers, escorts/frigates, submarines, amphibious ships, auxiliaries (including Liberty ships and hospital ships), Coast Guard cutters, small combatants, naval/Marine helicopters, and carrier aviation. *</p>
+    <p>Cyan lines trace nuclear propulsion from USS Nautilus forward, gold lines show conversions (such as Lexington-class battlecruisers turned into carriers), and filters plus an "Active at year" control let you see the exact fleet on dates like Pearl Harbor, D-Day, or the Cuban Missile Crisis, with ship-level fates and NavSource links in the variants tab.</p>
+  </div>
+  <a class="card-link" href="https://kfine99-glitch.github.io/Visualizations/us-naval-vessels.html"><span>➜</span> Open Naval Vessel Evolution</a>
+</div>
+
+<!-- ── WEAPONS SYSTEMS ────────────────────────────────────────────────────────── -->
+<div class="card" style="--accent:#b85040">
+  <div class="card-meta">
+    <span class="meta-item"><strong>Span</strong>1890 – present</span>
+    <span class="meta-item"><strong>Focus</strong>Individual &amp; crew-served</span>
+  </div>
+  <div class="card-title">US Weapons Systems Evolution</div>
+  <div class="card-body">
+    <p>Dense lineage map of 115 US weapons systems across all four services and SOCOM, from early Krag bayonets and revolvers through the M4A1, Barrett .50, Javelin, TOW, mortars, artillery, grenades, mines, and demolition systems.</p>
+    <p>Thirteen lanes cover bladed weapons and flamethrowers, handguns, rifles and carbines, sub-machine guns, machine guns, mortars, anti-tank rockets and recoilless rifles, MANPADS, pack and mountain artillery, towed and field artillery, grenades/demolitions, sniper and precision rifles, rotary/rapid-fire systems, and mines/area-denial. *</p>
+    <p>Category, branch, and era filters, plus Lend-Lease/export and "Active at year" controls, highlight service-unique weapons, export stories, and evolutionary chains, while the legend explains lineage, shared-platform, and influence connections across more than a century of US small arms and support weapons.</p>
+  </div>
+  <a class="card-link" href="https://kfine99-glitch.github.io/Visualizations/us-weapons-systems.html"><span>➜</span> Open Weapons Systems Evolution</a>
+</div>
+
+<!-- ── AMERICAN MILITARY CONFLICTS ────────────────────────────────────────────── -->
+<div class="card" style="--accent:#c8a864">
+  <div class="card-meta">
+    <span class="meta-item"><strong>Span</strong>1607 – 2024</span>
+    <span class="meta-item"><strong>Focus</strong>Colonial, territorial &amp; national conflicts</span>
+  </div>
+  <div class="card-title">American Military Conflicts</div>
+  <div class="card-body">
+    <p>417-year Gantt-style timeline of every named armed conflict involving the American colonies, territories, and United States — from the Anglo-Powhatan Wars and Pequot War through both World Wars, Korea, Vietnam, and the ongoing anti-ISIS campaign. Bar width represents actual conflict duration.</p>
+    <p>88 conflicts across nine military eras (Colonial, Revolutionary, Early Republic, Antebellum, Civil War, Indian Wars &amp; Imperialism, World Wars, Cold War, and Post-Cold War/GWOT), color-coded by adversary type (Indigenous Nations, European Powers, Internal/Rebellion, Latin America, Asia-Pacific, Middle East). Includes rarely-documented conflicts such as the Maryland–Virginia Border Wars (1635), Pueblo Revolt (1680), Stono Rebellion (1739), War of Jenkins' Ear (1739), Shays' Rebellion (1786), and Bleeding Kansas (1854–59). *</p>
+    <p>Filters for adversary type, military era, and outcome; a year filter that dims all conflicts not active in a given year; a Jump dropdown; and full-text search. Conflict-chaining arrows trace causal chains across the timeline — clicking any bar lights up its chain and lists connected conflicts in the detail panel. A Discover button offers six smart navigation modes: deadliest conflict, US defeats, longest conflict, single-year conflicts, most chain-connected, and not-yet-visited. *</p>
+  </div>
+  <a class="card-link" href="https://kfine99-glitch.github.io/Visualizations/american-military-conflicts.html"><span>➜</span> Open American Military Conflicts</a>
+</div>
+
+</div><!-- /grid2 -->
+
 </body>
 </html>
