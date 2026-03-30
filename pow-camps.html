@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Civil War Prisoner of War Camps, 1861–1865 | Interactive Visualizations</title>
+<meta name="description" content="Interactive comparative timeline of 22 major Civil War POW and parole camps, showing operational periods, peak populations, and mortality rates for both Union and Confederate prisons — including Point Lookout, MD and Camp Parole (Annapolis), MD."/>
+<meta name="robots" content="index,follow"/>
+<link rel="canonical" href="https://kfine99-glitch.github.io/Visualizations/pow-camps.html"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Civil War Prisoner of War Camps, 1861–1865"/>
+<meta property="og:description" content="Interactive timeline of 22 Civil War POW camps — Union and Confederate — showing operational dates, mortality rates from 2% to 33%, and the exchange cartel collapse that caused camp populations to explode in mid-1863."/>
+<meta property="og:url" content="https://kfine99-glitch.github.io/Visualizations/pow-camps.html"/>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","name":"Civil War Prisoner of War Camps, 1861–1865",
+ "url":"https://kfine99-glitch.github.io/Visualizations/pow-camps.html",
+ "description":"Interactive comparative timeline of Union and Confederate Civil War POW camps, 1861–1865.",
+ "isPartOf":{"@type":"WebSite","name":"Interactive Visualizations","url":"https://kfine99-glitch.github.io/Visualizations/"}}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:#030810;color:#fff;font-family:'JetBrains Mono',monospace;margin:0;overflow:hidden}
+
+/* ── NAV ── */
+#site-nav{background:#030810;border-bottom:1px solid rgba(255,255,255,.06);padding:7px 16px;font-size:7px;letter-spacing:.08em;position:relative;z-index:50}
+#site-nav a{color:rgba(200,168,100,.55);text-decoration:none}
+#site-nav a:hover{color:#c8a864}
+
+/* ── HEADER BAR ── */
+#hdr{height:46px;background:rgba(3,8,16,.98);border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:14px;padding:0 16px;position:relative;z-index:40;flex-shrink:0}
+#htitle{font-family:'Orbitron',sans-serif;font-size:9.5px;font-weight:700;letter-spacing:.14em;color:#c8a864;cursor:pointer;white-space:nowrap}
+#htitle:hover{color:#e0c078}
+#hsub{font-size:6px;letter-spacing:.16em;color:rgba(255,255,255,.28);text-transform:uppercase;white-space:nowrap}
+.hdiv{flex:1}
+
+/* ── MORTALITY LEGEND ── */
+#mort-legend{display:flex;align-items:center;gap:4px;flex-shrink:0}
+.ml-label{font-size:6px;letter-spacing:.1em;color:rgba(255,255,255,.3);text-transform:uppercase;margin-right:4px}
+.ml-swatch{width:28px;height:10px;border-radius:1px}
+.ml-pct{font-size:5.5px;color:rgba(255,255,255,.3);white-space:nowrap}
+
+/* ── MAIN LAYOUT ── */
+#main{position:fixed;top:calc(36px + 46px);left:0;right:0;bottom:0;display:flex}
+
+/* ── LEFT: TIMELINE ── */
+#tl-wrap{flex:0 0 60%;overflow:scroll;cursor:grab;position:relative;border-right:1px solid rgba(255,255,255,.06)}
+#tl-wrap:active{cursor:grabbing}
+#tl-wrap::-webkit-scrollbar{height:4px;width:4px}
+#tl-wrap::-webkit-scrollbar-thumb{background:rgba(200,168,100,.2);border-radius:2px}
+#tl-canvas{position:relative}
+
+/* ── DATE RULER ── */
+#ruler{position:sticky;top:0;height:30px;background:rgba(3,8,16,.98);border-bottom:1px solid rgba(255,255,255,.08);z-index:20;pointer-events:none}
+.r-tick{position:absolute;top:0;bottom:0;width:1px;background:rgba(255,255,255,.06)}
+.r-lbl{position:absolute;bottom:3px;font-size:6px;letter-spacing:.1em;color:rgba(255,255,255,.3);transform:translateX(-50%);white-space:nowrap}
+.r-year{bottom:3px;font-size:7.5px;font-weight:500;color:rgba(200,168,100,.5);letter-spacing:.08em}
+
+/* ── SECTION & GROUP HEADERS ── */
+.s-header{position:absolute;display:flex;align-items:center;gap:10px;padding:0 10px;border-bottom:1px solid rgba(255,255,255,.07);pointer-events:none}
+.s-header.union{background:rgba(30,70,140,.22)}
+.s-header.csa{background:rgba(140,50,30,.22)}
+.s-label{font-family:'Orbitron',sans-serif;font-size:7px;letter-spacing:.14em;font-weight:700;text-transform:uppercase}
+.s-sub{font-size:5.5px;letter-spacing:.1em;color:rgba(255,255,255,.35);text-transform:uppercase}
+.g-header{position:absolute;display:flex;align-items:center;gap:6px;padding:0 14px;pointer-events:none}
+.g-label{font-size:6px;letter-spacing:.12em;color:rgba(255,255,255,.38);text-transform:uppercase}
+.g-md-badge{font-size:5px;letter-spacing:.1em;background:rgba(200,168,100,.15);border:1px solid rgba(200,168,100,.3);border-radius:2px;padding:1px 5px;color:#c8a864}
+
+/* ── EXCHANGE DIVIDER ── */
+.x-divider{position:absolute;display:flex;align-items:center;gap:0;padding:0 10px;background:rgba(3,8,16,.95);border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08)}
+.xd-label{font-size:6px;letter-spacing:.13em;color:rgba(200,168,100,.45);text-transform:uppercase;white-space:nowrap;margin-right:12px}
+.xd-pills{display:flex;gap:6px;align-items:center}
+.xd-pill{font-size:5.5px;letter-spacing:.09em;padding:2px 8px;border-radius:2px;white-space:nowrap}
+.xd-pill.active{background:rgba(80,200,144,.15);border:1px solid rgba(80,200,144,.3);color:rgba(80,200,144,.8)}
+.xd-pill.broken{background:rgba(200,80,50,.15);border:1px solid rgba(200,80,50,.3);color:rgba(200,80,50,.8)}
+.xd-pill.halted{background:rgba(200,80,50,.25);border:1px solid rgba(200,80,50,.4);color:rgba(200,80,50,.9)}
+
+/* ── CAMP BARS ── */
+.camp-bar{position:absolute;border-radius:2px;cursor:pointer;transition:filter .12s,opacity .12s;display:flex;align-items:center;padding:0 5px;overflow:hidden}
+.camp-bar:hover{filter:brightness(1.25)}
+.camp-bar.active{outline:2px solid rgba(255,255,255,.7);outline-offset:1px;filter:brightness(1.3)}
+.cb-name{font-size:5.5px;letter-spacing:.07em;color:rgba(255,255,255,.85);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none}
+.cb-pct{font-size:5px;color:rgba(255,255,255,.55);margin-left:auto;flex-shrink:0;pointer-events:none}
+
+/* ── ROW BACKGROUNDS ── */
+.row-bg{position:absolute;pointer-events:none}
+.row-bg.union-row{background:rgba(30,70,140,.06)}
+.row-bg.csa-row{background:rgba(140,50,30,.06)}
+.row-bg.md-row{background:rgba(200,168,100,.05)}
+.row-bg.parole-row{background:rgba(80,150,80,.05)}
+
+/* ── KEY EVENT LINES ── */
+.ev-line{position:absolute;top:0;width:1px;pointer-events:none}
+.ev-line.key{width:2px}
+.ev-flag{position:absolute;top:30px;transform:translateX(-50%);z-index:15;pointer-events:none}
+.ev-flag-text{font-size:5.5px;letter-spacing:.07em;color:rgba(255,255,255,.5);white-space:nowrap;text-align:center;text-shadow:0 0 8px #000}
+.ev-flag-sub{font-size:5px;color:rgba(255,255,255,.3);text-align:center;margin-top:1px}
+
+/* ── RIGHT: MAP ── */
+#map-wrap{flex:1;position:relative}
+#map{width:100%;height:100%;background:#0a0f1a}
+.leaflet-container{background:#0a0f1a}
+
+/* ── DETAIL PANEL ── */
+#detail{display:none;position:absolute;bottom:0;right:0;width:100%;max-height:58%;background:rgba(3,8,16,.97);border-top:1px solid rgba(255,255,255,.1);z-index:500;overflow-y:auto;backdrop-filter:blur(20px)}
+#det-head{display:flex;align-items:center;gap:8px;padding:10px 14px 8px;border-bottom:1px solid rgba(255,255,255,.07)}
+#det-close{color:rgba(255,255,255,.3);cursor:pointer;font-size:15px;line-height:1;margin-left:auto}
+#det-close:hover{color:#fff}
+#det-name{font-family:'Orbitron',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;color:#fff}
+.det-side-badge{font-size:6px;letter-spacing:.12em;padding:2px 8px;border-radius:2px;text-transform:uppercase}
+.det-side-badge.union{background:rgba(50,120,200,.2);border:1px solid rgba(50,120,200,.4);color:rgba(100,170,240,.9)}
+.det-side-badge.csa{background:rgba(180,60,40,.2);border:1px solid rgba(180,60,40,.4);color:rgba(220,120,100,.9)}
+.det-side-badge.parole{background:rgba(80,160,80,.2);border:1px solid rgba(80,160,80,.4);color:rgba(120,200,120,.9)}
+#det-body{padding:10px 14px 14px;display:grid;grid-template-columns:1fr 1fr;gap:8px 16px}
+.det-stat{display:flex;flex-direction:column;gap:2px}
+.det-stat-label{font-size:5.5px;letter-spacing:.12em;color:rgba(255,255,255,.3);text-transform:uppercase}
+.det-stat-val{font-size:9px;color:rgba(255,255,255,.85)}
+.det-stat-val.mort-high{color:#e07050}
+.det-stat-val.mort-extreme{color:#e04030}
+.det-notes{grid-column:1/-1;font-size:7px;line-height:1.75;color:rgba(255,255,255,.5)}
+.det-links{grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap;margin-top:2px}
+.det-link{font-size:6px;letter-spacing:.1em;padding:3px 10px;border-radius:2px;text-decoration:none;text-transform:uppercase;transition:background .15s,color .15s}
+.det-link.wiki{background:rgba(80,140,200,.12);border:1px solid rgba(80,140,200,.25);color:rgba(100,160,220,.8)}
+.det-link.wiki:hover{background:rgba(80,140,200,.22);color:#78b4e8}
+.det-link.nps{background:rgba(80,180,100,.12);border:1px solid rgba(80,180,100,.25);color:rgba(100,200,120,.8)}
+.det-link.nps:hover{background:rgba(80,180,100,.22)}
+.det-link.hmdb{background:rgba(150,100,200,.12);border:1px solid rgba(150,100,200,.25);color:rgba(170,130,220,.8)}
+.det-link.hmdb:hover{background:rgba(150,100,200,.22)}
+
+/* ── ABOUT POPUP ── */
+#about-popup{display:none;position:fixed;top:60px;left:50%;transform:translateX(-50%);z-index:600;background:rgba(3,8,16,.97);border:1px solid rgba(255,255,255,.12);border-radius:4px;padding:18px 22px;width:560px;backdrop-filter:blur(20px);box-shadow:0 8px 40px rgba(0,0,0,.85)}
+#about-popup.on{display:block}
+#about-popup h3{font-family:'Orbitron',sans-serif;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.55);margin:0 0 12px;padding-bottom:7px;border-bottom:1px solid rgba(255,255,255,.07)}
+#about-popup p{font-size:7.5px;letter-spacing:.04em;color:rgba(255,255,255,.55);line-height:1.9;margin-bottom:8px}
+#about-popup p:last-child{margin-bottom:0;color:rgba(255,255,255,.28);font-size:7px;border-top:1px solid rgba(255,255,255,.06);padding-top:8px}
+#apx{position:absolute;top:8px;right:10px;color:rgba(255,255,255,.3);cursor:pointer;font-size:15px;line-height:1}
+#apx:hover{color:#fff}
+
+/* ── TOOLTIP ── */
+#tt{position:fixed;pointer-events:none;z-index:800;background:rgba(3,8,16,.95);border:1px solid rgba(255,255,255,.12);border-radius:3px;padding:5px 9px;font-size:6.5px;letter-spacing:.07em;color:rgba(255,255,255,.7);display:none;max-width:220px}
+
+/* ── BELOW VIZ ── */
+.viz-wrap{position:relative}
+.text-section{max-width:900px;margin:0 auto;padding:32px 24px}
+.text-section h2{font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#c8a864;margin:0 0 12px}
+.text-section p,.text-section li{font-size:13px;line-height:1.8;color:rgba(255,255,255,.55);margin:0 0 10px}
+.text-section ul{padding-left:20px}
+.text-section a{color:rgba(200,168,100,.7);text-decoration:none}
+.text-section a:hover{color:#c8a864;text-decoration:underline}
+.text-divider{border:none;border-top:1px solid rgba(255,255,255,.06);margin:0}
+#site-footer{padding:20px 24px;text-align:center;font-size:7px;letter-spacing:.1em;color:rgba(255,255,255,.18)}
+</style>
+</head>
+<body>
+
+<nav id="site-nav">
+  <a href="https://kfine99-glitch.github.io/Visualizations/">← Interactive Visualizations</a>
+</nav>
+
+<!-- ── HEADER ── -->
+<div id="hdr">
+  <span id="htitle">Civil War Prisoner of War Camps · 1861–1865</span>
+  <span id="hsub">22 camps · both sides · 56,000+ deaths</span>
+  <div class="hdiv"></div>
+  <div id="mort-legend">
+    <span class="ml-label">Mortality</span>
+    <div class="ml-swatch" style="background:#2878b8"></div><span class="ml-pct">&lt;3%</span>
+    <div class="ml-swatch" style="background:#4090a0"></div><span class="ml-pct">3–8%</span>
+    <div class="ml-swatch" style="background:#707098"></div><span class="ml-pct">8–13%</span>
+    <div class="ml-swatch" style="background:#a06030"></div><span class="ml-pct">13–18%</span>
+    <div class="ml-swatch" style="background:#c04820"></div><span class="ml-pct">18–24%</span>
+    <div class="ml-swatch" style="background:#c02020"></div><span class="ml-pct">&gt;24%</span>
+    <div class="ml-swatch" style="background:#508060;margin-left:6px"></div><span class="ml-pct">Parole</span>
+  </div>
+</div>
+
+<div id="main">
+  <div id="tl-wrap">
+    <div id="tl-canvas">
+      <div id="ruler"></div>
+      <!-- camp bars and annotations rendered by JS -->
+    </div>
+  </div>
+  <div id="map-wrap">
+    <div id="map"></div>
+    <div id="detail">
+      <div id="det-head">
+        <div class="det-side-badge union" id="det-badge">Union</div>
+        <span id="det-name">Camp Name</span>
+        <span id="det-close">✕</span>
+      </div>
+      <div id="det-body"></div>
+    </div>
+  </div>
+</div>
+
+<div id="about-popup">
+  <span id="apx">✕</span>
+  <h3>Civil War Prisoner of War Camps · 1861–1865</h3>
+  <p>An institutional timeline of 22 major prison and parole camps operated by the Union and Confederacy during the American Civil War. The width of each bar represents the camp's operational period; color encodes mortality rate from cool blue (low) through deep red (catastrophic). The story turns on a single mechanism: the Dix-Hill prisoner exchange cartel of July 1862 kept camps nearly empty for a year — until it collapsed in mid-1863 when the Confederacy refused to treat Black Union soldiers as legitimate prisoners of war.</p>
+  <p>Click any camp bar to open a detail panel and zoom the map to that location. Key historical events — Fort Donelson, the Dix-Hill Cartel, the cartel's collapse, Grant's deliberate suspension of exchanges, Andersonville's peak, Appomattox, and the Sultana disaster — are marked as vertical annotations crossing all rows.</p>
+  <p><strong>Maryland camps highlighted:</strong> Point Lookout (St. Mary's County) was the largest Union POW camp by peak population. Camp Parole (now the suburb of Annapolis called Parole) held Union soldiers released by the Confederacy and awaiting formal exchange — it was also Clara Barton's headquarters. Both are within 90 minutes of Bowie.</p>
+  <p>Sources: Official Records of the War of the Rebellion · Wikipedia / Civil War prison camps · American Battlefield Trust · NPS Andersonville NHS · Medical and Surgical History of the War of the Rebellion · Maryland DNR (Point Lookout) · HMDB</p>
+  <p>Developed and researched by Claude AI (Anthropic) · March 2026 · Conceived by Kevin Fine</p>
+</div>
+<div id="tt"></div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════════
+// CONSTANTS
+// ═══════════════════════════════════════════════════════════════════════
+const START     = new Date('1861-03-01'); // timeline left edge
+const END       = new Date('1866-01-01'); // timeline right edge
+const PPD       = 2.2;                   // pixels per day
+const ROW_H     = 26;                    // height of each camp row (px)
+const BAR_H     = 18;                    // height of each camp bar
+const BAR_PADY  = (ROW_H - BAR_H) / 2;  // vertical padding within row
+const SEC_H     = 30;                    // section header height
+const GRP_H     = 20;                    // group header height
+const DIV_H     = 38;                    // exchange divider height
+const RULER_H   = 30;                    // sticky date ruler height
+
+// x-position from ISO date string
+function xFromDate(d) {
+  return Math.round((new Date(d) - START) / 86400000 * PPD);
+}
+const TOTAL_W = xFromDate('1866-01-01') + 60;
+
+// ── ROW LAYOUT ──────────────────────────────────────────────────────────
+// Pre-computed y positions for every row and header.
+// type: 'section' | 'group' | 'camp' | 'divider'
+const ROWS = (function() {
+  const rows = [];
+  let y = RULER_H;
+  function sec(side, label, sub) { rows.push({type:'section', side, label, sub, y, h:SEC_H}); y += SEC_H; }
+  function grp(label, md) { rows.push({type:'group', label, md:!!md, y, h:GRP_H}); y += GRP_H; }
+  function camp(id, side) { rows.push({type:'camp', id, side, y, h:ROW_H}); y += ROW_H; }
+  function div() { rows.push({type:'divider', y, h:DIV_H}); y += DIV_H; }
+
+  sec('union', 'UNION PRISONER CAMPS', 'Holding Confederate Prisoners of War');
+  grp('Northeast & Mid-Atlantic');
+  camp('fort_warren','union'); camp('old_capitol','union'); camp('fort_delaware','union');
+  grp('Maryland — Local Connection', true);
+  camp('point_lookout','union'); camp('camp_parole','parole');
+  grp('Midwest & Great Plains');
+  camp('alton','union'); camp('camp_chase','union'); camp('camp_morton','union');
+  camp('camp_douglas','union'); camp('johnsons_island','union');
+  camp('rock_island','union'); camp('elmira','union');
+
+  div();
+
+  sec('csa', 'CONFEDERATE PRISONER CAMPS', 'Holding Union Prisoners of War');
+  grp('Virginia (Richmond-Area Prisons)');
+  camp('libby_prison','csa'); camp('castle_thunder','csa');
+  camp('belle_isle','csa'); camp('danville','csa');
+  grp('Southeast & Deep South');
+  camp('salisbury','csa'); camp('cahaba','csa');
+  camp('andersonville','csa'); camp('camp_lawton','csa');
+  camp('florence','csa'); camp('camp_ford','csa');
+
+  return rows;
+})();
+const CANVAS_H = ROWS[ROWS.length - 1].y + ROWS[ROWS.length - 1].h + 20;
+
+// ── MORTALITY COLOR ──────────────────────────────────────────────────────
+function mortalityColor(rate) {
+  if (rate === null || rate === undefined) return '#607090';
+  if (rate < 0)  return '#508060'; // parole camp
+  if (rate < 3)  return '#2878b8';
+  if (rate < 8)  return '#4090a0';
+  if (rate < 13) return '#707098';
+  if (rate < 18) return '#a06030';
+  if (rate < 24) return '#c04820';
+  return '#c02020';
+}
+
+// ── KEY EVENTS ──────────────────────────────────────────────────────────
+const KEY_EVENTS = [
+  {id:'fort_sumter',    date:'1861-04-12', label:'Fort Sumter',         sub:'War begins',                    color:'#c85050', key:true},
+  {id:'fort_donelson',  date:'1862-02-16', label:'Fort Donelson',       sub:'14,000 CSA captured',           color:'#c89050'},
+  {id:'dix_hill',       date:'1862-07-22', label:'Dix-Hill Cartel',     sub:'Exchange system begins',        color:'#50c890', key:true},
+  {id:'gettysburg',     date:'1863-07-03', label:'Gettysburg',          sub:'Prisoner crisis begins',        color:'#c89050'},
+  {id:'cartel_collapse',date:'1863-07-30', label:'Cartel Collapses',    sub:'USCT exchange refused',         color:'#c85050', key:true},
+  {id:'grant_halts',    date:'1864-04-17', label:'Grant Halts Exchanges',sub:'Strategic decision',           color:'#c83030', key:true},
+  {id:'ande_peak',      date:'1864-08-08', label:'Andersonville Peak',  sub:'32,899 prisoners',              color:'#c82020'},
+  {id:'appomattox',     date:'1865-04-09', label:'Appomattox',          sub:"Lee surrenders",                color:'#50c890', key:true},
+  {id:'sultana',        date:'1865-04-27', label:'Sultana Disaster',    sub:'1,547 freed POWs die',          color:'#c86040'},
+  {id:'wirz',           date:'1865-11-10', label:'Wirz Executed',       sub:'War crimes execution',          color:'#908050'},
+];
+
+// ═══════════════════════════════════════════════════════════════════════
+// CAMPS DATA — filled in Stages 2 & 3
+// ═══════════════════════════════════════════════════════════════════════
+const CAMPS = [
+
+// ── UNION CAMPS ──────────────────────────────────────────────────────────
+
+{id:'fort_warren', side:'union', name:'Fort Warren',
+ location:'Boston Harbor, MA', state:'MA', lat:42.319, lng:-70.934,
+ opened:'1861-04-01', closed:'1865-08-01',
+ totalPrisoners:2000, peakPop:1500, deaths:13, mortalityRate:0.7,
+ type:'Officers / Political Prisoners',
+ commandant:'Col. Justin Dimick',
+ notes:"Fort Warren held Confederate officers and political prisoners — including Confederate Vice President Alexander Stephens, and Confederate diplomats James Mason and John Slidell (briefly, before their release sparked the Trent Affair). Conditions were relatively comfortable: officers received better rations, maintained their own quarters, and were permitted limited movement. One prisoner, a young woman named Melanie Lanier, disguised herself as a man to join her husband; she was discovered and died in a botched escape attempt, becoming the 'Lady in Black' of Boston Harbor ghost stories. The fort remains a National Historic Landmark and is open to visitors.",
+ wiki:'https://en.wikipedia.org/wiki/Fort_Warren_(Massachusetts)'},
+
+{id:'old_capitol', side:'union', name:'Old Capitol Prison',
+ location:'Washington, DC', state:'DC', lat:38.892, lng:-77.005,
+ opened:'1861-08-01', closed:'1865-08-01',
+ totalPrisoners:4000, peakPop:800, deaths:30, mortalityRate:1.5,
+ type:'Political / Mixed',
+ commandant:'William P. Wood',
+ notes:"Old Capitol Prison occupied a building that had previously served as the US Capitol after the British burned the original in 1814. It held a mixed population: Confederate officers, political prisoners, spies, smugglers, and Union soldiers accused of crimes. Confederate spy Rose O'Neal Greenhow was imprisoned here, and famously continued passing intelligence from her cell. The notorious Belle Boyd was also briefly held here. After the war, Henry Wirz (commandant of Andersonville) was tried and executed here on November 10, 1865 — the only war crimes execution following the Civil War, and the only one until Nuremberg.",
+ wiki:'https://en.wikipedia.org/wiki/Old_Capitol_Prison'},
+
+{id:'fort_delaware', side:'union', name:'Fort Delaware',
+ location:'Pea Patch Island, DE', state:'DE', lat:39.579, lng:-75.557,
+ opened:'1862-01-01', closed:'1865-08-15',
+ totalPrisoners:33000, peakPop:12595, deaths:2700, mortalityRate:7.6,
+ type:'POW Camp',
+ commandant:'Brig. Gen. Albin Schoepf',
+ notes:"Fort Delaware occupied a granite island fortress in the Delaware River, prone to flooding, extreme summer heat, and bitter winter cold. Confederate prisoners dubbed it the 'Fort Delaware Death Pen.' Schoepf was nicknamed 'General Terror' for his harsh administration. The Confederate dead — over 2,000 men — are buried at Finn's Point National Cemetery across the river in New Jersey, marked by a mass grave monument. The fort is still standing and is open for tours via ferry from Delaware City. In the Civil War, the prison held Robert E. Lee's son, Gen. W.H.F. 'Rooney' Lee, as a hostage to prevent Confederate retaliation executions.",
+ wiki:'https://en.wikipedia.org/wiki/Fort_Delaware',
+ hmdb:'https://www.hmdb.org/m.asp?m=43618'},
+
+{id:'camp_chase', side:'union', name:'Camp Chase',
+ location:'Columbus, OH', state:'OH', lat:39.983, lng:-83.090,
+ opened:'1861-05-01', closed:'1865-08-01',
+ totalPrisoners:25000, peakPop:9423, deaths:2260, mortalityRate:8.7,
+ type:'POW Camp',
+ commandant:'Multiple commanders',
+ notes:"Camp Chase was one of the first major Union prison camps, originally a training facility converted after the flood of Confederate prisoners following Fort Donelson (February 1862). The camp held both Confederate POWs and, at times, Union soldiers on parole awaiting exchange. Conditions varied considerably — with decent treatment early in the war — but crowding, disease, and administrative indifference led to significant mortality. A Confederate cemetery at Camp Chase (now preserved in Columbus) contains 2,260 graves and is maintained today; it is the largest Confederate cemetery outside the South.",
+ wiki:'https://en.wikipedia.org/wiki/Camp_Chase',
+ hmdb:'https://www.hmdb.org/m.asp?m=4893'},
+
+{id:'alton', side:'union', name:'Alton Federal Prison',
+ location:'Alton, IL', state:'IL', lat:38.891, lng:-90.184,
+ opened:'1862-02-01', closed:'1865-07-01',
+ totalPrisoners:11764, peakPop:1800, deaths:1500, mortalityRate:11.8,
+ type:'POW Camp',
+ commandant:'Col. James Briscoe',
+ notes:"Alton Federal Prison occupied a former Illinois state penitentiary on the Mississippi River — the same institution where the Lincoln-Douglas debates began nearby in 1858. The cramped antebellum stone cells that had been condemned as too harsh for civilian criminals were now filled with Confederate prisoners. A devastating smallpox epidemic in the winter of 1862 killed over 300 men in a single outbreak; an island in the river served as a quarantine station. The death rate of 11.8% was above average for Union camps. A Confederate memorial marker and the ruins of the prison wall remain in Alton today.",
+ wiki:'https://en.wikipedia.org/wiki/Alton_Prison'},
+
+{id:'johnsons_island', side:'union', name:"Johnson's Island",
+ location:'Sandusky Bay, OH', state:'OH', lat:41.619, lng:-82.793,
+ opened:'1862-04-11', closed:'1865-09-01',
+ totalPrisoners:12082, peakPop:3256, deaths:295, mortalityRate:2.7,
+ type:"Officers' Camp",
+ commandant:'Lt. Col. William Pierson',
+ notes:"Johnson's Island was the Union's designated officers' camp — the only Civil War prison purpose-built to house Confederate officers exclusively. With a very low mortality rate of 2.7%, it stands in sharp contrast to nearly every other camp on either side. Officers organized theatrical productions ('Rebel Thespians'), debating societies, and prayer meetings. The Lake Erie winters were brutal, however, and the dramatic cold was a constant hardship. In 1864, a Confederate plot to seize the USS Michigan and liberate the prisoners was foiled. A Confederate cemetery on the island contains 206 graves; the site is now a state wildlife preserve.",
+ wiki:'https://en.wikipedia.org/wiki/Johnson%27s_Island'},
+
+{id:'camp_morton', side:'union', name:'Camp Morton',
+ location:'Indianapolis, IN', state:'IN', lat:39.798, lng:-86.146,
+ opened:'1862-02-01', closed:'1865-06-01',
+ totalPrisoners:12000, peakPop:4000, deaths:1763, mortalityRate:10.0,
+ type:'POW Camp',
+ commandant:'Col. Richard Owen (humane); later Col. A.A. Stevens',
+ notes:"Camp Morton had a split personality: under its first commandant, Col. Richard Owen — remembered as 'the most humane prison commandant on either side' — Confederate prisoners received decent treatment, and many wrote admiringly of him after the war. The Indiana Monument Association later erected a monument to Owen in his memory on initiative of Confederate veterans. As the camp grew and Owen was replaced, conditions deteriorated sharply with overcrowding and disease. Confederate POWs who died at Camp Morton are buried in Crown Hill Cemetery in Indianapolis, which also became the burial site of President Benjamin Harrison.",
+ wiki:'https://en.wikipedia.org/wiki/Camp_Morton'},
+
+{id:'camp_douglas', side:'union', name:'Camp Douglas',
+ location:'Chicago, IL', state:'IL', lat:41.826, lng:-87.615,
+ opened:'1862-02-01', closed:'1865-07-01',
+ totalPrisoners:26000, peakPop:12082, deaths:5000, mortalityRate:16.0,
+ type:'POW Camp',
+ commandant:'Multiple; Col. Benjamin Sweet (1863–65)',
+ notes:"Camp Douglas was dubbed the 'Andersonville of the North' — a label that captured its notorious reputation, even if the death toll was lower than its Confederate counterpart. In early 1863, the death rate reached 10% per month (an annualized rate that would have emptied the camp in under a year), prompting the US Sanitary Commission to call it an 'extermination camp.' Commandants deliberately cut rations for personal profit, leading to scurvy, starvation, and mass disease. Approximately 26,000 Confederate prisoners passed through its gates; death estimates range widely from 4,500 to over 6,000. The camp occupied what is now the Douglas neighborhood of Chicago's South Side.",
+ wiki:'https://en.wikipedia.org/wiki/Camp_Douglas_(Illinois)'},
+
+{id:'point_lookout', side:'union', name:'Point Lookout (Camp Hoffman)',
+ location:"St. Mary's County, MD", state:'MD', lat:38.054, lng:-76.325,
+ opened:'1863-08-01', closed:'1865-06-30',
+ totalPrisoners:52000, peakPop:20000, deaths:4000, mortalityRate:8.0,
+ type:'POW Camp — Largest Union Camp',
+ commandant:'Brig. Gen. James Barnes; later Brig. Gen. James Barnes',
+ notes:"Point Lookout — at the tip of St. Mary's County where the Potomac meets the Chesapeake Bay — was the LARGEST Union prisoner of war camp by peak population, swelling to over 20,000 Confederate prisoners in a space designed for 10,000. ALL prisoners were housed in tents; no barracks were ever built. The camp was established following Gettysburg (July 1863) when it became clear no other facility could absorb the prisoner influx. Black Union regiments — including the 36th USCT, the 5th Massachusetts Colored Cavalry, and the 3rd and 4th Maryland Colored Regiments — served as guards, a deliberately humiliating assignment in Confederate eyes and a deliberate statement of Union policy. Among those imprisoned here: Confederate poet Sidney Lanier. The site is now Point Lookout State Park, open to the public. A Confederate cemetery with 3,384 graves is maintained here.",
+ wiki:'https://en.wikipedia.org/wiki/Point_Lookout_State_Park',
+ nps:'https://www.nps.gov/nr/travel/national_cemeteries/maryland/point_lookout_confederate_cemetery.html',
+ hmdb:'https://www.hmdb.org/m.asp?m=94034'},
+
+{id:'rock_island', side:'union', name:'Rock Island Prison',
+ location:'Rock Island, IL', state:'IL', lat:41.521, lng:-90.541,
+ opened:'1863-12-01', closed:'1865-07-01',
+ totalPrisoners:12409, peakPop:8594, deaths:1960, mortalityRate:15.8,
+ type:'POW Camp',
+ commandant:'Col. Adolphus Johnson',
+ notes:"Rock Island Prison was built on an island in the Mississippi River and opened in December 1863 — just in time for an exceptionally brutal winter that killed hundreds of prisoners who had received only thin summer clothing. Smallpox swept the camp in early 1864. At 15.8% mortality, Rock Island was one of the deadliest Union camps. A Confederate cemetery on the island contains 1,960 graves — today the site of the Rock Island Arsenal, a still-active Army installation. The Confederate dead lie in what is now a military cemetery on federal land, maintained by the US Army.",
+ wiki:'https://en.wikipedia.org/wiki/Rock_Island_POW_Camp'},
+
+{id:'elmira', side:'union', name:'Elmira Prison Camp',
+ location:'Elmira, NY', state:'NY', lat:42.083, lng:-76.808,
+ opened:'1864-07-06', closed:'1865-07-11',
+ totalPrisoners:12123, peakPop:12123, deaths:2963, mortalityRate:24.3,
+ type:'POW Camp',
+ commandant:'Col. Benjamin Tracy; Brig. Gen. William Hoffman (overseer)',
+ notes:"'Hellmira' — the nickname Confederate prisoners gave this camp — had one of the highest death rates of any Civil War prison camp on either side. Opened in July 1864, its population immediately swelled to 12,123 men — triple its intended capacity of 4,000. Col. Hoffman, the Union Commissary-General of Prisoners, deliberately restricted rations and refused to issue adequate blankets, partly as retaliation for conditions in Confederate prisons and partly for personal financial gain from unspent commissary funds. The Chemung River winter killed hundreds from exposure. Townspeople paid admission to view prisoners from an observation deck outside the fence. A Confederate cemetery in Elmira contains 2,963 graves.",
+ wiki:'https://en.wikipedia.org/wiki/Elmira_Prison_Camp'},
+
+// ── UNION PAROLE CAMP ──────────────────────────────────────────────────
+
+{id:'camp_parole', side:'parole', name:'Camp Parole',
+ location:'Annapolis (Parole), MD', state:'MD', lat:38.980, lng:-76.524,
+ opened:'1862-09-01', closed:'1865-10-01',
+ totalPrisoners:35000, peakPop:10000, deaths:300, mortalityRate:-1,
+ type:'Union Parole Camp — NOT a POW camp',
+ commandant:'Multiple Union Army officers',
+ notes:"Camp Parole was the Union's primary East Coast facility for soldiers who had been captured by the Confederacy and released on 'parole of honor' — a sworn promise not to fight until formally exchanged for a Confederate prisoner held by the Union. The camp held Union soldiers in a legal limbo: they could not return to combat, but were not prisoners. Soldiers roamed nearby Annapolis freely, leading to conflicts with civilians. Clara Barton used Camp Parole as her headquarters, coordinating the identification of dead and missing soldiers. When the exchange cartel collapsed in 1863, thousands of men accumulated here with no prospect of exchange, demoralizing the camp. The suburb of Annapolis is still called Parole today because of this camp — and its streets are named after Union generals. The dead were buried at Annapolis National Cemetery.",
+ wiki:'https://en.wikipedia.org/wiki/Camp_Parole',
+ hmdb:'https://www.hmdb.org/m.asp?m=66303'},
+
+]; // CONFEDERATE CAMPS added in Stage 3
+
+// Confederate camps — appended here
+CAMPS.push(
+
+{id:'libby_prison', side:'csa', name:'Libby Prison',
+ location:'Richmond, VA', state:'VA', lat:37.531, lng:-77.440,
+ opened:'1861-07-01', closed:'1865-04-03',
+ totalPrisoners:125000, peakPop:1200, deaths:1700, mortalityRate:1.4,
+ type:'Officers\' Prison (Transit Hub)',
+ commandant:'Maj. Thomas Turner',
+ notes:"Libby Prison occupied a converted tobacco warehouse in Richmond, two blocks from the James River. It held Union officers exclusively — general officers were occasionally exchanged quickly, but lower-ranked officers languished for months or years. The peak population was relatively small because Libby served partly as a transit camp: prisoners were processed here before being sent south to Andersonville or other camps. In February 1864, 109 Union officers escaped through a tunnel in what was the largest prison break of the war — 59 reached Union lines, 48 were recaptured, 2 drowned. Libby is now demolished; its bricks were salvaged to build a museum in Chicago, which has also since closed.",
+ wiki:'https://en.wikipedia.org/wiki/Libby_Prison'},
+
+{id:'castle_thunder', side:'csa', name:'Castle Thunder',
+ location:'Richmond, VA', state:'VA', lat:37.533, lng:-77.446,
+ opened:'1862-08-01', closed:'1865-04-03',
+ totalPrisoners:3000, peakPop:1400, deaths:800, mortalityRate:20.0,
+ type:'Political / Mixed',
+ commandant:'Capt. George Alexander',
+ notes:"Castle Thunder occupied three connected tobacco warehouses near Libby Prison in Richmond. It held a grim mix: political prisoners, Union POWs, Confederate deserters, spies, women accused of espionage, and enslaved people suspected of disloyalty. Confederate deserters were sometimes executed in the courtyard. Captain Alexander was investigated by the Confederate Congress for cruelty in 1863 — witnesses described floggings, starvation, and dogs used to intimidate prisoners — but was ultimately cleared. The facility represents the Confederate use of military detention against its own population, not just enemy soldiers. Belle Boyd, Confederate spy, was briefly held here.",
+ wiki:'https://en.wikipedia.org/wiki/Castle_Thunder_(Richmond)'},
+
+{id:'belle_isle', side:'csa', name:'Belle Isle',
+ location:'Richmond, VA (island in James River)', state:'VA', lat:37.527, lng:-77.459,
+ opened:'1862-07-01', closed:'1865-04-03',
+ totalPrisoners:30000, peakPop:8000, deaths:1000, mortalityRate:5.0,
+ type:'Enlisted POW Camp',
+ commandant:'Lt. Virginius Bossieux',
+ notes:"Belle Isle was a 54-acre island in the James River a stone's throw from downtown Richmond, used for Union enlisted men while officers went to Libby Prison nearby. The open stockade — no barracks, minimal shelter — exposed prisoners to the full range of Virginia weather. At peak, 8,000 men lived in open tents or makeshift shelters on a mudflat. Walt Whitman visited returning prisoners from Belle Isle and wrote his famous description: 'Can these be men — these little, livid, ash-streaked, monkey-looking dwarfs? Are they not really mummified, dwindling corpses?' The island is now a public park in Richmond's James River Park System, accessible by a pedestrian suspension bridge.",
+ wiki:'https://en.wikipedia.org/wiki/Belle_Isle_(Virginia)'},
+
+{id:'danville', side:'csa', name:'Danville Prisons',
+ location:'Danville, VA', state:'VA', lat:36.586, lng:-79.395,
+ opened:'1863-11-01', closed:'1865-04-01',
+ totalPrisoners:9000, peakPop:3500, deaths:1400, mortalityRate:15.5,
+ type:'POW Camp (Multiple Warehouses)',
+ commandant:'Maj. George Hewitt',
+ notes:"Danville operated six tobacco warehouses as prisons, numbered 1 through 6, receiving overflow prisoners from Richmond. The winter of 1863-64 was catastrophic — prisoners arrived without adequate clothing and shelter in freezing temperatures, and disease swept the overcrowded warehouses. Private Benjamin Booth of Iowa kept a daily death log: '58 men died on December 1, 1864 alone.' At 15.5% mortality, Danville was one of the deadlier Confederate prisons. Jefferson Davis's retreat from Richmond passed through Danville in April 1865; the city briefly served as the last Confederate capital before Davis fled further south.",
+ wiki:'https://en.wikipedia.org/wiki/Danville_prison'},
+
+{id:'salisbury', side:'csa', name:'Salisbury Prison',
+ location:'Salisbury, NC', state:'NC', lat:35.671, lng:-80.474,
+ opened:'1861-12-01', closed:'1865-04-01',
+ totalPrisoners:15000, peakPop:10321, deaths:5000, mortalityRate:33.0,
+ type:'POW Camp',
+ commandant:'Maj. John Gee',
+ notes:"Salisbury Prison's trajectory is one of the Civil War's most dramatic reversals. In 1861-62, only 120 prisoners occupied the converted cotton mill, conditions were decent, and prisoners played baseball in the yard. But when the exchange cartel collapsed and Salisbury's population exploded to over 10,000 men in late 1864, mortality may have actually exceeded Andersonville's. Private Booth recorded 58 deaths in a single day; more than 5,000 men died in the final months. The 33% mortality rate is one of the highest of any Civil War prison. A Confederate officer noted that the grounds were so contaminated 'the smell was detected a mile away.' Major Gee was tried for war crimes but acquitted.",
+ wiki:'https://en.wikipedia.org/wiki/Salisbury_Prison'},
+
+{id:'cahaba', side:'csa', name:'Cahaba Prison (Castle Morgan)',
+ location:'Cahaba, AL', state:'AL', lat:32.535, lng:-87.309,
+ opened:'1863-06-01', closed:'1865-04-01',
+ totalPrisoners:5000, peakPop:3000, deaths:200, mortalityRate:4.0,
+ type:'POW Camp',
+ commandant:'Capt. H.A.M. Henderson',
+ notes:"Cahaba Prison — officially Castle Morgan — occupied a partly-finished warehouse in the ghost town of Cahaba, Alabama (the former state capital, then declining). Despite severe overcrowding and periodic flooding from the Alabama River, mortality at Cahaba was remarkably low compared to other Confederate camps. The commandant was considered relatively humane and maintained order. The cruel irony: many Cahaba survivors were loaded onto the steamboat Sultana in April 1865 for the trip home after their release. The Sultana's boilers exploded on April 27, 1865, killing an estimated 1,547 freed prisoners — a death toll larger than the Titanic — in a disaster virtually unknown to most Americans.",
+ wiki:'https://en.wikipedia.org/wiki/Cahaba_Prison'},
+
+{id:'andersonville', side:'csa', name:'Andersonville Prison (Camp Sumter)',
+ location:'Andersonville, GA', state:'GA', lat:32.197, lng:-84.131,
+ opened:'1864-02-27', closed:'1865-04-26',
+ totalPrisoners:45000, peakPop:32899, deaths:12919, mortalityRate:28.7,
+ type:'POW Camp — Most Notorious',
+ commandant:'Capt. Henry Wirz',
+ notes:"Andersonville is the most notorious prison camp in American history. Built in February 1864 to relieve overcrowding in Richmond, its 16.5 acres were designed for 10,000 men — by August 1864 it held 32,899. There were no barracks; prisoners lived in the open or built makeshift shelters. A creek running through the site served as both the water supply and sewer. Nearly 13,000 men died in 14 months of operation — roughly 100 per day at peak. Diarists described men weighing 90 pounds, down from 180. Walt Whitman wrote of returning prisoners: 'Are they not really mummified, dwindling corpses?' Commandant Henry Wirz was tried and hanged on November 10, 1865 — the only Civil War crimes execution, and the only such execution until the Nuremberg trials in 1946. The site is a National Historic Site operated by the NPS.",
+ wiki:'https://en.wikipedia.org/wiki/Andersonville_prison',
+ nps:'https://www.nps.gov/ande/index.htm'},
+
+{id:'camp_lawton', side:'csa', name:'Camp Lawton (Millen)',
+ location:'Millen, GA', state:'GA', lat:32.805, lng:-81.966,
+ opened:'1864-10-15', closed:'1864-11-22',
+ totalPrisoners:10000, peakPop:10000, deaths:700, mortalityRate:7.0,
+ type:'POW Camp (emergency dispersal)',
+ commandant:'Capt. D. Winn',
+ notes:"Camp Lawton was hastily built in October 1864 as Andersonville was evacuated ahead of Sherman's march. Designed to hold 40,000 men across 42 acres — larger than Andersonville — it received about 10,000 prisoners who were already severely debilitated from prior imprisonment. It operated for only six weeks before Sherman's advance forced its abandonment on November 22, 1864. The site was rediscovered by archaeologists in 2010 and is now the Magnolia Springs State Park in Georgia. The rapid construction, brief operation, and abrupt abandonment make it a symbol of the Confederacy's collapsing logistics in the war's final months.",
+ wiki:'https://en.wikipedia.org/wiki/Camp_Lawton'},
+
+{id:'florence', side:'csa', name:'Florence Stockade',
+ location:'Florence, SC', state:'SC', lat:34.195, lng:-79.762,
+ opened:'1864-09-15', closed:'1865-02-25',
+ totalPrisoners:16000, peakPop:15000, deaths:2800, mortalityRate:17.5,
+ type:'POW Camp (emergency dispersal)',
+ commandant:'Brig. Gen. William Robertson',
+ notes:"Florence Stockade was built in September 1864 as a second emergency dispersal camp from Andersonville, following Sherman's capture of Atlanta. The 15,000-18,000 men who arrived were already weakened from their time at Andersonville — making Florence's roughly 17-18% mortality rate even more tragic, as many men who might have survived a single camp could not endure two. Private John McElroy, imprisoned in both camps, wrote: 'I think all who experienced confinement in both places will agree that Florence was the worse of the two.' The camp operated only five months before prisoners were transferred north. An estimated 2,800 men died there.",
+ wiki:'https://en.wikipedia.org/wiki/Florence_Stockade'},
+
+{id:'camp_ford', side:'csa', name:'Camp Ford',
+ location:'Tyler, TX', state:'TX', lat:32.338, lng:-95.319,
+ opened:'1863-03-01', closed:'1865-05-17',
+ totalPrisoners:6000, peakPop:4600, deaths:286, mortalityRate:5.0,
+ type:'POW Camp (Trans-Mississippi)',
+ commandant:'Col. R.T.P. Allen; later Col. William Parsons',
+ notes:"Camp Ford was the largest Confederate prison camp west of the Mississippi River, occupying an elevated pine forest outside Tyler, Texas. Relatively remote from major operations, it held Union prisoners from the Red River Campaign (1864) and captures from the Gulf Coast. The natural terrain — trees for shade and fuel, a stream for water — and less severe overcrowding kept mortality at around 5%, moderate for a Confederate camp. Conditions deteriorated sharply in the spring of 1864 when 4,600 Red River Campaign prisoners arrived simultaneously. The camp was surrendered in May 1865, after the war's effective end. The site is preserved as Camp Ford Historic Park in Tyler.",
+ wiki:'https://en.wikipedia.org/wiki/Camp_Ford'}
+
+);
+
+// ═══════════════════════════════════════════════════════════════════════
+// RENDERING — filled in Stage 4
+// ═══════════════════════════════════════════════════════════════════════
+let activeId = null;
+
+// Stub: build when CAMPS is populated
+function buildVisualization() {
+  const canvas = document.getElementById('tl-canvas');
+  canvas.style.width  = TOTAL_W + 'px';
+  canvas.style.height = CANVAS_H + 'px';
+
+  buildRuler();
+  buildRowBackgrounds(canvas);
+  buildStructureHeaders(canvas);
+  buildExchangeDivider(canvas);
+  buildKeyEventLines(canvas);
+  buildCampBars(canvas);
+}
+
+// ── RULER ────────────────────────────────────────────────────────────────
+function buildRuler() {
+  const ruler = document.getElementById('ruler');
+  ruler.style.width = TOTAL_W + 'px';
+  const s = new Date('1861-01-01');
+  const e = new Date('1866-06-01');
+  for (let d = new Date(s); d <= e; d.setMonth(d.getMonth() + 1)) {
+    const x = xFromDate(d.toISOString().slice(0,10));
+    if (x < 0) continue;
+    const tick = document.createElement('div');
+    tick.className = 'r-tick';
+    tick.style.left = x + 'px';
+    ruler.appendChild(tick);
+    if (d.getMonth() === 0) {
+      // Year label
+      const lbl = document.createElement('div');
+      lbl.className = 'r-lbl r-year';
+      lbl.style.left = x + 'px';
+      lbl.textContent = d.getFullYear();
+      ruler.appendChild(lbl);
+    } else if (d.getMonth() % 3 === 0) {
+      // Quarter label
+      const months = ['Jan','Apr','Jul','Oct'];
+      const lbl = document.createElement('div');
+      lbl.className = 'r-lbl';
+      lbl.style.left = x + 'px';
+      lbl.textContent = months[d.getMonth() / 3];
+      ruler.appendChild(lbl);
+    }
+  }
+}
+
+// ── ROW BACKGROUNDS ──────────────────────────────────────────────────────
+function buildRowBackgrounds(canvas) {
+  ROWS.forEach(row => {
+    if (row.type !== 'camp') return;
+    const bg = document.createElement('div');
+    bg.className = 'row-bg';
+    if (row.side === 'parole') bg.classList.add('parole-row');
+    else if (row.id === 'point_lookout') bg.classList.add('md-row');
+    else if (row.side === 'union') bg.classList.add('union-row');
+    else bg.classList.add('csa-row');
+    bg.style.cssText = `left:0;top:${row.y}px;width:100%;height:${row.h}px`;
+    canvas.appendChild(bg);
+  });
+}
+
+// ── STRUCTURE HEADERS ────────────────────────────────────────────────────
+function buildStructureHeaders(canvas) {
+  ROWS.forEach(row => {
+    if (row.type === 'section') {
+      const el = document.createElement('div');
+      el.className = `s-header ${row.side}`;
+      el.style.cssText = `left:0;top:${row.y}px;width:100%;height:${row.h}px`;
+      const col = row.side === 'union' ? '#5090c8' : '#c07050';
+      el.innerHTML = `<span class="s-label" style="color:${col}">${row.label}</span><span class="s-sub">${row.sub}</span>`;
+      canvas.appendChild(el);
+    } else if (row.type === 'group') {
+      const el = document.createElement('div');
+      el.className = 'g-header';
+      el.style.cssText = `left:0;top:${row.y}px;width:100%;height:${row.h}px`;
+      el.innerHTML = `<span class="g-label">${row.label}</span>` +
+        (row.md ? '<span class="g-md-badge">★ Maryland</span>' : '');
+      canvas.appendChild(el);
+    }
+  });
+}
+
+// ── EXCHANGE CARTEL DIVIDER ──────────────────────────────────────────────
+function buildExchangeDivider(canvas) {
+  const divRow = ROWS.find(r => r.type === 'divider');
+  if (!divRow) return;
+  const el = document.createElement('div');
+  el.className = 'x-divider';
+  el.style.cssText = `left:0;top:${divRow.y}px;width:100%;height:${divRow.h}px`;
+  el.innerHTML = `
+    <span class="xd-label">Exchange Cartel Status</span>
+    <div class="xd-pills">
+      <span class="xd-pill" style="background:rgba(80,80,80,.15);border:1px solid rgba(120,120,120,.3);color:rgba(180,180,180,.6)">Pre-War: Ad-hoc</span>
+      <span style="font-size:6px;color:rgba(255,255,255,.2)">→</span>
+      <span class="xd-pill active">Jul 1862: Dix-Hill Cartel Active</span>
+      <span style="font-size:6px;color:rgba(255,255,255,.2)">→</span>
+      <span class="xd-pill broken">Jul 1863: Cartel Collapses (USCT)</span>
+      <span style="font-size:6px;color:rgba(255,255,255,.2)">→</span>
+      <span class="xd-pill halted">Apr 1864: Grant Halts All Exchanges</span>
+      <span style="font-size:6px;color:rgba(255,255,255,.2)">→</span>
+      <span class="xd-pill active">Early 1865: Partial Resumption</span>
+    </div>`;
+  canvas.appendChild(el);
+}
+
+// ── KEY EVENT VERTICAL LINES ─────────────────────────────────────────────
+function buildKeyEventLines(canvas) {
+  // Stagger flag positions to avoid overlap
+  const staggerY = [32, 52, 32, 72, 52, 32, 92, 32, 52, 32];
+  KEY_EVENTS.forEach((ev, i) => {
+    const x = xFromDate(ev.date);
+    // Line spanning full canvas height
+    const line = document.createElement('div');
+    line.className = 'ev-line' + (ev.key ? ' key' : '');
+    line.style.cssText = `left:${x}px;top:${RULER_H}px;height:${CANVAS_H - RULER_H}px;background:${ev.color};opacity:${ev.key ? .35 : .18}`;
+    canvas.appendChild(line);
+    // Flag label
+    const flag = document.createElement('div');
+    flag.className = 'ev-flag';
+    flag.style.left = x + 'px';
+    flag.style.top  = (RULER_H + staggerY[i % staggerY.length]) + 'px';
+    flag.innerHTML  = `<div class="ev-flag-text" style="color:${ev.color}">${ev.label}</div>
+                       <div class="ev-flag-sub">${ev.sub}</div>`;
+    canvas.appendChild(flag);
+  });
+}
+
+// ── CAMP BARS ────────────────────────────────────────────────────────────
+function buildCampBars(canvas) {
+  const campLookup = Object.fromEntries(CAMPS.map(c => [c.id, c]));
+  ROWS.forEach(row => {
+    if (row.type !== 'camp') return;
+    const camp = campLookup[row.id];
+    if (!camp) return;
+    const x0 = xFromDate(camp.opened);
+    const x1 = xFromDate(camp.closed);
+    const w  = Math.max(6, x1 - x0);
+    const col = mortalityColor(camp.mortalityRate);
+    const bar = document.createElement('div');
+    bar.className = 'camp-bar';
+    bar.id = 'bar-' + camp.id;
+    bar.style.cssText = `left:${x0}px;top:${row.y + BAR_PADY}px;width:${w}px;height:${BAR_H}px;background:${col};border:1px solid rgba(255,255,255,.12)`;
+    // Camp name inside bar (if wide enough)
+    const mortText = camp.mortalityRate < 0 ? 'Parole' : camp.mortalityRate.toFixed(1) + '%';
+    bar.innerHTML = `<span class="cb-name">${camp.name}</span>
+                     <span class="cb-pct">${mortText}</span>`;
+    bar.addEventListener('click', () => openPanel(camp.id));
+    bar.addEventListener('mouseenter', e => showTooltip(e, camp));
+    bar.addEventListener('mouseleave', () => hideTooltip());
+    canvas.appendChild(bar);
+    // Row label (left-anchored, sticky to left edge for readability)
+    const lbl = document.createElement('div');
+    lbl.style.cssText = `position:absolute;left:4px;top:${row.y + BAR_PADY}px;height:${BAR_H}px;display:flex;align-items:center;pointer-events:none;z-index:5`;
+    // Name label is inside bar; for very narrow bars add an external label
+    if (w < 60) {
+      lbl.innerHTML = `<span style="font-size:5.5px;letter-spacing:.07em;color:rgba(255,255,255,.45);white-space:nowrap">${camp.name}</span>`;
+      canvas.appendChild(lbl);
+    }
+  });
+}
+
+// ── TOOLTIP ──────────────────────────────────────────────────────────────
+function showTooltip(e, camp) {
+  const tt = document.getElementById('tt');
+  const mortText = camp.mortalityRate < 0 ? 'Parole camp' :
+    `${camp.mortalityRate.toFixed(1)}% mortality · ${camp.deaths.toLocaleString()} deaths`;
+  tt.innerHTML = `<strong>${camp.name}</strong><br>${camp.location}<br>${mortText}<br>Peak: ${camp.peakPop.toLocaleString()} · Total: ${camp.totalPrisoners.toLocaleString()}`;
+  tt.style.display = 'block';
+  tt.style.left = (e.clientX + 14) + 'px';
+  tt.style.top  = (e.clientY - 10) + 'px';
+}
+function hideTooltip() { document.getElementById('tt').style.display = 'none'; }
+
+// ═══════════════════════════════════════════════════════════════════════
+// MAP — filled in Stage 5
+// ═══════════════════════════════════════════════════════════════════════
+let map;
+const mapMarkers = {};
+
+function initMap() {
+  map = L.map('map', {zoomControl:false, attributionControl:false})
+    .setView([37.5,-85], 5);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png',
+    {maxZoom:16}).addTo(map);
+  L.control.zoom({position:'bottomright'}).addTo(map);
+
+  // Add custom attribution
+  L.control.attribution({position:'bottomleft'})
+    .addAttribution('© <a href="https://carto.com">CARTO</a>').addTo(map);
+
+  // Add camp markers after CAMPS is populated
+  CAMPS.forEach(camp => {
+    if (!camp.lat || !camp.lng) return;
+    const col = mortalityColor(camp.mortalityRate);
+    const r   = camp.mortalityRate < 0 ? 8 :
+                Math.max(6, Math.min(18, Math.round(camp.peakPop / 1500)));
+    const marker = L.circleMarker([camp.lat, camp.lng], {
+      radius: r,
+      color: col,
+      fillColor: col,
+      fillOpacity: camp.side === 'union' ? 0.55 : 0.45,
+      weight: camp.side === 'parole' ? 2 : 1.5,
+      dashArray: camp.side === 'parole' ? '4,3' : null
+    }).addTo(map);
+    marker.bindTooltip(camp.name + '<br>' +
+      (camp.mortalityRate < 0 ? 'Parole camp' : camp.mortalityRate.toFixed(1) + '% mortality'),
+      {className:'leaflet-tooltip', direction:'top'});
+    marker.on('click', () => openPanel(camp.id));
+    mapMarkers[camp.id] = marker;
+  });
+
+  // Add state labels for context
+  const stateLabels = [
+    {name:'MARYLAND', lat:39.0, lng:-76.7},
+    {name:'VIRGINIA', lat:37.7, lng:-78.5},
+    {name:'GEORGIA', lat:32.6, lng:-83.5},
+    {name:'OHIO', lat:40.4, lng:-82.5},
+    {name:'ILLINOIS', lat:40.2, lng:-89.5},
+  ];
+  stateLabels.forEach(s => {
+    L.marker([s.lat, s.lng], {
+      icon: L.divIcon({
+        className: '',
+        html: `<div style="font-family:'JetBrains Mono',monospace;font-size:7px;letter-spacing:.14em;color:rgba(255,255,255,.18);text-transform:uppercase;white-space:nowrap;pointer-events:none">${s.name}</div>`,
+        iconAnchor: [30, 8]
+      })
+    }).addTo(map);
+  });
+}
+
+// ── DETAIL PANEL ─────────────────────────────────────────────────────────
+function openPanel(id) {
+  const camp = CAMPS.find(c => c.id === id);
+  if (!camp) return;
+
+  // Deactivate previous
+  if (activeId) {
+    const prev = document.getElementById('bar-' + activeId);
+    if (prev) prev.classList.remove('active');
+    if (mapMarkers[activeId]) mapMarkers[activeId].setStyle({weight:1.5});
+  }
+  activeId = id;
+
+  // Activate bar and marker
+  const bar = document.getElementById('bar-' + id);
+  if (bar) bar.classList.add('active');
+  if (mapMarkers[id]) {
+    mapMarkers[id].setStyle({weight: 3});
+    map.flyTo([camp.lat, camp.lng], Math.max(7, map.getZoom()), {duration: 0.7});
+  }
+
+  // Badge
+  const badge = document.getElementById('det-badge');
+  badge.className = 'det-side-badge ' + camp.side;
+  badge.textContent = camp.side === 'union' ? 'Union' :
+                      camp.side === 'parole' ? 'Parole' : 'Confederate';
+
+  // Name
+  document.getElementById('det-name').textContent = camp.name;
+
+  // Mortality class for styling
+  const mortClass = camp.mortalityRate > 24 ? 'mort-extreme' :
+                    camp.mortalityRate > 13 ? 'mort-high' : '';
+  const mortText  = camp.mortalityRate < 0 ? 'Parole / Limbo (not POW)' :
+                    camp.mortalityRate.toFixed(1) + '%';
+
+  // Format dates
+  const fmtDate = s => {
+    const d = new Date(s);
+    return d.toLocaleDateString('en-US', {month:'short', year:'numeric'});
+  };
+  const daysOpen = Math.round((new Date(camp.closed) - new Date(camp.opened)) / 86400000);
+  const months   = Math.round(daysOpen / 30);
+
+  // Build stats grid
+  const body = document.getElementById('det-body');
+  body.innerHTML = `
+    <div class="det-stat"><span class="det-stat-label">Location</span>
+      <span class="det-stat-val">${camp.location}</span></div>
+    <div class="det-stat"><span class="det-stat-label">Type</span>
+      <span class="det-stat-val" style="font-size:8px">${camp.type}</span></div>
+    <div class="det-stat"><span class="det-stat-label">Operated</span>
+      <span class="det-stat-val">${fmtDate(camp.opened)} – ${fmtDate(camp.closed)} &nbsp;(${months} mo.)</span></div>
+    <div class="det-stat"><span class="det-stat-label">Commandant</span>
+      <span class="det-stat-val" style="font-size:8px">${camp.commandant}</span></div>
+    <div class="det-stat"><span class="det-stat-label">Total Prisoners</span>
+      <span class="det-stat-val">${camp.totalPrisoners.toLocaleString()}</span></div>
+    <div class="det-stat"><span class="det-stat-label">Peak Population</span>
+      <span class="det-stat-val">${camp.peakPop.toLocaleString()}</span></div>
+    <div class="det-stat"><span class="det-stat-label">Deaths</span>
+      <span class="det-stat-val ${mortClass}">${camp.mortalityRate < 0 ? '~' + camp.deaths : camp.deaths.toLocaleString()}</span></div>
+    <div class="det-stat"><span class="det-stat-label">Mortality Rate</span>
+      <span class="det-stat-val ${mortClass}">${mortText}</span></div>
+    <div class="det-notes">${camp.notes}</div>
+    <div class="det-links">
+      ${camp.wiki ? `<a class="det-link wiki" href="${camp.wiki}" target="_blank" rel="noopener">→ Wikipedia</a>` : ''}
+      ${camp.nps  ? `<a class="det-link nps"  href="${camp.nps}"  target="_blank" rel="noopener">→ NPS</a>` : ''}
+      ${camp.hmdb ? `<a class="det-link hmdb" href="${camp.hmdb}" target="_blank" rel="noopener">→ HMDB Marker</a>` : ''}
+    </div>`;
+
+  document.getElementById('detail').style.display = 'block';
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', () => {
+  initMap();
+  buildVisualization();
+
+  // ── Drag-to-pan ──────────────────────────────────────────────────────
+  const tl = document.getElementById('tl-wrap');
+  let dragging = false, startX, startY, scrollLeft, scrollTop, dragMoved = false;
+  tl.addEventListener('mousedown', e => {
+    dragging = true; dragMoved = false;
+    startX = e.pageX - tl.offsetLeft; startY = e.pageY - tl.offsetTop;
+    scrollLeft = tl.scrollLeft; scrollTop = tl.scrollTop;
+    tl.style.cursor = 'grabbing';
+  });
+  window.addEventListener('mousemove', e => {
+    if (!dragging) return;
+    e.preventDefault();
+    const dx = e.pageX - tl.offsetLeft - startX;
+    const dy = e.pageY - tl.offsetTop  - startY;
+    if (Math.abs(dx) > 3 || Math.abs(dy) > 3) dragMoved = true;
+    tl.scrollLeft = scrollLeft - dx;
+    tl.scrollTop  = scrollTop  - dy;
+  });
+  window.addEventListener('mouseup', () => {
+    dragging = false;
+    tl.style.cursor = 'grab';
+  });
+
+  // ── About popup ──────────────────────────────────────────────────────
+  document.getElementById('htitle').addEventListener('click', () => {
+    document.getElementById('about-popup').classList.toggle('on');
+  });
+  document.getElementById('apx').addEventListener('click', () => {
+    document.getElementById('about-popup').classList.remove('on');
+  });
+  document.addEventListener('click', e => {
+    const pop = document.getElementById('about-popup');
+    if (pop.classList.contains('on') && !pop.contains(e.target) &&
+        e.target.id !== 'htitle') pop.classList.remove('on');
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      document.getElementById('about-popup').classList.remove('on');
+      closePanel();
+    }
+  });
+
+  // ── Scroll to ~1861-08 on load (just past Fort Sumter) ───────────────
+  setTimeout(() => {
+    document.getElementById('tl-wrap').scrollLeft = xFromDate('1861-06-01') - 40;
+  }, 200);
+});
+
+function closePanel() {
+  document.getElementById('detail').style.display = 'none';
+  if (activeId) {
+    const el = document.getElementById('bar-' + activeId);
+    if (el) el.classList.remove('active');
+    activeId = null;
+  }
+}
+document.getElementById('det-close').addEventListener('click', closePanel);
+</script>
+</body>
+</html>
