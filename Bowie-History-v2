@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bowie History Atlas</title>
+  <meta name="description" content="A source-linked visual history of Bowie, Maryland, from Belair and Huntington to racing, revolution, the Woodwards, and Levitt at Bowie." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root, [data-theme="light"] {
+      --bg: #f4f1ea;
+      --surface: #fbfaf7;
+      --surface-2: #ece6db;
+      --border: #d7d0c5;
+      --text: #221d16;
+      --muted: #645b50;
+      --accent: #0f5f73;
+      --accent-2: #8d6035;
+      --accent-soft: #dbeaf0;
+      --card: #fffdf9;
+      --shadow: 0 12px 30px rgba(28, 23, 16, .08);
+      --radius: 18px;
+      --radius-sm: 12px;
+      --content: 1180px;
+      --font-display: 'Libre Baskerville', Georgia, serif;
+      --font-body: 'Inter', Arial, sans-serif;
+    }
+    [data-theme="dark"] {
+      --bg: #161412;
+      --surface: #211d19;
+      --surface-2: #2b2520;
+      --border: #484038;
+      --text: #f0e9dd;
+      --muted: #c8bcab;
+      --accent: #89bed1;
+      --accent-2: #d3a26d;
+      --accent-soft: #2a3c45;
+      --card: #241f1a;
+      --shadow: 0 14px 34px rgba(0,0,0,.32);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin:0; font-family: var(--font-body); background: var(--bg); color: var(--text); line-height: 1.65; }
+    img { max-width:100%; display:block; }
+    a { color: var(--accent); text-underline-offset: .16em; }
+    a:hover { opacity:.92; }
+    .shell { width:min(calc(100% - 28px), var(--content)); margin-inline:auto; }
+    .skip-link { position:absolute; left:-9999px; }
+    .skip-link:focus { left: 16px; top: 16px; background: var(--surface); color: var(--text); padding: 10px 14px; border-radius: 10px; z-index: 99; }
+    .site-header { position: sticky; top:0; z-index:40; border-bottom:1px solid var(--border); background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(12px); }
+    .topbar { display:flex; align-items:center; justify-content:space-between; gap:18px; padding: 14px 0; }
+    .brand { display:flex; align-items:center; gap:12px; text-decoration:none; color:inherit; }
+    .brand svg { width:42px; height:42px; color: var(--accent-2); }
+    .brand-title { font-size: 0.95rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; }
+    .brand-sub { font-size: .8rem; color: var(--muted); }
+    .theme-toggle { min-width:44px; min-height:44px; border-radius:999px; border:1px solid var(--border); background: var(--surface); color: var(--text); }
+    .hero { padding: 44px 0 28px; }
+    .hero-box { background: linear-gradient(180deg, var(--surface), var(--surface-2)); border:1px solid var(--border); border-radius: 28px; overflow:hidden; box-shadow: var(--shadow); }
+    .hero-inner { display:grid; gap:0; }
+    .hero-copy { padding: 30px; }
+    .label { font-size:.78rem; letter-spacing:.16em; text-transform:uppercase; color: var(--accent-2); font-weight:700; }
+    h1,h2,h3 { font-family: var(--font-display); line-height: 1.14; margin:0 0 .65rem; }
+    h1 { font-size: clamp(2.2rem, 4vw, 4.5rem); max-width: 12ch; }
+    h2 { font-size: clamp(1.6rem, 2.5vw, 2.6rem); }
+    h3 { font-size: clamp(1.15rem, 1.5vw, 1.5rem); }
+    p { margin: 0 0 1rem; max-width: 74ch; }
+    .muted { color: var(--muted); }
+    .hero-stats { display:grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 18px; }
+    .stat { background: color-mix(in srgb, var(--surface) 70%, white 30%); border:1px solid var(--border); border-radius: 14px; padding: 14px; }
+    .stat strong { display:block; font-size: 1.1rem; }
+    .hero-media { min-height: 100%; position: relative; }
+    .hero-media img { width:100%; height:100%; object-fit:cover; min-height: 340px; }
+    .hero-caption { position:absolute; left:16px; right:16px; bottom:16px; background: color-mix(in srgb, var(--bg) 80%, transparent); backdrop-filter: blur(8px); border:1px solid var(--border); border-radius:14px; padding: 12px 14px; font-size: .92rem; }
+    section.block { padding: 26px 0; }
+    .section-head { display:flex; align-items:end; justify-content:space-between; gap:18px; margin-bottom: 18px; }
+    .section-head p { margin:0; color: var(--muted); }
+    .feature-grid { display:grid; gap: 18px; }
+    .viz-card { background: var(--card); border:1px solid var(--border); border-radius: 24px; padding: 20px; box-shadow: var(--shadow); }
+    .viz-card .kicker { font-size:.75rem; text-transform:uppercase; letter-spacing:.14em; color:var(--accent-2); font-weight:700; margin-bottom: 8px; }
+    .viz-card img { width:100%; aspect-ratio: 16/9; object-fit:cover; border-radius: 16px; border:1px solid var(--border); background: var(--surface-2); margin: 14px 0; }
+    .meta-row { display:flex; flex-wrap:wrap; gap:10px; margin: 10px 0 14px; }
+    .pill { display:inline-flex; align-items:center; min-height: 34px; padding: 6px 10px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-weight:600; font-size: .85rem; }
+    .timeline { display:grid; gap: 16px; }
+    .timeline-item { display:grid; grid-template-columns: 92px 1fr; gap: 14px; align-items:start; background: var(--card); border:1px solid var(--border); border-radius: 20px; padding: 18px; box-shadow: var(--shadow); }
+    .year { font-weight:700; color: var(--accent); background: var(--accent-soft); border-radius: 999px; text-align:center; padding: 8px 10px; font-size: .88rem; }
+    .source-list { display:grid; gap: 12px; }
+    .source-group { background: var(--card); border:1px solid var(--border); border-radius: 20px; padding: 18px; box-shadow: var(--shadow); }
+    .source-group ul { margin:0; padding-left: 18px; }
+    .source-group li + li { margin-top: 8px; }
+    .cta { margin-top: 28px; padding: 20px; border-radius: 22px; background: linear-gradient(180deg, var(--surface), var(--surface-2)); border:1px solid var(--border); }
+    .button-row { display:flex; flex-wrap:wrap; gap: 12px; margin-top: 14px; }
+    .button { display:inline-flex; align-items:center; justify-content:center; min-height:44px; border-radius: 999px; padding: 0 16px; text-decoration:none; font-weight:700; border:1px solid var(--border); }
+    .button.primary { background: var(--accent); color: white; border-color: var(--accent); }
+    .button.secondary { background: var(--surface); color: var(--text); }
+    footer { padding: 28px 0 56px; color: var(--muted); }
+    @media (min-width: 900px) {
+      .hero-inner { grid-template-columns: 1.12fr .88fr; }
+      .feature-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    }
+    @media (max-width: 760px) {
+      .timeline-item { grid-template-columns: 1fr; }
+      .hero-copy { padding: 22px; }
+      .topbar { align-items:flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="shell topbar">
+      <a class="brand" href="#top">
+        <svg viewBox="0 0 64 64" aria-hidden="true">
+          <path d="M10 48V16h11.5c8.8 0 14.5 5.8 14.5 16S30.3 48 21.5 48H10Zm8-8h2.9c4.7 0 7.1-2.6 7.1-8s-2.4-8-7.1-8H18v16Z" fill="currentColor"></path>
+          <path d="M39 16h15v7H47v5h6v6h-6v7h7v7H39V16Z" fill="currentColor"></path>
+        </svg>
+        <div>
+          <div class="brand-title">Interactive Visualizations</div>
+          <div class="brand-sub">Bowie history edition</div>
+        </div>
+      </a>
+      <button class="theme-toggle" data-theme-toggle aria-label="Switch theme">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="main" class="shell">
+    <section class="hero" id="top">
+      <article class="hero-box">
+        <div class="hero-inner">
+          <div class="hero-copy">
+            <div class="label">Prince George’s County · 1740s to present</div>
+            <h1>Bowie history atlas</h1>
+            <p class="muted">Designed to feel at home alongside your GitHub Pages homepage, this second version uses a card-based, feature-first layout similar to your “Interactive Visualizations” landing page while focusing on Bowie’s local story. It moves from Belair’s colonial beginnings to Huntington’s rail-junction years, Bowie’s racing identity, the Woodward drama, and the Levitt suburban buildout.</p>
+            <div class="hero-stats">
+              <div class="stat"><strong>1745–1747</strong><span>Belair Mansion constructed for Governor Samuel Ogle and Anne Tasker Ogle.</span></div>
+              <div class="stat"><strong>1872–1880</strong><span>Huntington grows around the rail junction and is renamed Bowie.</span></div>
+              <div class="stat"><strong>1914</strong><span>Bowie Race Track opens and reinforces the horse-racing identity.</span></div>
+              <div class="stat"><strong>1957</strong><span>Levitt &amp; Sons purchase the Belair estate for suburban development.</span></div>
+            </div>
+          </div>
+          <div class="hero-media">
+            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgcJqtbOTZ-SgbLoBjg_BD13ekjAg8AmoW6zSMDARp10XDAGxUhp1qFopZulMGax2GHdMTgFEpO7g94z1lLdvogXZXaYX0dgErGEjbRXhuAuGGnbdskUIopgD5gQ3udPwlQOeKShUSIQAKf/s1600/Rochambeau1.JPG" alt="Rochambeau march illustration from Bowie Living post" width="1600" height="900" loading="lazy">
+            <div class="hero-caption">Modern living-history encampment photo associated with the Bowie Living Revolutionary War post, used here as a thematic illustration rather than a period image.</div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="block" id="overview">
+      <div class="section-head">
+        <div>
+          <div class="label">How this page works</div>
+          <h2>A card-based Bowie page</h2>
+        </div>
+        <p>Each major chapter is presented like one of the feature cards on your homepage so the page will visually fit your existing site.</p>
+      </div>
+      <div class="feature-grid">
+        <article class="viz-card">
+          <div class="kicker">Railroad era</div>
+          <h3>From Huntington to Bowie</h3>
+          <p>Col. William D. Bowie pushed for the Baltimore and Potomac Railroad charter in 1853, while Oden Bowie served as railroad president and later governor; the junction that opened in 1872 helped create Huntington, later renamed Bowie in 1880.</p>
+          <div class="meta-row">
+            <span class="pill">Railroad origin story</span>
+            <span class="pill">Oden Bowie</span>
+          </div>
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Bowie%20Tower%20and%20Depot%20Dec%2008.JPG" alt="Bowie Railroad Buildings" width="1280" height="720" loading="lazy">
+          <p><a href="https://www.cityofbowie.org/2813/History" target="_blank" rel="noopener noreferrer">City of Bowie history</a> · <a href="https://www.cityofbowie.org/293/Bowie-Railroad-Museum" target="_blank" rel="noopener noreferrer">Bowie Railroad Museum</a> · <a href="https://msa.maryland.gov/megafile/msa/speccol/sc3500/sc3520/001400/001465/html/1465bio2.html" target="_blank" rel="noopener noreferrer">Maryland State Archives: Oden Bowie</a></p>
+        </article>
+
+        <article class="viz-card">
+          <div class="kicker">Colonial estate</div>
+          <h3>Belair Mansion and two governors</h3>
+          <p>Belair Mansion was built around 1745 for Governor Samuel Ogle and Anne Tasker Ogle. Local histories and museum material treat it as the home of two colonial governors because of its Ogle family associations, including Governor Benjamin Ogle.</p>
+          <div class="meta-row">
+            <span class="pill">1740s mansion</span>
+            <span class="pill">Colonial Maryland</span>
+          </div>
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Belair%20Mansion%201.jpg" alt="Belair Mansion in Bowie, Maryland" width="1280" height="853" loading="lazy">
+          <p><a href="https://www.cityofbowie.org/288/Belair-Mansion" target="_blank" rel="noopener noreferrer">Belair Mansion</a> · <a href="https://en.wikipedia.org/wiki/Belair_Mansion_(Bowie,_Maryland)" target="_blank" rel="noopener noreferrer">Wikipedia</a> · <a href="https://www.youtube.com/watch?v=4A3QdRaC8FM" target="_blank" rel="noopener noreferrer">Three Lives / James G. Gibb video</a></p>
+        </article>
+
+        <article class="viz-card">
+          <div class="kicker">Horse country</div>
+          <h3>Cradle of American horseracing</h3>
+          <p>The City of Bowie traces Bowie’s racing importance to the imported bloodstock of the 18th century, especially Selima, and to the later prominence of the Belair stable and Bowie Race Track, which opened in 1914.</p>
+          <div class="meta-row">
+            <span class="pill">Selima</span>
+            <span class="pill">Bowie Race Track</span>
+          </div>
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Belair%20from%20roadway%20LOC%20in%201936.jpg" alt="Historic 1936 view of Belair used for the racing-era section" width="1280" height="720" loading="lazy">
+          <p><a href="https://www.cityofbowie.org/2736/Horse-Racing" target="_blank" rel="noopener noreferrer">City of Bowie: Horse Racing</a> · <a href="https://en.wikipedia.org/wiki/Bowie_Race_Track" target="_blank" rel="noopener noreferrer">Wikipedia: Bowie Race Track</a></p>
+        </article>
+
+        <article class="viz-card">
+          <div class="kicker">Suburban transformation</div>
+          <h3>Levitt at Bowie</h3>
+          <p>After the Woodward era, Levitt &amp; Sons acquired the Belair estate in 1957 and built Belair at Bowie, the planned suburban development that gave modern Bowie its dominant residential form.</p>
+          <div class="meta-row">
+            <span class="pill">1957 purchase</span>
+            <span class="pill">Belair at Bowie</span>
+          </div>
+          <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgcJqtbOTZ-SgbLoBjg_BD13ekjAg8AmoW6zSMDARp10XDAGxUhp1qFopZulMGax2GHdMTgFEpO7g94z1lLdvogXZXaYX0dgErGEjbRXhuAuGGnbdskUIopgD5gQ3udPwlQOeKShUSIQAKf/s1600/Rochambeau1.JPG" alt="Modern living-history encampment photo used as contextual image" width="1280" height="851" loading="lazy">
+          <p><a href="https://www.hmdb.org/m.asp?m=64777" target="_blank" rel="noopener noreferrer">Historical marker</a> · <a href="https://boundarystones.weta.org/2020/06/12/belair-bowie-suburban-dream" target="_blank" rel="noopener noreferrer">WETA Boundary Stones</a></p>
+        </article>
+      </div>
+    </section>
+
+    <section class="block" id="timeline">
+      <div class="section-head">
+        <div>
+          <div class="label">Chronology</div>
+          <h2>Key moments</h2>
+        </div>
+        <p>A compact timeline from Belair’s construction to Levitt-era suburban growth.</p>
+      </div>
+      <div class="timeline">
+        <article class="timeline-item">
+          <div class="year">1745–1747</div>
+          <div>
+            <h3>Belair Mansion rises</h3>
+            <p>Belair Mansion is constructed for Samuel Ogle and Anne Tasker Ogle, creating the estate that later anchors much of Bowie’s colonial, equestrian, and suburban story.</p>
+          </div>
+        </article>
+        <article class="timeline-item">
+          <div class="year">1781</div>
+          <div>
+            <h3>Rochambeau’s logistics pass Belair</h3>
+            <p>The Bowie Living post reproducing City of Bowie material says a major French wagon-and-artillery train passed Belair Mansion in September 1781 on the Yorktown campaign route after leaving Easton’s Plantation. The article describes about 200 wagons, artillery, and roughly 3,600 oxen and horses moving south along what corresponds to today’s Route 450.</p>
+            <p><a href="https://bowieliving.blogspot.com/2013/08/bowie-in-american-revolutionary-war.html" target="_blank" rel="noopener noreferrer">Bowie Living post</a></p>
+          </div>
+        </article>
+        <article class="timeline-item">
+          <div class="year">1853</div>
+          <div>
+            <h3>Railroad chartered</h3>
+            <p>City of Bowie history says William D. Bowie persuaded the legislature to charter the Baltimore and Potomac Railroad and that Oden Bowie became its president, laying the groundwork for the future town.</p>
+          </div>
+        </article>
+        <article class="timeline-item">
+          <div class="year">1872–1880</div>
+          <div>
+            <h3>Huntington becomes Bowie</h3>
+            <p>The rail junction develops into Huntington City around Bowie Station; the town is renamed Bowie in 1880 in honor of Oden Bowie. Local memory of fires and later decline helps explain why so little of the once more ambitious downtown survives.</p>
+          </div>
+        </article>
+        <article class="timeline-item">
+          <div class="year">1914</div>
+          <div>
+            <h3>Bowie Race Track opens</h3>
+            <p>Prince George’s Park, later Bowie Race Track, opens and connects the town’s rail access with its horse-racing prominence.</p>
+          </div>
+        </article>
+        <article class="timeline-item">
+          <div class="year">1917–1920</div>
+          <div>
+            <h3>White House sheep story</h3>
+            <p>A modern retelling says Woodrow Wilson’s White House sheep came from William Woodward’s Bowie farm, where the flock was purchased for wartime conservation symbolism. This is colorful and plausible, but it should be treated as a secondary-source anecdote unless a stronger contemporary citation is added later.</p>
+            <p><a href="https://dailydosedocumentary.com/white-house-sheep/" target="_blank" rel="noopener noreferrer">Daily Dose Documentary article</a></p>
+          </div>
+        </article>
+        <article class="timeline-item">
+          <div class="year">1955–1957</div>
+          <div>
+            <h3>Woodward scandal and sale</h3>
+            <p>Ann Woodward shot William Woodward Jr. in 1955, a case later revisited in Roseanne Montillo’s book <em>Deliberate Cruelty</em>. Two years later Levitt &amp; Sons bought the Belair estate, ending the Woodward chapter and beginning suburban Bowie.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="block" id="woodward">
+      <div class="section-head">
+        <div>
+          <div class="label">A dramatic coda</div>
+          <h2>The Woodwards and <em>Deliberate Cruelty</em></h2>
+        </div>
+        <p>The Woodward story is not just gossip history; it helps explain why Belair passed out of that family’s hands.</p>
+      </div>
+      <div class="feature-grid">
+        <article class="viz-card">
+          <div class="kicker">Book connection</div>
+          <h3>Why this story belongs here</h3>
+          <p>Roseanne Montillo’s <em>Deliberate Cruelty: Truman Capote, the Millionaire’s Wife, and the Murder of the Century</em> revisits the 1955 shooting of William Woodward Jr. by Ann Woodward. The scandal belongs in a Bowie history page because the Woodwards were tied to Belair, and the collapse of that era was followed by the 1957 sale to Levitt &amp; Sons.</p>
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Belair%20Mansion%201.jpg" alt="Belair Mansion used again in the Woodward section" width="1280" height="853" loading="lazy">
+          <p><a href="https://www.nytimes.com/2022/10/30/books/deliberate-cruelty-roseanne-montillo.html" target="_blank" rel="noopener noreferrer">New York Times review</a> · <a href="https://nypost.com/2022/11/05/the-scandalous-nyc-murder-that-led-to-truman-capotes-downfall/" target="_blank" rel="noopener noreferrer">Book coverage</a> · <a href="https://en.wikipedia.org/wiki/Ann_Woodward" target="_blank" rel="noopener noreferrer">Ann Woodward</a></p>
+        </article>
+        <article class="viz-card">
+          <div class="kicker">Interesting aside</div>
+          <h3>The White House sheep anecdote</h3>
+          <p>One particularly colorful story, shared by curators at the Woodrow Wilson Presidential Library in Staunton, links the White House sheep to William Woodward’s Bowie farm; while this connection is based on museum staff attribution rather than the library’s published web materials, it is worth noting as an informed but not fully published claim. That gives the anecdote a better footing than a casual internet rumor, but it still is not the same thing as a published institutional citation.</p>
+          <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Belair%20Mansion%20Historical%20Marker.jpg" alt="Belair Mansion historical marker used to illustrate the White House sheep anecdote" width="960" height="1200" loading="lazy">
+          <p><a href="https://dailydosedocumentary.com/white-house-sheep/" target="_blank" rel="noopener noreferrer">White House sheep article</a></p>
+        </article>
+      </div>
+    </section>
+
+    <section class="block" id="video">
+      <div class="section-head">
+        <div>
+          <div class="label">Featured viewing</div>
+          <h2>Three Lives of Belair Plantation</h2>
+        </div>
+        <p>A video worth foregrounding for anyone who wants the mansion’s archaeology, architecture, and landscape explained by a specialist.</p>
+      </div>
+      <article class="viz-card">
+        <div class="kicker">YouTube feature</div>
+        <h3>James G. Gibb on Belair</h3>
+        <p>This page prominently links the requested video, <a href="https://youtu.be/4A3QdRaC8FM" target="_blank" rel="noopener noreferrer">Three Lives of Belair Plantation: Colonial Governor’s Retreat to Gentleman Farmer’s Racing Stable</a>. Search results identify it as a presentation by James G. Gibb and describe it as an illustrated discussion of Belair’s Georgian design, lost buildings, landscape features, and archaeology.</p>
+        <div class="button-row">
+          <a class="button primary" href="https://youtu.be/4A3QdRaC8FM" target="_blank" rel="noopener noreferrer">Watch the video</a>
+          <a class="button secondary" href="https://www.cityofbowie.org/288/Belair-Mansion" target="_blank" rel="noopener noreferrer">Visit Belair Mansion page</a>
+        </div>
+      </article>
+    </section>
+
+
+    <section class="block" id="railroad-deep-dive">
+      <div class="section-head">
+        <div>
+          <div class="label">Railroad deep dive</div>
+          <h2>Pope’s Creek, Washington, and Huntington’s unrealized future</h2>
+        </div>
+        <p>The early railroad geometry explains why Bowie mattered so much in the first place.</p>
+      </div>
+      <div class="feature-grid">
+        <article class="viz-card">
+          <div class="kicker">Original line</div>
+          <h3>The Pope’s Creek line came first</h3>
+          <p>Historic rail accounts describe the Baltimore and Potomac Railroad’s original main line as the route from Baltimore south toward Pope’s Creek on the Potomac. At the junction near Bowie, the company created a Washington branch, and that branch ultimately became the main passenger route into Washington used by the Pennsylvania Railroad and later the Northeast Corridor.</p>
+          <p><a href="https://www.pghistory.org/PG/PG300/express2.html" target="_blank" rel="noopener noreferrer">Prince George’s County Tricentennial history</a> · <a href="https://en.wikipedia.org/wiki/Pope's_Creek_Subdivision" target="_blank" rel="noopener noreferrer">Wikipedia: Pope’s Creek Subdivision</a> · <a href="https://en.wikipedia.org/wiki/Baltimore_and_Potomac_Railroad" target="_blank" rel="noopener noreferrer">Wikipedia: Baltimore and Potomac Railroad</a></p>
+        </article>
+        <article class="viz-card">
+          <div class="kicker">Washington branch</div>
+          <h3>The DC spur became the big prize</h3>
+          <p>Because the Baltimore and Ohio opposed a direct Pennsylvania Railroad route into Washington, the Baltimore and Potomac charter’s branch-line language became the workaround. By building the line through Bowie and then branching into Washington, the railroad gained the connection that later became the dominant north-south passenger approach to the capital and today feeds Amtrak service in and out of Washington.</p>
+          <p><a href="https://en.wikipedia.org/wiki/Pope's_Creek_Subdivision" target="_blank" rel="noopener noreferrer">Pope’s Creek Subdivision</a> · <a href="https://ggwash.org/view/68754/how-the-baltimore-potomac-railroad-and-the-penn-line-shaped-the-regions-suburbs" target="_blank" rel="noopener noreferrer">Greater Greater Washington</a></p>
+        </article>
+        <article class="viz-card">
+          <div class="kicker">Huntington City</div>
+          <h3>A town that could have been larger</h3>
+          <p>Rail history and local historical summaries describe Huntington City as a more ambitious town than what survives today, with hotels, stores, and activity clustered around the station. The old downtown’s repeated fires and the later shift of development away from the original railroad core help explain why Huntington now feels like a fragment of a place that once had larger regional ambitions.</p>
+          <p><a href="https://www.hmdb.org/m.asp?m=71902" target="_blank" rel="noopener noreferrer">From Huntington to Bowie marker</a> · <a href="https://www.cityofbowie.org/2813/History" target="_blank" rel="noopener noreferrer">City of Bowie history</a></p>
+        </article>
+        <article class="viz-card">
+          <div class="kicker">What remains</div>
+          <h3>The shell of the old rail town</h3>
+          <p>Today the railroad buildings and museum preserve the physical memory of Huntington’s station district even though the community never became the major DC-area center it might once have seemed poised to become. That contrast between promise and survival is part of what makes old Bowie historically compelling.</p>
+          <p><a href="https://www.cityofbowie.org/293/Bowie-Railroad-Museum" target="_blank" rel="noopener noreferrer">Bowie Railroad Museum</a> · <a href="https://en.wikipedia.org/wiki/Bowie_Railroad_Buildings" target="_blank" rel="noopener noreferrer">Bowie Railroad Buildings</a></p>
+        </article>
+      </div>
+    </section>
+
+    <section class="block" id="videos">
+      <div class="section-head">
+        <div>
+          <div class="label">Watch more</div>
+          <h2>Video references</h2>
+        </div>
+        <p>These videos help round out the page with Bowie’s rail, racing, civil-rights, museum, and suburban-development stories.</p>
+      </div>
+      <div class="source-list">
+        <article class="source-group">
+          <h3>Featured Bowie videos</h3>
+          <ul>
+            <li><a href="https://youtu.be/4A3QdRaC8FM" target="_blank" rel="noopener noreferrer">Three Lives of Belair Plantation: Colonial Governor’s Retreat to Gentleman Farmer’s Racing Stable</a> — James G. Gibb / Belair archaeology and history.</li>
+            <li><a href="https://youtu.be/sHQNcWG3VZY" target="_blank" rel="noopener noreferrer">From Triple Crown Glory to Civil Rights Struggles: The Transformation of Bowie, Maryland</a></li>
+            <li><a href="https://youtu.be/lVi3onZE9TE" target="_blank" rel="noopener noreferrer">History on The Fast Track: Bowie</a></li>
+            <li><a href="https://youtu.be/GJNqv-e2Yf0" target="_blank" rel="noopener noreferrer">1960s Belair at Bowie - Flaherty Video - Unabridged &amp; Unedited</a> — uploaded description says the footage was shot by original Bowie homeowner Paul Flaherty on 8mm film and includes early Belair at Bowie scenes as well as protests against Levitt’s discriminatory sales practices.</li>
+            <li><a href="https://youtu.be/8nKWI7VnYRo" target="_blank" rel="noopener noreferrer">Belair at Bowie</a> — introduction to the Bowie City Hall history exhibit.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="block" id="sources">
+      <div class="section-head">
+        <div>
+          <div class="label">Research links</div>
+          <h2>Source library</h2>
+        </div>
+        <p>Collected links for city history, museum pages, the Bowie Living Revolutionary War post, book references, and the Belair video.</p>
+      </div>
+      <div class="source-list">
+        <article class="source-group">
+          <h3>City and museum sources</h3>
+          <ul>
+            <li><a href="https://www.cityofbowie.org/2813/History" target="_blank" rel="noopener noreferrer">City of Bowie: History</a></li>
+            <li><a href="https://www.cityofbowie.org/293/Bowie-Railroad-Museum" target="_blank" rel="noopener noreferrer">Bowie Railroad Museum</a></li>
+            <li><a href="https://www.cityofbowie.org/288/Belair-Mansion" target="_blank" rel="noopener noreferrer">Belair Mansion</a></li>
+            <li><a href="https://www.cityofbowie.org/2736/Horse-Racing" target="_blank" rel="noopener noreferrer">Horse Racing in Bowie</a></li>
+            <li><a href="https://www.cityofbowie.org/DocumentCenter/View/166/History?bidId=" target="_blank" rel="noopener noreferrer">A Brief History of the City of Bowie (PDF)</a></li>
+          </ul>
+        </article>
+        <article class="source-group">
+          <h3>Requested references</h3>
+          <ul>
+            <li><a href="https://bowieliving.blogspot.com/" target="_blank" rel="noopener noreferrer">Bowie Living blog</a></li>
+            <li><a href="https://bowieliving.blogspot.com/2013/08/bowie-in-american-revolutionary-war.html" target="_blank" rel="noopener noreferrer">Bowie in the American Revolutionary War</a></li>
+            <li><a href="https://youtu.be/4A3QdRaC8FM" target="_blank" rel="noopener noreferrer">Three Lives of Belair Plantation video</a></li>
+            <li><a href="https://youtu.be/sHQNcWG3VZY" target="_blank" rel="noopener noreferrer">From Triple Crown Glory to Civil Rights Struggles: The Transformation of Bowie, Maryland</a></li>
+            <li><a href="https://youtu.be/lVi3onZE9TE" target="_blank" rel="noopener noreferrer">History on The Fast Track: Bowie</a></li>
+            <li><a href="https://youtu.be/GJNqv-e2Yf0" target="_blank" rel="noopener noreferrer">1960s Belair at Bowie - Flaherty Video - Unabridged &amp; Unedited</a></li>
+            <li><a href="https://youtu.be/8nKWI7VnYRo" target="_blank" rel="noopener noreferrer">Belair at Bowie</a></li>
+          </ul>
+        </article>
+        <article class="source-group">
+          <h3>Reference pages and articles</h3>
+          <ul>
+            <li><a href="https://en.wikipedia.org/wiki/Belair_Mansion_(Bowie,_Maryland)" target="_blank" rel="noopener noreferrer">Wikipedia: Belair Mansion</a></li>
+            <li><a href="https://en.wikipedia.org/wiki/Bowie_Race_Track" target="_blank" rel="noopener noreferrer">Wikipedia: Bowie Race Track</a></li>
+            <li><a href="https://en.wikipedia.org/wiki/Ann_Woodward" target="_blank" rel="noopener noreferrer">Wikipedia: Ann Woodward</a></li>
+            <li><a href="https://boundarystones.weta.org/2020/06/12/belair-bowie-suburban-dream" target="_blank" rel="noopener noreferrer">WETA: Belair at Bowie</a></li>
+            <li><a href="https://www.hmdb.org/m.asp?m=64777" target="_blank" rel="noopener noreferrer">Historical Marker: Belair-at-Bowie</a></li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="cta">
+        <h3>Ready for GitHub Pages</h3>
+        <p>This file is designed as a second stand-alone page, so you can upload it alongside your other visualizations and link to it from the homepage in the same style.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="shell">
+    <p>If you want, I can next make a matching homepage tile description in the exact text style of your current landing page, or produce a third version with only locally hosted images for maximum control.</p>
+  </footer>
+
+  <script>
+    (function(){
+      const btn = document.querySelector('[data-theme-toggle]');
+      const root = document.documentElement;
+      let theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      root.setAttribute('data-theme', theme);
+      function icon(t){
+        return t === 'dark'
+          ? '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
+          : '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+      }
+      btn.innerHTML = icon(theme);
+      btn.addEventListener('click', function(){
+        theme = theme === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', theme);
+        btn.innerHTML = icon(theme);
+      });
+    })();
+  </script>
+</body>
+</html>
