@@ -157,7 +157,7 @@ html,body{width:100%;height:100%;background:#030810;color:#fff;overflow:hidden;f
 <div id="about-popup">
   <span id="apx">×</span>
   <h3>US Military Ground Vehicle Evolution</h3>
-  <p>This visualization traces American ground combat power from WWI trucks and motorcycles through the M1 Abrams, M2 Bradley, MRAP, and the newest M10 Booker light tank — 89 vehicles across 10 lanes: Wheeled Recon, Half-tracks, Light Tanks, Medium Tanks, Heavy Tanks and Tank Destroyers, Artillery and SPG, Trucks and Logistics (including motorcycles, the DUKW, and the MRAP family), Recovery and Engineering (TRVs, Dragon Wagon, M88, M1150 ABV), APCs and IFVs and LVTs, and Missile Launchers and TELs (Honest John through Patriot and Avenger).</p>
+  <p>This visualization traces American ground combat power from WWI trucks and motorcycles through the M1 Abrams, M2 Bradley, MRAP, and the newest M10 Booker light tank — 90 vehicles across 10 lanes: Wheeled Recon, Half-tracks, Light Tanks, Medium Tanks, Heavy Tanks and Tank Destroyers, Artillery and SPG, Trucks and Logistics (including motorcycles, the DUKW, and the MRAP family), Recovery and Engineering (TRVs, Dragon Wagon, M88, M1150 ABV), APCs and IFVs and LVTs, and Missile Launchers and TELs (Honest John through Patriot and Avenger).</p>
   <p>Use the category, nation, and conflict era filters to isolate specific vehicle families — including the new Cold War filter that surfaces the 40 vehicles that formed the NATO force structure from 1947–1991. Toggle 📍 Active at year to see exactly which vehicles were fielded at any moment in history — try 1944 for the WWII Army, 1968 for Vietnam, 1980 for Cold War NATO, or 1991 for the Gulf War. The Sparrows Point filter highlights every vehicle connected to Bethlehem Steel's Maryland armor plate production. Hover any node to illuminate its full ancestor and descendant chain. The Surprise button is the best way to discover something you didn't know you didn't know.</p>
   <p>Developed and researched by Claude AI (Anthropic) · March 21, 2026 · Conceived and inspired by Kevin Fine</p>
 </div>
@@ -755,6 +755,15 @@ const VH=[
   {name:'DUKW (Korea)',yr:1950,users:['USA'],note:'Inchon landing September 1950 · DUKWs critical for getting supplies ashore over the extreme tidal range · last major US combat amphibious use'},
   {name:'Post-war Duck Tours',yr:1977,users:['USA'],note:'Surplus DUKWs converted for sightseeing tours · Washington DC, Boston, Philadelphia, Branson MO · 2018 Table Rock Lake capsizing (17 killed) prompted industry-wide safety overhaul'}
  ]},
+{id:'m29weasel',name:'M29 Weasel',yr:1943,dyr:1943.2,mfr:'Studebaker Corporation',role:'Tracked Cargo Carrier',lane:6,yo:75,color:'#5a4aaa',cat:'logistics',eras:['WWII'],users:['USA','UK','FR','AU/NZ'],
+ stats:[['Speed','36 mph (land) · 4 mph water (M29C)'],['Payload','~1,200 lb'],['Engine','Studebaker Champion 6-cyl 70hp'],['Built','~15,000+ all variants']],
+ desc:'Born of Geoffrey Pyke\'s audacious proposal to raid Norway by ski and snowcat — the Weasel outlived its cancelled original mission to become one of WWII\'s most versatile utility vehicles. Studebaker\'s lightweight tracked carrier could go where no wheeled vehicle dared: Aleutian tundra, Pacific jungle swamp, Ardennes snowfields, Rhine floodplains. At under 4,000 lb it could be carried in a Waco CG-4A glider or slung under a C-47, giving airborne forces a motorized cargo mule for the first time. Its ground pressure — under 2 psi — let it traverse deep mud and snow that swallowed jeeps whole. The US 10th Mountain Division used Weasels in the Italian Apennines; the 82nd Airborne had them at Market Garden; Marines deployed them across Pacific island swamps. The amphibious M29C added buoyant sponsons and a propeller, enabling supply runs across flooded Dutch polders and river crossings. Post-war, scientific expeditions to Greenland and Antarctica adopted the Weasel for polar logistics through the 1960s — Operation Highjump and the DEW Line construction both depended on it.',
+ variants:[
+  {name:'T15 / M28 (prototype)',yr:1942,users:['USA'],note:'Early trials vehicle · established tracked carrier concept · Studebaker won production contract over competing designs in 1942'},
+  {name:'M29 (standard)',yr:1943,users:['USA','UK','FR'],note:'Primary production · land-only configuration · 10th Mountain Division Italy · 82nd Airborne Market Garden · carried ammo, casualties, and supplies in terrain impassable to wheeled vehicles'},
+  {name:'M29C Water Weasel',yr:1944,users:['USA','UK'],note:'Buoyant bow and stern sponsons + propeller · fully amphibious · Rhine crossings 1945 · Pacific island-hopping · flooded Dutch polders · 4 mph in water'},
+  {name:'Weasel (polar operations)',yr:1946,users:['USA'],note:'Post-war scientific and military use · USAF DEW Line construction Greenland · Antarctic Operation Highjump 1946–47 · outstanding in extreme cold and deep snow through 1960s'}
+ ],wiki:'https://en.wikipedia.org/wiki/M29_Weasel'},
 {id:'m548',name:'M548 Cargo Carrier',yr:1962,dyr:1962,mfr:'FMC Corporation',role:'Tracked Cargo Carrier',lane:6,yo:60,color:'#5a4aaa',cat:'logistics',eras:['Vietnam','Cold War','Gulf War'],users:['USA','NATO'],
  stats:[['Payload','5 tons'],['Speed','40 mph (land) · 3.6 mph (swim)'],['Hull','M113 aluminum chassis'],['Built','~3,000+']],
  desc:'The M113 aluminum hull doing logistics work — same drivetrain and track as the iconic APC but with an open cargo bed instead of a troop compartment. Fully amphibious like its parent. Resupplied M113 ACAV units in Vietnam jungles and rice paddies that wheeled trucks could never reach. In Germany it kept pace with mechanized divisions across terrain that would bog down any wheeled vehicle. Variants include the M667 Lance missile carrier and the M730 Chaparral air defense system launcher — the M113 hull proved endlessly adaptable.',
@@ -1052,6 +1061,7 @@ const CONN=[
   {from:'liberty',to:'dodgewc',type:'influence'},
   {from:'cckw',to:'m35',type:'lineage'},
   {from:'cckw',to:'dukw',type:'platform'},
+  {from:'m29weasel',to:'m548',type:'influence'},
   {from:'hdwla',to:'indian741',type:'influence'},
   {from:'m113',to:'m548',type:'platform'},
   {from:'hemtt',to:'m915',type:'influence'},
@@ -1117,7 +1127,7 @@ const VH_EY={
   'm7priest':1953,'m40gmc':1953,'m44':1963,'m109':9999,'m270mlrs':9999,
   'liberty':1920,'mb':1945,'dodgewc':1945,'studebakerus6':1945,
   'hdwla':1945,'indian741':1945,'cushmanm53':1945,
-  'dukw':1953,'m548':9999,'m915':9999,
+  'dukw':1953,'m29weasel':1945,'m548':9999,'m915':9999,
   'cckw':1955,'m35':1990,'m151':1985,'hmmwv':9999,'fmtv':9999,'himars':9999,'jltv':9999,
   'm561goat':1988,
   'm32trv':1955,'m74trv':1976,'m88':9999,'m60avlb':9999,'m728cev':1999,'m9ace':9999,
