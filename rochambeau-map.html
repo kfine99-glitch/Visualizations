@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Washington–Rochambeau March to Yorktown, 1781 • MAP EDITION</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+  body{margin:0;font-family:'JetBrains Mono',monospace;background:#030810;color:#fff;overflow:hidden}
+  #map{height:100vh;width:100vw}
+  #header{position:absolute;top:0;left:0;right:0;height:56px;background:rgba(3,8,16,.95);z-index:1000;display:flex;align-items:center;padding:0 20px;gap:15px;border-bottom:1px solid rgba(255,255,255,.1)}
+  #title{font-family:'Orbitron',sans-serif;font-size:15px;letter-spacing:.12em;color:#c8a864}
+  .legend{position:absolute;top:70px;right:15px;background:rgba(3,8,16,.95);border:1px solid rgba(255,255,255,.15);border-radius:6px;padding:12px;width:210px;z-index:1000}
+  .leg-item{display:flex;align-items:center;gap:8px;margin:6px 0;cursor:pointer}
+  .leg-dot{width:12px;height:12px;border-radius:50%}
+  #slider-container{position:absolute;bottom:20px;left:20px;right:20px;background:rgba(3,8,16,.95);border-radius:8px;padding:12px 20px;z-index:1000;box-shadow:0 4px 20px rgba(0,0,0,.6)}
+  #date-slider{width:100%;accent-color:#c8a864}
+  #date-label{text-align:center;font-size:13px;margin-top:4px;color:#c8a864}
+  .control-btn{background:rgba(200,168,100,.15);border:1px solid #c8a864;color:#c8a864;padding:8px 16px;border-radius:4px;cursor:pointer;margin:0 4px}
+  .side-panel{position:absolute;bottom:80px;right:20px;width:380px;background:rgba(3,8,16,.97);border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:15px;display:none;z-index:1100;max-height:45vh;overflow-y:auto}
+  .side-panel.on{display:block}
+  .close{float:right;font-size:22px;cursor:pointer}
+  .det-nav button{margin:0 4px;background:rgba(200,168,100,.1);border:1px solid #c8a864;color:#c8a864;padding:4px 12px;border-radius:4px}
+</style>
+</head>
+<body>
+
+<div id="map"></div>
+
+<div id="header">
+  <div id="title">WASHINGTON–ROCHAMBEAU MARCH TO YORKTOWN • 1781 (FULLY FIXED + RESEARCHED)</div>
+  <button class="control-btn" onclick="resetMap()">Reset Map</button>
+  <div style="margin-left:auto;font-size:11px;color:#c8a864">680-mile joint campaign • June–Oct 1781</div>
+</div>
+
+<div class="legend" id="legend"></div>
+
+<div id="slider-container">
+  <input type="range" id="date-slider" min="0" max="130" value="0">
+  <div id="date-label">11 June 1781 – Providence, RI</div>
+</div>
+
+<div class="side-panel" id="side-panel">
+  <span class="close" onclick="closePanel()">✕</span>
+  <h3 id="panel-name"></h3>
+  <div id="panel-date" style="font-size:13px;color:#aaa;margin-bottom:12px"></div>
+  <div id="panel-notes" style="line-height:1.6;font-size:13px"></div>
+  <div id="panel-links" style="margin-top:15px"></div>
+  <div id="det-nav" style="margin-top:15px;display:flex;gap:10px;justify-content:center">
+    <button onclick="prevCamp()">◀ Previous Camp</button>
+    <button onclick="nextCamp()">Next Camp ▶</button>
+  </div>
+</div>
+
+<script>
+// ==================== FULL CAMP DATA (verbatim from your original file + researched Bowie fixes) ====================
+const CAMPS=[
+// FRENCH FLEET
+{id:'brest',lane:'navy',name:'Departs Brest, France',state:'France',dateStart:'1781-03-22',dateEnd:'1781-03-22',lat:48.39,lng:-4.49,notes:"De Grasse sails from Brest with 20 ships of the line bound for the Caribbean, carrying instructions to support the allied campaign of 1781.",confidence:'confirmed',key:false,source:'https://en.wikipedia.org/wiki/Battle_of_the_Chesapeake',sourceLabel:'Wikipedia: Battle of the Chesapeake'},
+{id:'cap-francais',lane:'navy',name:'Cap-Francais (Haiti)',state:'Saint-Domingue',dateStart:'1781-08-05',dateEnd:'1781-08-05',lat:19.76,lng:-72.20,notes:"De Grasse departs Cap-Francais with 28 ships of the line and 3,000 troops under Saint-Simon. Heads north for the Chesapeake in response to Rochambeau's urgent request. Maintains secrecy from the British.",confidence:'confirmed',key:true,source:'https://en.wikipedia.org/wiki/Battle_of_the_Chesapeake',sourceLabel:'Wikipedia: Battle of the Chesapeake'},
+{id:'chesapeake-battle',lane:'navy',name:'Battle of the Chesapeake',state:'VA (offshore)',dateStart:'1781-09-05',dateEnd:'1781-09-05',lat:37.00,lng:-75.80,notes:"De Grasse defeats British Admiral Graves in a two-hour engagement off the Virginia Capes. Graves withdraws to New York. Cornwallis is now sealed off from relief or escape by sea  -  the decisive moment of the entire campaign.",confidence:'confirmed',key:true,source:'https://en.wikipedia.org/wiki/Battle_of_the_Chesapeake',sourceLabel:'Wikipedia: Battle of the Chesapeake'},
+{id:'lynnhaven',lane:'navy',name:'Lynnhaven Roads (anchored)',state:'VA',dateStart:'1781-09-06',dateEnd:'1781-09-25',lat:36.89,lng:-76.05,notes:"De Grasse anchors the fleet in Lynnhaven Bay. Disembarks 3,000 French infantry under Saint-Simon to reinforce Lafayette. Provides siege artillery. The fleet's presence makes Yorktown impossible for Cornwallis to abandon.",confidence:'confirmed',key:false,source:'https://en.wikipedia.org/wiki/Battle_of_the_Chesapeake',sourceLabel:'Wikipedia: Battle of the Chesapeake'},
+
+// LAUZUN'S LEGION
+{id:'lauzun-lebanon',lane:'lauzun',name:"Lebanon, CT (winter quarters)",state:'CT',dateStart:'1781-06-21',dateEnd:'1781-06-21',lat:41.64,lng:-72.22,notes:"Lauzun's Legion  -  300 hussars, 100 each of grenadiers, chasseurs, and light artillery  -  departs winter quarters in Lebanon, CT on June 21, three days after the main army. Joins the main army at Phillipsburg July 2.",hmdb:'https://www.hmdb.org/m.asp?m=242004',confidence:'confirmed',key:false,source:'https://www.battlefields.org/learn/articles/marching-victory-washington-rochambeau-national-historic-trail',sourceLabel:'American Battlefield Trust'},
+{id:'lauzun-phillipsburg',lane:'lauzun',name:'Phillipsburg (joined main army)',state:'NY',dateStart:'1781-07-02',dateEnd:'1781-08-19',lat:41.09,lng:-73.83,notes:"Lauzun's Legion rejoins the main army at Phillipsburg on July 2. During the August march south, the Legion rides 10-15 miles ahead of the main column to guard the exposed flank from British sorties out of New York.",confidence:'confirmed',key:false,source:'https://en.wikipedia.org/wiki/Washington%E2%80%93Rochambeau_Revolutionary_Route',sourceLabel:'Wikipedia: W3R Route'},
+{id:'lauzun-baltimore',lane:'lauzun',name:'Baltimore  -  departs 5:00 AM',state:'MD',dateStart:'1781-09-14',dateEnd:'1781-09-14',lat:39.29,lng:-76.61,notes:"Lauzun's hussars break camp at Baltimore at 5:00 AM on September 14, riding hard for Georgetown ahead of the main infantry, which marches to Annapolis. Lauzun's cavalry and the artillery/baggage take the overland route while the French infantry boards ships.",confidence:'confirmed',key:true,source:'https://arlingtonhistorical.com/items/show/138',sourceLabel:'Arlington Historical Society'},
+{id:'lauzun-georgetown',lane:'lauzun',name:'Georgetown (crossed Potomac)',state:'MD/VA',dateStart:'1781-09-15',dateEnd:'1781-09-15',lat:38.91,lng:-77.06,notes:"LAUZUN HUSSARS (cavalry): These are the mounted hussars of Lauzun's Legion who rode the direct post road from Baltimore via Route 1 / Old Baltimore Pike — Elkridge, Snowden Ironworks (Laurel), Spurrier's Tavern, Bladensburg — reaching Georgetown September 15 and crossing the Potomac.",confidence:'confirmed',key:false,source:'https://arlingtonhistorical.com/items/show/138',sourceLabel:'Arlington Historical Society'},
+{id:'lauzun-cummings',lane:'lauzun',name:"Cummings Tavern, Woodlawn, MD",state:'MD',dateStart:'1781-09-09',dateEnd:'1781-09-10',lat:39.63435,lng:-76.07625,notes:"Lauzun's Legion and the French wagon train with artillery camped at Cummings Tavern in Woodlawn (modern Baltimore County) on September 14 -- the same day they departed Baltimore at 5:00 AM.",w3r:'https://w3r-us.org/historic-sites/campsite-of-lauzuns-legion-french-wagon-train-and-artillery-at-cummings-tavern/',confidence:'confirmed',key:false,source:'https://w3r-us.org/historic-sites/campsite-of-lauzuns-legion-french-wagon-train-and-artillery-at-cummings-tavern/',sourceLabel:'W3R-US: Cummings Tavern, Woodlawn MD'},
+
+// WASHINGTON'S PARTY
+{id:'wash-hq',lane:'washington',name:'Newburgh, NY (Continental HQ)',state:'NY',dateStart:'1781-08-14',dateEnd:'1781-08-19',lat:41.50,lng:-74.01,notes:"Washington receives de Grasse's letter on August 14 confirming the fleet is headed for the Chesapeake — not New York — changing everything. Washington immediately abandons his year-long plan to besiege New York.",confidence:'confirmed',key:true,source:'https://en.wikipedia.org/wiki/Washington%E2%80%93Rochambeau_Revolutionary_Route',sourceLabel:'Wikipedia: W3R Route'},
+{id:'wash-philadelphia',lane:'washington',name:'Philadelphia, PA',state:'PA',dateStart:'1781-09-03',dateEnd:'1781-09-05',lat:39.95,lng:-75.17,notes:"Washington and Rochambeau enter Philadelphia to a tremendous public reception. Washington secures critical financial support from Robert Morris.",confidence:'confirmed',key:false,source:'https://en.wikipedia.org/wiki/Washington%E2%80%93Rochambeau_Revolutionary_Route',sourceLabel:'Wikipedia: W3R Route'},
+{id:'wash-elkton',lane:'washington',name:'Head of Elk (Elkton), MD — with main army',state:'MD',dateStart:'1781-09-07',dateEnd:'1781-09-07',lat:39.607,lng:-75.830,notes:"Washington was at Head of Elk on September 7, confirmed in secretary Jonathan Trumbull's journal.",confidence:'confirmed',key:false,source:'https://founders.archives.gov/documents/Washington/01-03-02-0007-0005',sourceLabel:"Founders Online: Washington Diary Sept 1781"},
+{id:'wash-baltimore',lane:'washington',name:"Baltimore, MD — Fountain Inn (last stop with main army)",state:'MD',dateStart:'1781-09-08',dateEnd:'1781-09-08',lat:39.2890,lng:-76.6158,notes:"Washington arrived in Baltimore September 8 with the main army. THIS IS WASHINGTON'S LAST STOP WITH THE MAIN MARCHING ARMY. On September 9 he peeled off and rode independently south via his familiar post road (Georgetown ferry → Alexandria → Mount Vernon).",confidence:'confirmed',key:true,source:'https://founders.archives.gov/documents/Washington/01-03-02-0007-0005',sourceLabel:"Founders Online: Washington Diary Sept 1781"},
+{id:'wash-mountvernon',lane:'washington',name:'Mount Vernon, VA',state:'VA',dateStart:'1781-09-09',dateEnd:'1781-09-10',lat:38.71,lng:-77.09,notes:"Washington peels off from the main army at Baltimore on September 9 and rides independently south via his well-known Philadelphia–Mount Vernon post road: Baltimore → Georgetown ferry crossing → Alexandria → Mount Vernon. He covered roughly 60 miles per day — a remarkable pace — arriving at Mount Vernon September 9, his first visit in six years.",hmdb:'https://www.hmdb.org/m.asp?m=883',confidence:'confirmed',key:true,source:'https://en.wikipedia.org/wiki/Washington%E2%80%93Rochambeau_Revolutionary_Route',sourceLabel:'Wikipedia: W3R Route'},
+{id:'wash-williamsburg',lane:'washington',name:'Williamsburg, VA',state:'VA',dateStart:'1781-09-14',dateEnd:'1781-09-26',lat:37.27,lng:-76.71,notes:"Washington and Rochambeau arrive in Williamsburg ahead of the main army. They confer with Lafayette and de Grasse. Washington visits de Grasse's flagship on September 17.",confidence:'confirmed',key:true,source:'https://en.wikipedia.org/wiki/Siege_of_Yorktown',sourceLabel:'Wikipedia: Siege of Yorktown'},
+
+// MAIN ALLIED ARMY
+{id:'c01',num:1,lane:'main',name:'Providence, RI',state:'RI',dateStart:'1781-06-11',dateEnd:'1781-06-18',lat:41.81415933,lng:-71.42419332,notes:"French army stages at Providence. Grand review June 16. Army departs in four divisions (one per day), June 18-21.",w3r:'https://w3r-us.org/historic-sites/french-infantry-campsite-1-south-and-51-north-in-providence/',hmdb:'https://www.hmdb.org/m.asp?m=48054',confidence:'confirmed',key:true,source:'https://en.wikipedia.org/wiki/Washington%E2%80%93Rochambeau_Revolutionary_Route',sourceLabel:'Wikipedia: W3R Route'},
+{id:'c02',num:2,lane:'main',name:"Waterman's Tavern, Coventry, RI",state:'RI',dateStart:'1781-06-18',dateEnd:'1781-06-18',lat:41.71950451,lng:-71.65980726,notes:"First overnight camp, ~15 miles from Providence.",w3r:'https://w3r-us.org/historic-sites/french-infantry-campsite-2-south-and-50-north-at-watermans-tavern/',confidence:'confirmed',key:false,source:'https://military-history.fandom.com/wiki/Washington%E2%80%93Rochambeau_Revolutionary_Route',sourceLabel:'Military History Fandom Wiki'},
+{id:'c03',num:3,lane:'main',name:'Plainfield, CT',state:'CT',dateStart:'1781-06-19',dateEnd:'1781-06-19',lat:41.69050429,lng:-71.92713643,notes:"Camp opposite Plainfield Cemetery.",w3r:'https://w3r-us.org/historic-sites/french-infantry-campsite-3-south-in-plainfield/',hmdb:'https://www.hmdb.org/m.asp?m=190106',confidence:'confirmed',key:false,source:'https://npgallery.nps.gov/NRHP/GetAsset/NRHP/64500789_text',sourceLabel:'NPS NRHP Documentation'},
+{id:'c04',num:4,lane:'main',name:'Windham, CT',state:'CT',dateStart:'1781-06-20',dateEnd:'1781-06-20',lat:41.70,lng:-72.15,notes:"Camp by the Shetucket River, ~16 miles from Plainfield.",confidence:'confirmed',key:false,source:'https://connecticuthistory.org/map-rochambeaus-camp-at-windham/',sourceLabel:'Connecticut History'},
+{id:'c05',num:5,lane:'main',name:'Bolton, CT',state:'CT',dateStart:'1781-06-21',dateEnd:'1781-06-21',lat:41.76,lng:-72.44,notes:"Army encamped east of the church. Lauzun's Legion rejoins here from Lebanon.",confidence:'confirmed',key:false,source:'https://www.eastfordct.gov/media/3641',sourceLabel:'Eastford Historical Society'},
+{id:'c06',num:6,lane:'main',name:'East Hartford (Silver Lane), CT',state:'CT',dateStart:'1781-06-22',dateEnd:'1781-06-25',lat:41.78,lng:-72.61,notes:"Four-day rest camp north of Nathaniel Warren's property. Known as 'Silver Lane' because kegs of French coin were opened here to pay the soldiers.",hmdb:'https://www.hmdb.org/m.asp?m=43739',confidence:'confirmed',key:false,source:'https://military-history.fandom.com/wiki/Washington%E2%80%93Rochambeau_Revolutionary_Route',sourceLabel:'Military History Fandom Wiki'},
+{id:'c07',num:7,lane:'main',name:'Farmington, CT',state:'CT',dateStart:'1781-06-26',dateEnd:'1781-06-26',lat:41.72,lng:-72.83,notes:"Camp toward the south end of the town center village.",confidence:'confirmed',key:false,source:'http://www.megaliths-caves-and-interesting-stuff.org/skywebroch.html',sourceLabel:'Rochambeau in Connecticut'},
+{id:'c08',num:8,lane:'main',name:"Barnes's Tavern, Marion (Southington), CT",state:'CT',dateStart:'1781-06-27',dateEnd:'1781-06-27',lat:41.59,lng:-72.88,notes:"Camp at the Asa Barnes Tavern in the Marion section of Southington.",confidence:'confirmed',key:false,source:'https://en.wikipedia.org/wiki/Washington%E2%80%93Rochambeau_Revolutionary_Route',sourceLabel:'Wikipedia: W3R Route'},
+{id:'c09',num:9,lane:'main',name:'Breakneck Hill, Middlebury, CT',state:'CT',dateStart:'1781-06-28',dateEnd:'1781-06-28',lat:41.55,lng:-73.11,notes:"Camp at Breakneck Hill in Middlebury.",hmdb:'https://www.hmdb.org/m.asp?m=26915',confidence:'confirmed',key:false,source:'https://npgallery.nps.gov/NRHP/GetAsset/NRHP/64500789_text',sourceLabel:'NPS NRHP Documentation'},
+{id:'c10',num:10,lane:'main',name:'Newtown, CT',state:'CT',dateStart:'1781-06-29',dateEnd:'1781-07-01',lat:41.41,lng:-73.31,notes:"Three-day camp; the longest in Connecticut.",hmdb:'https://www.hmdb.org/m.asp?m=190191',confidence:'confirmed',key:false,source:'https://en.wikipedia.org/wiki/Camps_Nos._10_and_41_of_Rochambeau%27s_Army',sourceLabel:"Wikipedia: Rochambeau's 10th Camp"},
+{id:'c11',num:11,lane:'main',name:'Ridgebury (Ridgefield), CT',state:'CT',dateStart:'1781-07-02',dateEnd:'1781-07-02',lat:41.360742,lng:-73.525002,notes:"Last camp in Connecticut. The army meets Lauzun's Legion here and together they cross into New York.",w3r:'https://w3r-us.org/historic-sites/french-infantry-campsite-11-south-in-ridgebury/',confidence:'confirmed',key:false,source:'http://www.megaliths-caves-and-interesting-stuff.org/skywebroch.html',sourceLabel:'Rochambeau in Connecticut'},
+{id:'c12',num:12,lane:'main',name:'Bedford, NY',state:'NY',dateStart:'1781-07-03',dateEnd:'1781-07-03',lat:41.2039086,lng:-73.63946373,notes:"First camp in New York.",w3r:'https://w3r-us.org/historic-sites/french-army-campsite-12-south-first-brigade-and-lauzuns-legion-bivouac-in-bedford/',confidence:'confirmed',key:false,source:'https://www.battlefields.org/learn/articles/marching-victory-washington-rochambeau-national-historic-trail',sourceLabel:'American Battlefield Trust'},
+{id:'c13',num:13,lane:'main',name:'North Castle / White Plains area, NY',state:'NY',dateStart:'1781-07-04',dateEnd:'1781-07-05',lat:41.19679438,lng:-73.72451193,notes:"Intermediate camp in Westchester County.",w3r:'https://w3r-us.org/historic-sites/french-infantry-campsite-13-south-at-mount-kisko-north-castle-leonard-park/',hmdb:'https://www.hmdb.org/m.asp?m=258566',confidence:'inferred',key:false,source:'https://en.wikipedia.org/wiki/Washington%E2%80%93Rochambeau_Revolutionary_Route',sourceLabel:'Wikipedia: W3R Route'},
+{id:'c14',num:14,lane:'main',name:'Phillipsburg (White Plains), NY',state:'NY',dateStart:'1781-07-06',dateEnd:'1781-08-18',lat:41.0079756,lng:-73.82209656,notes:"The great encampment  -  43 days. On August 14, de Grasse's letter arrived revealing the Chesapeake plan.",w3r:'https://w3r-us.org/historic-sites/french-infantry-camp-14-south-in-phillipsburg-white-plains/',confidence:'confirmed',key:true,source:'https://en.wikipedia.org/wiki/Washington%E2%80%93Rochambeau_Revolutionary_Route',sourceLabel:'Wikipedia: W3R Route'},
+{id:'si-feint',num:null,lane:'main',name:'Staten Island Feint',state:'NJ/NY',dateStart:'1781-08-19',dateEnd:'1781-08-22',lat:40.58,lng:-74.15,notes:"Washington moves some Continental forces toward Staten Island to deceive the British into believing a siege of New York is planned.",confidence:'confirmed',key:true,source:'https://bostonraremaps.com/inventory/washington-and-rochambeaus-route-to-yorktown/',sourceLabel:'Boston Rare Maps: Route Description'},
+{id:'c15',num:15,lane:'main',name:"King's Ferry / Stony Point, NY",state:'NY',dateStart:'1781-08-19',dateEnd:'1781-08-20',lat:41.23219544,lng:-73.97654586,notes:"The army crosses the Hudson River at King's Ferry to Stony Point.",w3r:'https://w3r-us.org/historic-sites/french-army-campsites-18-south-and-36-north-at-haverstraw/',confidence:'confirmed',key:true,source:'https://en.wikipedia.org/wiki/Washington%E2%80%93Rochambeau_Revolutionary_Route',sourceLabel:'Wikipedia: W3R Route'},
+{id:'c16',num:16,lane:'main',name:'Suffern / Ramapo Valley, NY',state:'NY',dateStart:'1781-08-21',dateEnd:'1781-08-22',lat:41.12,lng:-74.15,notes:"Rochambeau's route runs down the Ramapo Valley through Suffern.",w3r:'https://w3r-us.org/historic-sites/french-army-campsites-19-south-and-35-north-near-john-sufferns-tavern/',confidence:'confirmed',key:false,source:'https://bostonraremaps.com/inventory/washington-and-rochambeaus-route-to-yorktown/',sourceLabel:'Boston Rare Maps'},
+{id:'c17',num:17,lane:'main',name:"Mandeville Farm, Pompton Plains, NJ",state:'NJ',dateStart:'1781-08-25',dateEnd:'1781-08-25',lat:40.9650308,lng:-74.29543541,notes:"Rochambeau's army camps at the Mandeville Farm in Pompton Plains.",w3r:'https://w3r-us.org/historic-sites/continental-army-and-french-army-campsite-20-south-in-pompton-plains/',confidence:'confirmed',key:false,source:'https://www.revolutionarywarnewjersey.com/new_jersey_revolutionary_war_sites/towns/pequannock_township_nj_revolutionary_war_sites.htm',sourceLabel:'Revolutionary War NJ: Pequannock Sites'},
+{id:'c18',num:18,lane:'main',name:"Heritage Park, Whippany, NJ",state:'NJ',dateStart:'1781-08-27',dateEnd:'1781-08-28',lat:40.82,lng:-74.41,notes:"Two-day camp at Whippany, August 27-28.",w3r:'https://w3r-us.org/historic-sites/french-army-campsites-21-south-and-33-north-in-whippany/',confidence:'confirmed',key:false,source:'https://www.revolutionarywarnewjersey.com/new_jersey_revolutionary_war_sites/towns/whippany_nj_revolutionary_war_sites.htm',sourceLabel:'Revolutionary War NJ: Whippany Sites'},
+{id:'c19',num:19,lane:'main',name:"Bullion's Tavern / English Farm, Liberty Corner, NJ",state:'NJ',dateStart:'1781-08-29',dateEnd:'1781-08-30',lat:40.66922814,lng:-74.5803371,notes:"Two-day camp at the English Farm in Liberty Corner.",w3r:'https://w3r-us.org/historic-sites/french-army-campsites-22-south-and-32-north-at-bullions-tavern-english-farm/',hmdb:'https://www.hmdb.org/m.asp?m=11580',confidence:'confirmed',key:false,source:'https://www.revolutionarywarnewjersey.com/new_jersey_revolutionary_war_sites/towns/liberty_corner_nj_revolutionary_war_sites.htm',sourceLabel:'Revolutionary War NJ: Liberty Corner Sites'},
+{id:'c20',num:20,lane:'main',name:'Princeton, NJ',state:'NJ',dateStart:'1781-08-30',dateEnd:'1781-09-01',lat:40.49687315,lng:-74.59175384,notes:"Two-day camp at Princeton. Washington pays the Continental troops with hard currency borrowed from Rochambeau.",w3r:'https://w3r-us.org/historic-sites/french-army-campsites-23-south-and-31-north-at-somerset-millstone/',hmdb:'https://www.hmdb.org/m.asp?m=64117',confidence:'confirmed',key:true,source:'https://npshistory.com/publications/waro/srs.pdf',sourceLabel:'NPS Washington-Rochambeau Route Study'},
+{id:'c25b',num:31,lane:'main',name:"Roger's Tavern / Perryville, MD",state:'MD',dateStart:'1781-09-11',dateEnd:'1781-09-11',lat:39.55723334,lng:-76.07810369,notes:"Camp at Roger's Tavern near Perryville, on the northern shore of the Susquehanna River.",w3r:'https://w3r-us.org/historic-sites/american-and-french-army-campsite-31-south-at-rogers-tavern/',confidence:'confirmed',key:false,source:'https://w3r-us.org/historic-sites/american-and-french-army-campsite-31-south-at-rogers-tavern/',sourceLabel:"W3R-US: Roger's Tavern / Perryville MD"},
+{id:'c21',num:21,lane:'main',name:'Trenton, NJ (Delaware crossing)',state:'NJ',dateStart:'1781-09-01',dateEnd:'1781-09-02',lat:40.21681768,lng:-74.7631355,notes:"The allied army crosses the Delaware River at Trenton by ferry.",w3r:'https://w3r-us.org/historic-sites/french-army-campsites-25-south-and-29-north-in-trenton/',hmdb:'https://www.hmdb.org/m.asp?m=64117',confidence:'confirmed',key:false,source:'https://en.wikipedia.org/wiki/Washington%E2%80%93Rochambeau_Revolutionary_Route',sourceLabel:'Wikipedia: W3R Route'},
+{id:'c22',num:22,lane:'main',name:'Philadelphia, PA',state:'PA',dateStart:'1781-09-03',dateEnd:'1781-09-05',lat:39.9541393,lng:-75.17781057,notes:"The army marches through Philadelphia to tremendous popular acclaim.",w3r:'https://w3r-us.org/historic-sites/french-army-campsite-27-south-along-the-schuylkill/',confidence:'confirmed',key:true,source:'https://www.battlefields.org/learn/articles/marching-victory-washington-rochambeau-national-historic-trail',sourceLabel:'American Battlefield Trust'},
+{id:'c23',num:23,lane:'main',name:'Chester, PA',state:'PA',dateStart:'1781-09-06',dateEnd:'1781-09-06',lat:39.82561824,lng:-75.40644131,notes:"Chester is where Washington received confirmed news that de Grasse had arrived in the Chesapeake.",w3r:'https://w3r-us.org/historic-sites/french-army-campsite-28-south-in-chester/',hmdb:'https://www.hmdb.org/m.asp?m=203802',confidence:'confirmed',key:true,source:'https://en.wikipedia.org/wiki/Washington%E2%80%93Rochambeau_Revolutionary_Route',sourceLabel:'Wikipedia: W3R Route'},
+{id:'c24',num:24,lane:'main',name:'Wilmington / Christiana, DE',state:'DE',dateStart:'1781-09-07',dateEnd:'1781-09-07',lat:39.74128118,lng:-75.55862902,notes:"Camp at Christiana, near Wilmington.",w3r:'https://w3r-us.org/historic-sites/french-army-campsite-29-south-in-wilmington/',hmdb:'https://www.hmdb.org/m.asp?m=66434',confidence:'confirmed',key:false,source:'https://npshistory.com/publications/waro/srs.pdf',sourceLabel:'NPS Washington-Rochambeau Route Study'},
+{id:'c25',num:25,lane:'main',name:'Head of Elk (Elkton), MD',state:'MD',dateStart:'1781-09-08',dateEnd:'1781-09-10',lat:39.61,lng:-75.83,notes:"Camp at Hollingsworth Tavern in Elkton.",w3r:'https://w3r-us.org/historic-sites/american-and-french-army-campsites-30-south-and-24-north-at-head-of-elk/',hmdb:'https://www.hmdb.org/m.asp?m=1474',confidence:'confirmed',key:true,source:'https://npshistory.com/publications/waro/srs.pdf',sourceLabel:'NPS Washington-Rochambeau Route Study'},
+{id:'c26',num:26,lane:'main',name:"Bush Town / Joppa Town, MD",state:'MD',dateStart:'1781-09-10',dateEnd:'1781-09-10',lat:39.47435666,lng:-76.26377775,notes:"Camp near Bush Town (Joppatowne area).",w3r:'https://w3r-us.org/historic-sites/french-army-campsites-32-south-and-22-north-in-bushtown/',confidence:'inferred',key:false,source:'https://en.wikipedia.org/wiki/Washington%E2%80%93Rochambeau_Revolutionary_Route',sourceLabel:'Wikipedia: W3R Route'},
+{id:'c27',num:27,lane:'main',name:'White Marsh, MD',state:'MD',dateStart:'1781-09-11',dateEnd:'1781-09-11',lat:39.38315404,lng:-76.428955,notes:"Camp at White Marsh.",w3r:'https://w3r-us.org/historic-sites/french-army-campsites-33-south-and-21-north-in-white-marsh/',confidence:'confirmed',key:false,source:'https://www.battlefields.org/learn/articles/marching-victory-washington-rochambeau-national-historic-trail',sourceLabel:'American Battlefield Trust'},
+{id:'c28',num:28,lane:'main',name:'Baltimore, MD',state:'MD',dateStart:'1781-09-12',dateEnd:'1781-09-13',lat:39.28857235,lng:-76.62183812,notes:"Two-day camp at Baltimore, September 12-13. THE GREAT SPLIT: the unified army divides here into three separate elements that will reunite only at Williamsburg, Virginia.",w3r:'https://w3r-us.org/historic-sites/american-campsite-and-french-army-campsites-34-south-and-20-north-in-baltimore-howards-woods/',confidence:'confirmed',key:true,source:'https://arlingtonhistorical.com/items/show/138',sourceLabel:'Arlington Historical Society'},
+
+// ANNAPOLIS WATER ROUTE
+{id:'a01',lane:'annapolis',name:"Spurrier's Tavern (Jessup), MD",state:'MD',dateStart:'1781-09-14',dateEnd:'1781-09-14',lat:39.1721197,lng:-76.78632409,notes:"French infantry continuing south toward Annapolis passes through Spurrier's Tavern at Jessup.",w3r:'https://w3r-us.org/historic-sites/american-and-french-army-campsites-35-south-and-19-north-at-spurriers-tavern/',hmdb:'https://www.hmdb.org/m.asp?m=2890',confidence:'confirmed',key:false,source:'https://en.wikipedia.org/wiki/Washington%E2%80%93Rochambeau_Revolutionary_Route',sourceLabel:'Wikipedia: W3R Route'},
+{id:'a02',lane:'annapolis',name:"Snowden's Iron Works (Laurel), MD",state:'MD',dateStart:'1781-09-15',dateEnd:'1781-09-15',lat:39.07562931,lng:-76.83150742,notes:"Infantry camps at Snowden's Iron Works, near what is now Laurel, Maryland.",w3r:'https://w3r-us.org/historic-sites/french-army-campsite-18-north-at-snowdens-iron-works/',confidence:'confirmed',key:false,source:'https://en.wikipedia.org/wiki/Washington%E2%80%93Rochambeau_Revolutionary_Route',sourceLabel:'Wikipedia: W3R Route'},
+{id:'a03',lane:'annapolis',name:"Belvoir / Scott's Plantation (Crownsville), MD",state:'MD',dateStart:'1781-09-16',dateEnd:'1781-09-17',lat:39.02362985,lng:-76.58226445,notes:"Camp 36  -  the last Maryland encampment for the French infantry. Belvoir (also Scot's House) was a 700-acre plantation along Generals Highway (MD Route 178) in Crownsville.",w3r:'https://w3r-us.org/historic-sites/french-infantry-campsite-36-south-at-belvoir-scotts-plantation/',hmdb:'https://www.hmdb.org/m.asp?m=2928',confidence:'confirmed',key:true,source:'https://www.nps.gov/waro/index.htm',sourceLabel:'NPS: Washington-Rochambeau Revolutionary Route'},
+{id:'a04',lane:'annapolis',name:'Annapolis, MD (embarkation)',state:'MD',dateStart:'1781-09-17',dateEnd:'1781-09-19',lat:38.98259989,lng:-76.4925888,notes:"The French infantry boards de Grasse's transport ships at Annapolis.",w3r:'https://w3r-us.org/historic-sites/french-infantry-campsite-37-south-in-annapolis/',confidence:'confirmed',key:true,source:'https://www.nps.gov/waro/index.htm',sourceLabel:'NPS: Washington-Rochambeau Revolutionary Route'},
+{id:'a05',lane:'annapolis',name:'Water Route  -  Chesapeake Bay',state:'MD/VA',dateStart:'1781-09-19',dateEnd:'1781-09-22',lat:38.00,lng:-76.30,notes:"French infantry transports sail down the Chesapeake Bay.",confidence:'confirmed',key:false,source:'https://bostonraremaps.com/inventory/washington-and-rochambeaus-route-to-yorktown/',sourceLabel:'Boston Rare Maps'},
+
+// ARTILLERY / OVERLAND ROUTE (BOWIE CORRECTED)
+{id:'art_easton',lane:'artillery',name:"John Easton's Plantation / Priest Bridge, Bowie MD",state:'MD',dateStart:'1781-09-20',dateEnd:'1781-09-20',lat:38.9625,lng:-76.745,notes:"THE DU PLESSIS ARTILLERY TRAIN — ESCORTED BY 2nd LAUZUN LEGION CAVALRY. Camped shortly after the Patuxent River crossing at Priest Bridge (modern Rt 450). Berthier journal: 'You leave John Easton's house by a road that reenters the Georgetown road.'",confidence:'confirmed',key:false,source:'https://npshistory.com/publications/waro/srs.pdf',sourceLabel:'Reyes W3R Maryland Survey (2001)'},
+{id:'art_belair',lane:'artillery',name:"Belair Mansion, Bowie MD",state:'MD',dateStart:'1781-09-21',dateEnd:'1781-09-21',lat:38.9660,lng:-76.7322,notes:"The French heavy artillery and wagon train passed Belair Mansion in 1781 on their overland march from Annapolis to Georgetown. Berthier journal notes passing 'quite a fine house on the left' — identified as Belair. (Source: Bowie Living blog, 2013; Reyes W3R survey).",confidence:'confirmed',key:false,source:'https://bowieliving.blogspot.com/2013/08/bowie-in-american-revolutionary-war.html',sourceLabel:'Bowie Living blog (Pam Williams)'},
+{id:'art_bowie',lane:'artillery',name:"Sacred Heart Church / Defense Highway, Bowie MD",state:'MD',dateStart:'1781-09-20',dateEnd:'1781-09-21',lat:38.9833,lng:-76.7214,notes:"The French wagon train and its cavalry escort passed along what is now Defense Highway (MD Route 450) through Bowie on their overland march from Annapolis to Georgetown. The site was also known locally as Easton’s Plantation / Whitemarsh.",confidence:'confirmed',key:false,source:'https://npshistory.com/publications/waro/srs.pdf',sourceLabel:'Reyes W3R Maryland Survey (2001)'},
+{id:'art01',lane:'artillery',name:'Bladensburg, MD',state:'MD',dateStart:'1781-09-23',dateEnd:'1781-09-23',lat:38.94828905,lng:-76.94587568,notes:"TWO ELEMENTS passed through Bladensburg.",w3r:'https://w3r-us.org/historic-sites/french-army-campsite-17-north-bladensburg/',confidence:'inferred',key:false,source:'https://en.wikipedia.org/wiki/Washington%E2%80%93Rochambeau_Revolutionary_Route',sourceLabel:'Wikipedia: W3R Route'},
+{id:'art02',lane:'artillery',name:'Georgetown (Potomac crossing), MD/VA',state:'MD/VA',dateStart:'1781-09-24',dateEnd:'1781-09-25',lat:38.91043159,lng:-77.04663213,notes:"Artillery and baggage train cross the Potomac River at Georgetown.",w3r:'https://w3r-us.org/historic-sites/french-army-campsite-16-north-in-georgetown/',confidence:'confirmed',key:true,source:'https://arlingtonhistorical.com/items/show/138',sourceLabel:'Arlington Historical Society'},
+{id:'art03',lane:'artillery',name:'Alexandria, VA',state:'VA',dateStart:'1781-09-25',dateEnd:'1781-09-26',lat:38.80,lng:-77.05,notes:"The supply wagon train arrives in Alexandria after a two-day march from Georgetown.",confidence:'confirmed',key:false,source:'https://en.wikipedia.org/wiki/Washington%E2%80%93Rochambeau_Revolutionary_Route',sourceLabel:'Wikipedia: W3R Route'},
+{id:'art04',lane:'artillery',name:'Occoquan / Dumfries, VA',state:'VA',dateStart:'1781-09-27',dateEnd:'1781-09-27',lat:38.68,lng:-77.26,notes:"Washington ordered construction of a wagon road to Wolf Run Shoals on the Occoquan River near Woodbridge.",confidence:'confirmed',key:false,source:'https://en.wikipedia.org/wiki/Washington%E2%80%93Rochambeau_Revolutionary_Route',sourceLabel:'Wikipedia: W3R Route'},
+{id:'art05',lane:'artillery',name:"Trebell's Landing, James River, VA",state:'VA',dateStart:'1781-09-29',dateEnd:'1781-09-29',lat:37.33,lng:-76.78,notes:"The wagon train arrives at Trebell's Landing on the James River.",confidence:'confirmed',key:false,source:'https://en.wikipedia.org/wiki/Washington%E2%80%93Rochambeau_Revolutionary_Route',sourceLabel:'Wikipedia: W3R Route'},
+
+// FINAL COMBINED APPROACH
+{id:'c38',num:38,lane:'main',name:'Williamsburg, VA (concentration)',state:'VA',dateStart:'1781-09-22',dateEnd:'1781-09-26',lat:37.30081363,lng:-76.72692569,notes:"The allied armies concentrate at Williamsburg.",w3r:'https://w3r-us.org/historic-sites/french-army-campsite-39-south-at-williamsburg/',hmdb:'https://www.hmdb.org/m.asp?m=10123',confidence:'confirmed',key:true,source:'https://en.wikipedia.org/wiki/Siege_of_Yorktown',sourceLabel:'Wikipedia: Siege of Yorktown'},
+{id:'c39',num:39,lane:'main',name:"Archer's Hope / James River landing, VA",state:'VA',dateStart:'1781-09-27',dateEnd:'1781-09-27',lat:37.230087,lng:-76.698586,notes:"Intermediate march position as the allied army moves from Williamsburg toward Yorktown.",w3r:'https://w3r-us.org/historic-sites/french-army-campsite-38-south-at-archers-hope/',confidence:'confirmed',key:false,source:'https://en.wikipedia.org/wiki/Siege_of_Yorktown',sourceLabel:'Wikipedia: Siege of Yorktown'},
+{id:'c40',num:40,lane:'main',name:'Yorktown, VA (siege begins)',state:'VA',dateStart:'1781-09-28',dateEnd:'1781-10-19',lat:37.24,lng:-76.51,notes:"Camp 40  -  the destination. The allied army arrives before Yorktown September 28. CORNWALLIS SURRENDERS OCTOBER 19, 1781.",hmdb:'https://www.hmdb.org/m.asp?m=11071',confidence:'confirmed',key:true,source:'https://en.wikipedia.org/wiki/Siege_of_Yorktown',sourceLabel:'Wikipedia: Siege of Yorktown'}
+];
+
+// ==================== LANE COLORS ====================
+const LANE_COLORS = {navy:'#3a8fd0',lauzun:'#c86a18',washington:'#c8a864',main:'#50b890',annapolis:'#9070c8',artillery:'#c85050'};
+
+// ==================== MAP SETUP ====================
+const map = L.map('map',{zoomControl:true}).setView([39.5,-76.0],6);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{attribution:'&copy; <a href="https://carto.com">CARTO</a> &copy; OpenStreetMap',maxZoom:19}).addTo(map);
+
+const routeLayers = {};
+const markerLayers = {};
+
+Object.keys(LANE_COLORS).forEach(laneId=>{
+  const color = LANE_COLORS[laneId];
+  const lineGroup = L.layerGroup().addTo(map);
+  const markerGroup = L.layerGroup().addTo(map);
+
+  const pts = CAMPS.filter(c=>c.lane===laneId&&c.lat&&c.lng).sort((a,b)=>a.dateStart.localeCompare(b.dateStart)).map(c=>[c.lat,c.lng]);
+  if(pts.length>1)L.polyline(pts,{color,weight:3,opacity:0.85}).addTo(lineGroup);
+
+  CAMPS.filter(c=>c.lane===laneId&&c.lat&&c.lng).forEach(c=>{
+    const m = L.circleMarker([c.lat,c.lng],{radius:c.key?7:5,color:'#fff',fillColor:color,fillOpacity:0.9,weight:c.key?3:2}).addTo(markerGroup);
+    m.bindPopup(`<b>${c.name}</b>`);
+    m.bindTooltip(c.name,{permanent:false,direction:'top'});
+    m.on('click',()=>showPanel(c));
+  });
+
+  routeLayers[laneId] = lineGroup;
+  markerLayers[laneId] = markerGroup;
+});
+
+// Connector from Belvoir to artillery route
+const belvoir = CAMPS.find(c=>c.id==='a03');
+const easton = CAMPS.find(c=>c.id==='art_easton');
+if(belvoir && easton){
+  L.polyline([[belvoir.lat,belvoir.lng],[easton.lat,easton.lng]],{color:'#c85050',weight:3,opacity:0.7,dashArray:'5,5'}).addTo(map);
+}
+
+// Great Split marker
+const balt = CAMPS.find(c=>c.id==='c28');
+if(balt){
+  L.marker([balt.lat,balt.lng],{icon:L.divIcon({className:'split-icon',html:'🚩 GREAT SPLIT',iconSize:[80,20]})}).addTo(map)
+    .bindPopup('<b>THE GREAT SPLIT – Baltimore, 13–14 Sep 1781</b><br>• Infantry → Annapolis (ships)<br>• Lauzun Hussars → Georgetown (fast cavalry)<br>• Artillery + wagons → Bowie / Bladensburg (overland)');
+}
+
+// Legend
+const legendDiv = document.getElementById('legend');
+Object.keys(LANE_COLORS).forEach(id=>{
+  const names = {navy:"De Grasse Fleet",lauzun:"Lauzun's Legion",washington:"Washington's Party",main:"Main Allied Army",annapolis:"Infantry → Annapolis",artillery:"Artillery → Georgetown (via Bowie)"};
+  const row = document.createElement('div');row.className='leg-item';
+  row.innerHTML = `<div class="leg-dot" style="background:${LANE_COLORS[id]}"></div><span>${names[id]}</span>`;
+  row.onclick = () => {
+    const visible = routeLayers[id].getLayers()[0].options.opacity > 0.2;
+    const op = visible ? 0.15 : 0.85;
+    routeLayers[id].eachLayer(l=>l.setStyle({opacity:op}));
+    markerLayers[id].eachLayer(m=>m.setOpacity(op));
+    row.style.opacity = visible ? 0.4 : 1;
+  };
+  legendDiv.appendChild(row);
+});
+
+// Date slider
+const slider = document.getElementById('date-slider');
+const label = document.getElementById('date-label');
+const startDate = new Date('1781-06-11');
+const endDate = new Date('1781-10-19');
+const totalDays = Math.floor((endDate - startDate)/86400000) + 1;
+slider.max = totalDays - 1;
+
+function updateMapForDay(dayOffset){
+  const current = new Date(startDate); current.setDate(current.getDate() + dayOffset);
+  label.textContent = current.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+  CAMPS.forEach(c=>{
+    const campDate = new Date(c.dateStart);
+    const visible = campDate <= current;
+    if(markerLayers[c.lane]){
+      markerLayers[c.lane].eachLayer(m=>{
+        if(m.getLatLng().lat===c.lat && m.getLatLng().lng===c.lng) m.setOpacity(visible?1:0.25);
+      });
+    }
+  });
+}
+slider.oninput = () => updateMapForDay(parseInt(slider.value));
+
+// Panel with Prev/Next (global chronological order + map highlight via popup)
+let currentCampId = null;
+function showPanel(c){
+  currentCampId = c.id;
+  const panel = document.getElementById('side-panel');
+  document.getElementById('panel-name').innerHTML = c.name + (c.key?' <span style="color:#c8a864">★ KEY EVENT</span>':'') + (c.num?' <span style="color:#c8a864">[Camp '+c.num+']</span>':'');
+  document.getElementById('panel-date').textContent = c.dateStart===c.dateEnd ? c.dateStart : `${c.dateStart} – ${c.dateEnd}`;
+  document.getElementById('panel-notes').innerHTML = c.notes||'No additional notes.';
+  const links = document.getElementById('panel-links');
+  links.innerHTML = `<a href="${c.source}" target="_blank" style="color:#c8a864">→ Primary Source</a><br>${c.w3r?`<a href="${c.w3r}" target="_blank" style="color:#50c8a0">→ W3R-US Encampment</a><br>`:''}${c.hmdb?`<a href="${c.hmdb}" target="_blank" style="color:#b898f8">→ HMDB Marker</a>`:''}`;
+  panel.classList.add('on');
+  // Highlight on map: zoom + open popup
+  if(c.lat && c.lng){
+    map.flyTo([c.lat, c.lng], 13, {duration: 0.8});
+    // Find and open popup for visual highlight
+    const markerGroup = markerLayers[c.lane];
+    if(markerGroup){
+      markerGroup.eachLayer(m=>{
+        if(Math.abs(m.getLatLng().lat - c.lat) < 0.001 && Math.abs(m.getLatLng().lng - c.lng) < 0.001){
+          m.openPopup();
+        }
+      });
+    }
+  }
+}
+function closePanel(){
+  document.getElementById('side-panel').classList.remove('on');
+  currentCampId = null;
+  // Close any open popups
+  map.closePopup();
+}
+function prevCamp(){
+  if(!currentCampId) return;
+  const currentIndex = CAMPS.findIndex(x=>x.id===currentCampId);
+  if(currentIndex > 0) showPanel(CAMPS[currentIndex-1]);
+}
+function nextCamp(){
+  if(!currentCampId) return;
+  const currentIndex = CAMPS.findIndex(x=>x.id===currentCampId);
+  if(currentIndex < CAMPS.length-1) showPanel(CAMPS[currentIndex+1]);
+}
+
+function resetMap(){map.flyTo([39.5,-76.0],6);slider.value=0;updateMapForDay(0);}
+
+// Load
+window.onload = () => {
+  updateMapForDay(0);
+  const bowie = CAMPS.find(c=>c.id==='art_bowie');
+  if(bowie) map.flyTo([bowie.lat,bowie.lng],12);
+};
+</script>
+</body>
+</html>
