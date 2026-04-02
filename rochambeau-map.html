@@ -124,7 +124,7 @@ const CAMPS=[
 {id:'art02',lane:'artillery',name:'Georgetown (Potomac crossing), MD/VA',state:'MD/VA',dateStart:'1781-09-24',dateEnd:'1781-09-25',lat:38.91043159,lng:-77.04663213,notes:"Artillery and baggage train cross the Potomac River at Georgetown. The crossing was completed without loss of equipment; the heavy wagons were ferried carefully under the protection of Lauzun's cavalry.",w3r:'https://w3r-us.org/historic-sites/french-army-campsite-16-north-in-georgetown/',confidence:'confirmed',key:true,source:'https://arlingtonhistorical.com/items/show/138',sourceLabel:'Arlington Historical Society'},
 {id:'art03',lane:'artillery',name:'Alexandria, VA',state:'VA',dateStart:'1781-09-25',dateEnd:'1781-09-26',lat:38.80,lng:-77.05,notes:"The supply wagon train arrives in Alexandria after a two-day march from Georgetown. Alexandria residents provided supplies and cheered the French artillerymen as they continued south.",confidence:'confirmed',key:false,source:'https://en.wikipedia.org/wiki/Washington%E2%80%93Rochambeau_Revolutionary_Route',sourceLabel:'Wikipedia: W3R Route'},
 {id:'art04',lane:'artillery',name:'Occoquan / Dumfries, VA',state:'VA',dateStart:'1781-09-27',dateEnd:'1781-09-27',lat:38.68,lng:-77.26,notes:"Washington ordered construction of a wagon road to Wolf Run Shoals on the Occoquan River near Woodbridge. The artillery train used the newly improved road to keep moving toward the James River.",confidence:'confirmed',key:false,source:'https://en.wikipedia.org/wiki/Washington%E2%80%93Rochambeau_Revolutionary_Route',sourceLabel:'Wikipedia: W3R Route'},
-{id:'art05',lane:'artillery',name:"Trebell's Landing, James River, VA",state:'VA',dateStart:'1781-09-29',dateEnd:'1781-09-29',lat:37.33,lng:-76.78,notes:"The wagon train arrives at Trebell's Landing on the James River. The artillery was finally loaded onto boats for the last leg to Yorktown; the overland journey was complete.",confidence:'confirmed',key:false,source:'https://en.wikipedia.org/wiki/Washington%E2%80%93Rochambeau_Revolutionary_Route',sourceLabel:'Wikipedia: W3R Route'},
+{id:'art05',lane:'artillery',name:"Trebell's Landing, James River, VA",state:'VA',dateStart:'1781-09-29',dateEnd:'1781-09-29',lat:37.2111,lng:-76.6176,notes:"The wagon train arrives at Trebell's Landing on the James River (HMDB marker: 37° 12.664′ N, 76° 37.057′ W). The artillery was finally loaded onto boats for the last leg to Yorktown; the overland journey was complete. This precise landing site allowed the heavy guns to be transferred efficiently to the siege lines.",confidence:'confirmed',key:false,hmdb:'https://www.hmdb.org/m.asp?m=9501',source:'https://en.wikipedia.org/wiki/Washington%E2%80%93Rochambeau_Revolutionary_Route',sourceLabel:'Wikipedia: W3R Route'},
 
 // FINAL COMBINED APPROACH
 {id:'c38',num:38,lane:'main',name:'Williamsburg, VA (concentration)',state:'VA',dateStart:'1781-09-22',dateEnd:'1781-09-26',lat:37.30081363,lng:-76.72692569,notes:"The allied armies concentrate at Williamsburg. All three elements — infantry from Annapolis, Washington's party, and the artillery from Bowie — reunited here. The city became the final staging ground for the siege.",w3r:'https://w3r-us.org/historic-sites/french-army-campsite-39-south-at-williamsburg/',hmdb:'https://www.hmdb.org/m.asp?m=10123',confidence:'confirmed',key:true,source:'https://en.wikipedia.org/wiki/Siege_of_Yorktown',sourceLabel:'Wikipedia: Siege of Yorktown'},
@@ -132,7 +132,7 @@ const CAMPS=[
 {id:'c40',num:40,lane:'main',name:'Yorktown, VA (siege begins)',state:'VA',dateStart:'1781-09-28',dateEnd:'1781-10-19',lat:37.24,lng:-76.51,notes:"Camp 40 — the destination. The allied army arrives before Yorktown September 28. CORNWALLIS SURRENDERS OCTOBER 19, 1781. The 680-mile march ended in one of the greatest victories of the Revolutionary War.",hmdb:'https://www.hmdb.org/m.asp?m=11071',confidence:'confirmed',key:true,source:'https://en.wikipedia.org/wiki/Siege_of_Yorktown',sourceLabel:'Wikipedia: Siege of Yorktown'}
 ];
 
-// ==================== LANE COLORS & MAP SETUP (unchanged from last working version) ====================
+// ==================== LANE COLORS & MAP SETUP ====================
 const LANE_COLORS = {navy:'#3a8fd0',lauzun:'#c86a18',washington:'#c8a864',main:'#50b890',annapolis:'#9070c8',artillery:'#c85050'};
 
 const map = L.map('map',{zoomControl:true}).setView([39.5,-76.0],6);
@@ -161,19 +161,21 @@ Object.keys(LANE_COLORS).forEach(laneId=>{
   markerLayers[laneId] = markerGroup;
 });
 
-// Connector & Great Split marker (unchanged)
+// Connector from Belvoir to artillery route
 const belvoir = CAMPS.find(c=>c.id==='a03');
 const easton = CAMPS.find(c=>c.id==='art_easton');
 if(belvoir && easton){
   L.polyline([[belvoir.lat,belvoir.lng],[easton.lat,easton.lng]],{color:'#c85050',weight:3,opacity:0.7,dashArray:'5,5'}).addTo(map);
 }
+
+// Great Split marker
 const balt = CAMPS.find(c=>c.id==='c28');
 if(balt){
   L.marker([balt.lat,balt.lng],{icon:L.divIcon({className:'split-icon',html:'🚩 GREAT SPLIT',iconSize:[80,20]})}).addTo(map)
     .bindPopup('<b>THE GREAT SPLIT – Baltimore, 13–14 Sep 1781</b><br>• Infantry → Annapolis (ships)<br>• Lauzun Hussars → Georgetown (fast cavalry)<br>• Artillery + wagons → Bowie / Bladensburg (overland)');
 }
 
-// Legend, slider, panel functions (exactly as last working version)
+// Legend
 const legendDiv = document.getElementById('legend');
 Object.keys(LANE_COLORS).forEach(id=>{
   const names = {navy:"De Grasse Fleet",lauzun:"Lauzun's Legion",washington:"Washington's Party",main:"Main Allied Army",annapolis:"Infantry → Annapolis",artillery:"Artillery → Georgetown (via Bowie)"};
@@ -189,6 +191,7 @@ Object.keys(LANE_COLORS).forEach(id=>{
   legendDiv.appendChild(row);
 });
 
+// Date slider
 const slider = document.getElementById('date-slider');
 const label = document.getElementById('date-label');
 const startDate = new Date('1781-06-11');
@@ -209,6 +212,7 @@ function updateMapForDay(dayOffset){
 }
 slider.oninput = () => updateMapForDay(parseInt(slider.value));
 
+// Panel with Prev/Next
 let currentCampId = null;
 function showPanel(c){
   currentCampId = c.id;
@@ -248,6 +252,7 @@ function nextCamp(){
 
 function resetMap(){map.flyTo([39.5,-76.0],6);slider.value=0;updateMapForDay(0);}
 
+// Load
 window.onload = () => {
   updateMapForDay(0);
   const bowie = CAMPS.find(c=>c.id==='art_bowie');
