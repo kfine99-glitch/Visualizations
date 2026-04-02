@@ -54,7 +54,7 @@
 </div>
 
 <script>
-// ==================== FULL CAMP DATA (verbatim from your original file + researched Bowie fixes) ====================
+// ==================== FULL CAMP DATA ====================
 const CAMPS=[
 // FRENCH FLEET
 {id:'brest',lane:'navy',name:'Departs Brest, France',state:'France',dateStart:'1781-03-22',dateEnd:'1781-03-22',lat:48.39,lng:-4.49,notes:"De Grasse sails from Brest with 20 ships of the line bound for the Caribbean, carrying instructions to support the allied campaign of 1781.",confidence:'confirmed',key:false,source:'https://en.wikipedia.org/wiki/Battle_of_the_Chesapeake',sourceLabel:'Wikipedia: Battle of the Chesapeake'},
@@ -151,7 +151,16 @@ Object.keys(LANE_COLORS).forEach(laneId=>{
   if(pts.length>1)L.polyline(pts,{color,weight:3,opacity:0.85}).addTo(lineGroup);
 
   CAMPS.filter(c=>c.lane===laneId&&c.lat&&c.lng).forEach(c=>{
-    const m = L.circleMarker([c.lat,c.lng],{radius:c.key?7:5,color:'#fff',fillColor:color,fillOpacity:0.9,weight:c.key?3:2}).addTo(markerGroup);
+    const m = L.circleMarker([c.lat,c.lng],{
+      radius:c.key?7:5,
+      color:'#fff',
+      fillColor:color,
+      fillOpacity:0.9,
+      weight:c.key?3:2
+    }).addTo(markerGroup);
+
+    c.marker = m;               // ← direct reference for reliable highlight
+    m.bindPopup(`<b>${c.name}</b><br><small>${c.dateStart}</small>`);
     m.bindTooltip(c.name,{permanent:false,direction:'top'});
     m.on('click',()=>showPanel(c));
   });
@@ -184,7 +193,7 @@ Object.keys(LANE_COLORS).forEach(id=>{
     const visible = routeLayers[id].getLayers()[0].options.opacity > 0.2;
     const op = visible ? 0.15 : 0.85;
     routeLayers[id].eachLayer(l=>l.setStyle({opacity:op}));
-    markerLayers[id].eachLayer(m=>m.setOpacity(op));
+    markerLayers[id].eachLayer(m=>m.setStyle({opacity:op,fillOpacity:op}));
     row.style.opacity = visible ? 0.4 : 1;
   };
   legendDiv.appendChild(row);
@@ -204,16 +213,14 @@ function updateMapForDay(dayOffset){
   CAMPS.forEach(c=>{
     const campDate = new Date(c.dateStart);
     const visible = campDate <= current;
-    if(markerLayers[c.lane]){
-      markerLayers[c.lane].eachLayer(m=>{
-        if(m.getLatLng().lat===c.lat && m.getLatLng().lng===c.lng) m.setOpacity(visible?1:0.25);
-      });
+    if(c.marker){
+      c.marker.setStyle({opacity:visible?1:0.25,fillOpacity:visible?0.9:0.25});
     }
   });
 }
 slider.oninput = () => updateMapForDay(parseInt(slider.value));
 
-// Panel with Prev/Next (global chronological order + map highlight via popup)
+// Panel with Prev/Next
 let currentCampId = null;
 function showPanel(c){
   currentCampId = c.id;
@@ -225,22 +232,17 @@ function showPanel(c){
   links.innerHTML = `<a href="${c.source}" target="_blank" style="color:#c8a864">→ Primary Source</a><br>${c.w3r?`<a href="${c.w3r}" target="_blank" style="color:#50c8a0">→ W3R-US Encampment</a><br>`:''}${c.hmdb?`<a href="${c.hmdb}" target="_blank" style="color:#b898f8">→ HMDB Marker</a>`:''}`;
   panel.classList.add('on');
 
-  // SYNC THE TIMELINE SLIDER TO THIS CAMP'S DATE
+  // SYNC TIMELINE SLIDER
   const campDate = new Date(c.dateStart);
   const offset = Math.floor((campDate - startDate) / 86400000);
   slider.value = Math.max(0, Math.min(totalDays - 1, offset));
   updateMapForDay(offset);
 
-  // Highlight on map: zoom + open popup
+  // ZOOM + HIGHLIGHT (now guaranteed to work)
   if(c.lat && c.lng){
     map.flyTo([c.lat, c.lng], 13, {duration: 0.8});
-    const markerGroup = markerLayers[c.lane];
-    if(markerGroup){
-      markerGroup.eachLayer(m=>{
-        if(Math.abs(m.getLatLng().lat - c.lat) < 0.001 && Math.abs(m.getLatLng().lng - c.lng) < 0.001){
-          m.openPopup();
-        }
-      });
+    if(c.marker){
+      c.marker.openPopup();
     }
   }
 }
