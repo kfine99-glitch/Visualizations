@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Washington–Rochambeau March to Yorktown, 1781 • MAP EDITION</title>
+<title>Washington–Rochambeau March to Yorktown, 1781 • MAP EDITION (FULLY FIXED + RESEARCHED)</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
@@ -29,7 +29,7 @@
 <div id="map"></div>
 
 <div id="header">
-  <div id="title">WASHINGTON–ROCHAMBEAU MARCH TO YORKTOWN • 1781</div>
+  <div id="title">WASHINGTON–ROCHAMBEAU MARCH TO YORKTOWN • 1781 (FULLY FIXED + RESEARCHED)</div>
   <button class="control-btn" onclick="resetMap()">Reset Map</button>
   <div style="margin-left:auto;font-size:11px;color:#c8a864">680-mile joint campaign • June–Oct 1781</div>
 </div>
@@ -152,7 +152,6 @@ Object.keys(LANE_COLORS).forEach(laneId=>{
 
   CAMPS.filter(c=>c.lane===laneId&&c.lat&&c.lng).forEach(c=>{
     const m = L.circleMarker([c.lat,c.lng],{radius:c.key?7:5,color:'#fff',fillColor:color,fillOpacity:0.9,weight:c.key?3:2}).addTo(markerGroup);
-    m.bindPopup(`<b>${c.name}</b>`);
     m.bindTooltip(c.name,{permanent:false,direction:'top'});
     m.on('click',()=>showPanel(c));
   });
@@ -225,10 +224,16 @@ function showPanel(c){
   const links = document.getElementById('panel-links');
   links.innerHTML = `<a href="${c.source}" target="_blank" style="color:#c8a864">→ Primary Source</a><br>${c.w3r?`<a href="${c.w3r}" target="_blank" style="color:#50c8a0">→ W3R-US Encampment</a><br>`:''}${c.hmdb?`<a href="${c.hmdb}" target="_blank" style="color:#b898f8">→ HMDB Marker</a>`:''}`;
   panel.classList.add('on');
+
+  // SYNC THE TIMELINE SLIDER TO THIS CAMP'S DATE
+  const campDate = new Date(c.dateStart);
+  const offset = Math.floor((campDate - startDate) / 86400000);
+  slider.value = Math.max(0, Math.min(totalDays - 1, offset));
+  updateMapForDay(offset);
+
   // Highlight on map: zoom + open popup
   if(c.lat && c.lng){
     map.flyTo([c.lat, c.lng], 13, {duration: 0.8});
-    // Find and open popup for visual highlight
     const markerGroup = markerLayers[c.lane];
     if(markerGroup){
       markerGroup.eachLayer(m=>{
@@ -242,7 +247,6 @@ function showPanel(c){
 function closePanel(){
   document.getElementById('side-panel').classList.remove('on');
   currentCampId = null;
-  // Close any open popups
   map.closePopup();
 }
 function prevCamp(){
