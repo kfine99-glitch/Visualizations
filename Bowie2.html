@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bowie History Atlas</title>
+    <style>
+        :root {
+            --bowie-blue: #1a365d;
+            --accent-gold: #c5a059;
+            --bg-cream: #fdfbf7;
+            --text-dark: #2d3748;
+        }
+
+        /* Smooth Scrolling & Header Offset */
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px; /* Adjust based on Nav height */
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: var(--text-dark);
+            background-color: var(--bg-cream);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Sticky Navigation Bar */
+        nav {
+            position: sticky;
+            top: 0;
+            background: var(--bowie-blue);
+            color: white;
+            padding: 10px 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        nav .nav-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 0 20px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 5px 0;
+            border-bottom: 2px solid transparent;
+        }
+
+        nav a:hover {
+            border-bottom: 2px solid var(--accent-gold);
+        }
+
+        /* Layout Containers */
+        .content-wrapper {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 3px double var(--accent-gold);
+            padding-bottom: 20px;
+            margin-bottom: 50px;
+        }
+
+        h1 { font-size: 2.5rem; color: var(--bowie-blue); margin-bottom: 5px; }
+        h2 { border-left: 5px solid var(--accent-gold); padding-left: 15px; margin-top: 60px; color: var(--bowie-blue); }
+
+        /* Themed "Oddity" Cards */
+        .chronicle-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .oddity-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-top: 4px solid var(--accent-gold);
+            padding: 20px;
+            border-radius: 4px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+
+        .oddity-card:hover { transform: translateY(-5px); }
+        .oddity-card strong { color: var(--bowie-blue); display: block; margin-bottom: 8px; }
+
+        /* Images */
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            margin: 20px 0;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+
+        .caption {
+            font-size: 0.85rem;
+            font-style: italic;
+            color: #718096;
+            margin-top: -15px;
+            margin-bottom: 30px;
+            display: block;
+        }
+
+        footer {
+            background: #edf2f7;
+            padding: 40px;
+            text-align: center;
+            margin-top: 100px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-container">
+        <a href="#geography">Map</a>
+        <a href="#belair">Belair</a>
+        <a href="#freedom">Freedom</a>
+        <a href="#rails">Railroad</a>
+        <a href="#racing">Racing</a>
+        <a href="#levitt">Levitt</a>
+        <a href="#bowiestate">Bowie State</a>
+        <a href="#sources">Sources</a>
+    </div>
+</nav>
+
+<div class="content-wrapper">
+    <header>
+        <h1>Bowie History Atlas</h1>
+        <p>Prince George's County · 1740s to Present</p>
+    </header>
+
+    <section id="intro">
+        <p>This page is deliberately eclectic—a source-linked visual history tracing the town from colonial origins to the suburban buildout.</p>
+        <blockquote>"Local history at this scale is never tidy. It is the accumulation of what a place did to the people who lived in it."</blockquote>
+    </section>
+
+    <h2 id="geography">Bowie in Place — Rails and Trails</h2>
+    <p>A schematic look at the junctions that defined the town.</p>
+    <h2 id="racing">Strange Chronicles of the Race Track</h2>
+    <p>Bowie Race Track accumulated a history that goes well beyond its racing results.</p>
+    
+    <div class="chronicle-grid">
+        <div class="oddity-card">
+            <strong>1935: The Daily Double</strong>
+            Bowie premiers the Daily Double in Maryland, changing betting history forever.
+        </div>
+        <div class="oddity-card">
+            <strong>1955: The Infield Cruiser</strong>
+            Officials discover a full-sized cabin cruiser floating in the infield lake. No one ever explains how it got there.
+        </div>
+        <div class="oddity-card">
+            <strong>1966: The Great Escape</strong>
+            During the Blizzard of '66, 100 horses are turned loose. Some are later found wandering the Belair Shopping Center.
+        </div>
+        <div class="oddity-card">
+            <strong>1972: Noah's Ark International</strong>
+            A race featuring a zebu, a llama, and a camel. A buffalo named "Home on the Range" refuses to finish.
+        </div>
+    </div>
+
+    </div>
+
+<footer>
+    <p>Bowie History Atlas · Research by Kevin Fine · Developed with Gemini & Claude · 2026</p>
+    <p><a href="#sources">View Complete Source Library</a></p>
+</footer>
+
+</body>
+</html>
