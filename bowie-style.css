@@ -65,6 +65,7 @@ img { display: block; max-width: 100%; }
 .site-header {
   display: grid;
   grid-template-columns: 108px 1fr;
+  height: 90px;
   border-bottom: 3px solid var(--gold);
   background: var(--white);
 }
