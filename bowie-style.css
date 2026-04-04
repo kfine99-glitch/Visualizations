@@ -70,10 +70,9 @@ img { display: block; max-width: 100%; }
 }
 
 .flag-panel {
-  overflow: hidden;
   display: flex;
-  align-items: flex-start;
-  align-self: start;
+  align-items: center;
+  align-self: center;
 }
 
 .flag-panel img {
