@@ -69,10 +69,17 @@ img { display: block; max-width: 100%; }
   background: var(--white);
 }
 
+.flag-panel {
+  overflow: hidden;
+  display: flex;
+  align-items: stretch;
+}
+
 .flag-panel img {
-  width: 100%;
-  height: 100%;
-  object-fit: fill;
+  width: 1150%;
+  height: 115%;
+  object-fit: cover;
+  display: block;
 }
 
 .header-content {
