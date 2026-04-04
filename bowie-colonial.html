@@ -84,9 +84,9 @@
           <p class="img-caption">Belair Mansion, c. 1745 &mdash; now a City of Bowie museum. Photo via Wikimedia Commons.</p>
 
           <div class="source-links">
-            Sources: <a href="https://www.cityofbowie.org/288/Belair-Mansion">Belair Mansion (City of Bowie)</a> &middot;
-            <a href="https://en.wikipedia.org/wiki/Belair_Mansion_(Bowie,_Maryland)">Wikipedia</a> &middot;
-            <a href="https://www.youtube.com/watch?v=4A3QdRaC8FM">Three Lives of Belair Plantation (video)</a>
+            Sources: <a href="https://www.cityofbowie.org/288/Belair-Mansion" target="_blank" rel="noopener noreferrer">Belair Mansion (City of Bowie)</a> &middot;
+            <a href="https://en.wikipedia.org/wiki/Belair_Mansion_(Bowie,_Maryland)" target="_blank" rel="noopener noreferrer">Wikipedia</a> &middot;
+            <a href="https://www.youtube.com/watch?v=4A3QdRaC8FM" target="_blank" rel="noopener noreferrer">Three Lives of Belair Plantation (video)</a>
           </div>
         </section>
 
@@ -107,7 +107,7 @@
           <p class="img-caption">Modern living-history encampment photo used as a thematic illustration; not a period image.</p>
 
           <div class="source-links">
-            Sources: <a href="https://bowieliving.blogspot.com/2013/08/bowie-in-american-revolutionary-war.html">Bowie Living: Bowie in the Revolutionary War</a>
+            Sources: <a href="https://bowieliving.blogspot.com/2013/08/bowie-in-american-revolutionary-war.html" target="_blank" rel="noopener noreferrer">Bowie Living: Bowie in the Revolutionary War</a>
           </div>
         </section>
 
@@ -128,8 +128,8 @@
           <p>Enslaved African Americans were also central to Belair&rsquo;s racing identity, though largely invisible in formal records. The Belair Stable Museum&rsquo;s featured exhibit on African American jockeys acknowledges their role as horsemen, riders, and trainers &mdash; the skilled labor behind the horses whose names history remembers.</p>
 
           <div class="source-links">
-            Sources: <a href="http://slavery.msa.maryland.gov/bowie/intro.html">MSA: Belair at Bowie &mdash; Flight to Freedom</a> &middot;
-            <a href="https://www.cityofbowie.org/289/Belair-Stable-Museum">Belair Stable Museum</a>
+            Sources: <a href="http://slavery.msa.maryland.gov/bowie/intro.html" target="_blank" rel="noopener noreferrer">MSA: Belair at Bowie &mdash; Flight to Freedom</a> &middot;
+            <a href="https://www.cityofbowie.org/289/Belair-Stable-Museum" target="_blank" rel="noopener noreferrer">Belair Stable Museum</a>
           </div>
         </section>
 
@@ -150,8 +150,8 @@
           <p class="img-caption">Belair Mansion historical marker. Photo via Wikimedia Commons.</p>
 
           <div class="source-links">
-            Sources: <a href="https://en.wikipedia.org/wiki/Belair_Mansion_(Bowie,_Maryland)">Wikipedia: Belair Mansion</a> &middot;
-            <a href="https://www.experienceprincegeorges.com/things-to-do/museums-history/african-american-history/">Prince George&rsquo;s County African American Heritage Sites</a>
+            Sources: <a href="https://en.wikipedia.org/wiki/Belair_Mansion_(Bowie,_Maryland)" target="_blank" rel="noopener noreferrer">Wikipedia: Belair Mansion</a> &middot;
+            <a href="https://www.experienceprincegeorges.com/things-to-do/museums-history/african-american-history/" target="_blank" rel="noopener noreferrer">Prince George&rsquo;s County African American Heritage Sites</a>
           </div>
         </section>
 
@@ -174,6 +174,35 @@
       <p>Developed and researched by Claude AI (Anthropic) &middot; 2026 &middot; Conceived by Kevin Fine &middot; All external links open in the same tab</p>
     </div>
   </footer>
+
+
+  <script>
+    (function () {
+      var sections = document.querySelectorAll('.section-block[id]');
+      var links    = document.querySelectorAll('.sidebar-link');
+      if (!sections.length || !links.length) return;
+
+      function setActive(id) {
+        links.forEach(function (a) {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+        });
+      }
+
+      // Intersection Observer — fires when a section enters the "reading zone"
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) setActive(entry.target.id);
+        });
+      }, { rootMargin: '-15% 0px -75% 0px', threshold: 0 });
+
+      sections.forEach(function (s) { observer.observe(s); });
+
+      // Also handle click: immediately highlight the clicked link
+      links.forEach(function (a) {
+        a.addEventListener('click', function () { setActive(a.getAttribute('href').slice(1)); });
+      });
+    })();
+  </script>
 
 </body>
 </html>

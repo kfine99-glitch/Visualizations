@@ -85,10 +85,10 @@
           <p class="img-caption">Bowie&rsquo;s surviving signal tower, freight office, and passenger shelter, photographed December 2008. Photo via Wikimedia Commons.</p>
 
           <div class="source-links">
-            Sources: <a href="https://www.cityofbowie.org/2813/History">City of Bowie History</a> &middot;
-            <a href="https://www.cityofbowie.org/293/Bowie-Railroad-Museum">Bowie Railroad Museum</a> &middot;
-            <a href="https://msa.maryland.gov/megafile/msa/speccol/sc3500/sc3520/001400/001465/html/1465bio2.html">Maryland State Archives: Oden Bowie</a> &middot;
-            <a href="https://en.wikipedia.org/wiki/Baltimore_and_Potomac_Railroad">Wikipedia: B&amp;P Railroad</a>
+            Sources: <a href="https://www.cityofbowie.org/2813/History" target="_blank" rel="noopener noreferrer">City of Bowie History</a> &middot;
+            <a href="https://www.cityofbowie.org/293/Bowie-Railroad-Museum" target="_blank" rel="noopener noreferrer">Bowie Railroad Museum</a> &middot;
+            <a href="https://msa.maryland.gov/megafile/msa/speccol/sc3500/sc3520/001400/001465/html/1465bio2.html" target="_blank" rel="noopener noreferrer">Maryland State Archives: Oden Bowie</a> &middot;
+            <a href="https://en.wikipedia.org/wiki/Baltimore_and_Potomac_Railroad" target="_blank" rel="noopener noreferrer">Wikipedia: B&amp;P Railroad</a>
           </div>
         </section>
 
@@ -99,9 +99,9 @@
           <p>Rail history and local summaries describe Huntington City as a more substantial town than what exists today &mdash; hotels, stores, and activity clustered around the station. Repeated fires and the later shift of development away from the original railroad core explain why Huntington now feels like a fragment. The Bowie Railroad Museum and the surviving station buildings preserve the physical memory of the junction district.</p>
 
           <div class="source-links">
-            Sources: <a href="https://www.hmdb.org/m.asp?m=71902">HMDB: From Huntington to Bowie marker</a> &middot;
-            <a href="https://en.wikipedia.org/wiki/Bowie_Railroad_Buildings">Wikipedia: Bowie Railroad Buildings</a> &middot;
-            <a href="https://www.pghistory.org/PG/PG300/express2.html">Prince George&rsquo;s County Tricentennial history</a>
+            Sources: <a href="https://www.hmdb.org/m.asp?m=71902" target="_blank" rel="noopener noreferrer">HMDB: From Huntington to Bowie marker</a> &middot;
+            <a href="https://en.wikipedia.org/wiki/Bowie_Railroad_Buildings" target="_blank" rel="noopener noreferrer">Wikipedia: Bowie Railroad Buildings</a> &middot;
+            <a href="https://www.pghistory.org/PG/PG300/express2.html" target="_blank" rel="noopener noreferrer">Prince George&rsquo;s County Tricentennial history</a>
           </div>
         </section>
 
@@ -117,8 +117,8 @@
           <p>Because the Baltimore and Ohio Railroad opposed a direct Pennsylvania Railroad route into Washington, the B&amp;P charter&rsquo;s branch-line language became the workaround. By building through Bowie and branching into Washington, the railroad gained the connection that became the dominant north-south passenger approach to the capital &mdash; the same line that feeds Amtrak into Union Station today. The Bowie junction was central to that strategy.</p>
 
           <div class="source-links">
-            Sources: <a href="https://en.wikipedia.org/wiki/Pope%27s_Creek_Subdivision">Wikipedia: Pope&rsquo;s Creek Subdivision</a> &middot;
-            <a href="https://ggwash.org/view/68754/how-the-baltimore-potomac-railroad-and-the-penn-line-shaped-the-regions-suburbs">Greater Greater Washington: The B&amp;P and the Penn Line</a>
+            Sources: <a href="https://en.wikipedia.org/wiki/Pope%27s_Creek_Subdivision" target="_blank" rel="noopener noreferrer">Wikipedia: Pope&rsquo;s Creek Subdivision</a> &middot;
+            <a href="https://ggwash.org/view/68754/how-the-baltimore-potomac-railroad-and-the-penn-line-shaped-the-regions-suburbs" target="_blank" rel="noopener noreferrer">Greater Greater Washington: The B&amp;P and the Penn Line</a>
           </div>
         </section>
 
@@ -135,8 +135,8 @@
           <p>The connection to Bowie is direct: every passenger who rode the B&amp;P through Bowie&rsquo;s junction passed through that same station. The Woodwards used it to visit Belair from New York. Race fans used it on the way to Prince George&rsquo;s Park. Garfield was shot at the gateway to the railroad that built the town. The assassination led directly to the Pendleton Civil Service Reform Act of 1883 &mdash; the law that professionalized the federal civil service that Bowie-area residents have worked in ever since.</p>
 
           <div class="source-links">
-            Sources: <a href="https://en.wikipedia.org/wiki/Assassination_of_James_A._Garfield">Wikipedia: Assassination of James A. Garfield</a> &middot;
-            <a href="https://en.wikipedia.org/wiki/Baltimore_and_Potomac_Railroad_Station">Wikipedia: B&amp;P Railroad Station, Washington</a>
+            Sources: <a href="https://en.wikipedia.org/wiki/Assassination_of_James_A._Garfield" target="_blank" rel="noopener noreferrer">Wikipedia: Assassination of James A. Garfield</a> &middot;
+            <a href="https://en.wikipedia.org/wiki/Baltimore_and_Potomac_Railroad_Station" target="_blank" rel="noopener noreferrer">Wikipedia: B&amp;P Railroad Station, Washington</a>
           </div>
         </section>
 
@@ -159,6 +159,35 @@
       <p>Developed and researched by Claude AI (Anthropic) &middot; 2026 &middot; Conceived by Kevin Fine &middot; All external links open in the same tab</p>
     </div>
   </footer>
+
+
+  <script>
+    (function () {
+      var sections = document.querySelectorAll('.section-block[id]');
+      var links    = document.querySelectorAll('.sidebar-link');
+      if (!sections.length || !links.length) return;
+
+      function setActive(id) {
+        links.forEach(function (a) {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+        });
+      }
+
+      // Intersection Observer — fires when a section enters the "reading zone"
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) setActive(entry.target.id);
+        });
+      }, { rootMargin: '-15% 0px -75% 0px', threshold: 0 });
+
+      sections.forEach(function (s) { observer.observe(s); });
+
+      // Also handle click: immediately highlight the clicked link
+      links.forEach(function (a) {
+        a.addEventListener('click', function () { setActive(a.getAttribute('href').slice(1)); });
+      });
+    })();
+  </script>
 
 </body>
 </html>
