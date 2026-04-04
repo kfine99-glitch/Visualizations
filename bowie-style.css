@@ -83,7 +83,7 @@ img { display: block; max-width: 100%; }
 }
 
 .header-content {
-  padding: 18px 28px 16px; */
+  padding: 18px 28px 16px;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
