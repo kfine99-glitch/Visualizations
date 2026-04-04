@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Bowie History Atlas — a source-linked visual history of Bowie, Maryland, and military history visualizations by Kevin Fine.">
+  <title>Bowie History Atlas & Military History Visualizations</title>
+  <link rel="stylesheet" href="bowie-style.css">
+</head>
+<body>
+
+  <!-- ═══════════════════ SITE HEADER ═══════════════════ -->
+  <header class="site-header">
+    <div class="flag-panel">
+      <img src="maryland-flag.svg" alt="Maryland state flag — black and gold Calvert arms quarters with red and white Crossland cross quarters">
+    </div>
+    <div class="header-content">
+      <div class="header-text">
+        <div class="site-label">Prince George's County, Maryland</div>
+        <h1>Bowie History Atlas</h1>
+        <div class="site-subtitle">&amp; Military History Visualizations</div>
+      </div>
+      <figure class="header-map" aria-label="Locator map">
+        <svg width="175" height="98" viewBox="0 0 175 98" xmlns="http://www.w3.org/2000/svg">
+          <!-- Maryland state outline (schematic) -->
+          <polygon
+            points="6,44 9,32 14,20 22,13 34,9 52,7 72,6 94,7 112,6 132,7 150,12 164,20 168,32 162,42 150,48 136,52 122,58 108,68 94,76 78,78 62,76 48,72 38,76 28,72 18,64 10,54"
+            fill="#e8e4dc" stroke="#b8b0a0" stroke-width="1"/>
+          <!-- Chesapeake Bay -->
+          <path d="M 126,10 Q 138,28 140,50 Q 141,64 132,74"
+            fill="none" stroke="#b8d8f0" stroke-width="10" stroke-linecap="round"/>
+          <!-- PG County highlight -->
+          <polygon
+            points="46,50 62,43 78,47 82,58 76,70 62,74 46,70 38,60"
+            fill="#c8a864" opacity="0.42" stroke="#9a7830" stroke-width="0.8"/>
+          <!-- Washington DC marker -->
+          <rect x="38" y="65" width="7" height="7" fill="#d0ccc4" stroke="#888" stroke-width="0.5" rx="1"/>
+          <!-- Bowie dot -->
+          <circle cx="63" cy="58" r="4.5" fill="#c0101e" stroke="#8b0000" stroke-width="0.6"/>
+          <!-- Bowie label -->
+          <text x="63" y="51" font-size="8.5" font-family="sans-serif" fill="#1a1818" font-weight="700" text-anchor="middle">Bowie</text>
+          <!-- DC label -->
+          <text x="37" y="79" font-size="6.5" font-family="sans-serif" fill="#666" text-anchor="middle">DC</text>
+          <!-- Maryland label -->
+          <text x="84" y="36" font-size="7.5" font-family="sans-serif" fill="#888" text-anchor="middle">Maryland</text>
+          <!-- PG County label -->
+          <text x="62" y="76" font-size="6.5" font-family="sans-serif" fill="#7a5820" text-anchor="middle">PG Co.</text>
+          <!-- Bay label -->
+          <text x="150" y="44" font-size="6" font-family="sans-serif" fill="#3a7ab0" text-anchor="middle">Ches.</text>
+          <text x="150" y="52" font-size="6" font-family="sans-serif" fill="#3a7ab0" text-anchor="middle">Bay</text>
+        </svg>
+        <figcaption>Schematic · not to scale</figcaption>
+      </figure>
+    </div>
+  </header>
+
+  <!-- ═══════════════════ AUTHOR BIO ═══════════════════ -->
+  <div class="author-bio">
+    <div class="page-container">
+      <p>
+        The author is a lifelong resident of the City of Bowie, recently retired after a career in federal service, and now with time to pursue long-standing interests in military and local history.
+        The <em>Bowie History Atlas</em> is a source-linked record of the town's colonial, equestrian, and civic story — written by someone who grew up here and lived through much of it.
+        The military history visualizations were built as personal study aids, designed to allow quick navigation between related hardware, campaigns, and primary source links across a broad span of American military history.
+        Research by the author; development and coding by Claude AI (Anthropic).
+      </p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ MAIN ═══════════════════ -->
+  <main>
+
+    <!-- Bowie History chapters -->
+    <div class="page-container">
+      <div class="home-section">
+        <div class="section-label">Bowie History Atlas &mdash; six chapters</div>
+        <div class="chapter-grid">
+
+          <a href="bowie-colonial.html" class="chapter-card">
+            <div class="card-date">Chapter 1 &middot; 1681&ndash;1864</div>
+            <div class="card-title">Colonial Origins</div>
+            <div class="card-desc">Belair Mansion, the Ogle governors, slavery and resistance at the plantation, and Rochambeau&rsquo;s column passing on the Yorktown campaign</div>
+          </a>
+
+          <a href="bowie-railroad.html" class="chapter-card">
+            <div class="card-date">Chapter 2 &middot; 1853&ndash;1914</div>
+            <div class="card-title">Railroad Era</div>
+            <div class="card-desc">The Baltimore &amp; Potomac Railroad, the junction town of Huntington, how Bowie got its name, and the Garfield assassination connection</div>
+          </a>
+
+          <a href="bowie-racing.html" class="chapter-card">
+            <div class="card-date">Chapter 3 &middot; 1752&ndash;1985</div>
+            <div class="card-title">Racing &amp; Horses</div>
+            <div class="card-desc">Selima and the founding of American thoroughbred racing, 71 years at Bowie Race Track, Belair Stud&rsquo;s Triple Crown dynasty, and the track&rsquo;s strange chronicles</div>
+          </a>
+
+          <a href="bowie-woodwards.html" class="chapter-card">
+            <div class="card-date">Chapter 4 &middot; 1917&ndash;1957</div>
+            <div class="card-title">The Woodwards</div>
+            <div class="card-desc">William Woodward&rsquo;s racing stable, Nashua&rsquo;s 1955 triumph and the shooting that ended the era, <em>Deliberate Cruelty</em>, and the Belair estate sale to Levitt</div>
+          </a>
+
+          <a href="bowie-modern.html" class="chapter-card">
+            <div class="card-date">Chapter 5 &middot; 1957&ndash;present</div>
+            <div class="card-title">Modern Bowie</div>
+            <div class="card-desc">Levitt&rsquo;s postwar suburb, forced busing and its consequences, Bowie State University, City Hall&rsquo;s three buildings, the police department, and the schools</div>
+          </a>
+
+          <a href="bowie-people.html" class="chapter-card">
+            <div class="card-date">Chapter 6 &middot; ongoing</div>
+            <div class="card-title">People &amp; Places</div>
+            <div class="card-desc">Eva Cassidy, Paul Reed Smith, Ricky Arnold, JC Chasez, Six Flags America across five names, Belt Woods old-growth forest, and a Bowie neighbor remembered</div>
+          </a>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Visualizations section — full-width band -->
+    <div class="viz-section-wrap">
+      <div class="page-container">
+        <div class="section-label">Military History Visualizations &mdash; interactive study tools</div>
+        <div class="viz-grid">
+
+          <a href="solar-system-explorer.html" class="viz-card">
+            <div class="viz-category">Space &amp; Science</div>
+            <div class="viz-title">Solar System Explorer</div>
+          </a>
+
+          <a href="us-aircraft.html" class="viz-card">
+            <div class="viz-category">US Military &middot; 1917&ndash;present</div>
+            <div class="viz-title">Aircraft Evolution</div>
+          </a>
+
+          <a href="us-ground-vehicles.html" class="viz-card">
+            <div class="viz-category">US Military &middot; 1915&ndash;present</div>
+            <div class="viz-title">Ground Vehicle Evolution</div>
+          </a>
+
+          <a href="us-naval-vessels.html" class="viz-card">
+            <div class="viz-category">US Military &middot; 1895&ndash;2030</div>
+            <div class="viz-title">Naval Vessel Evolution</div>
+          </a>
+
+          <a href="us-weapons-systems.html" class="viz-card">
+            <div class="viz-category">US Military &middot; 1890&ndash;present</div>
+            <div class="viz-title">Weapons Systems Evolution</div>
+          </a>
+
+          <a href="rochambeau-map.html" class="viz-card">
+            <div class="viz-category">Campaign &middot; 1781</div>
+            <div class="viz-title">Washington&ndash;Rochambeau March to Yorktown</div>
+          </a>
+
+          <a href="pow-camps.html" class="viz-card">
+            <div class="viz-category">Civil War &middot; 1861&ndash;1865</div>
+            <div class="viz-title">POW Camps</div>
+          </a>
+
+          <a href="DC_forts.html" class="viz-card">
+            <div class="viz-category">Civil War &middot; 1861&ndash;1865</div>
+            <div class="viz-title">Defenses of Washington</div>
+          </a>
+
+          <a href="american-military-conflicts.html" class="viz-card">
+            <div class="viz-category">Conflicts &middot; 1607&ndash;present</div>
+            <div class="viz-title">American Military Conflicts</div>
+          </a>
+
+        </div>
+        <p class="viz-note">Each visualization opens as a standalone interactive page &middot; use your browser&rsquo;s Back button to return here &middot; browser zoom (Ctrl&thinsp;+&thinsp;/&thinsp;&minus;) works best for the military timelines</p>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ═══════════════════ SITE FOOTER ═══════════════════ -->
+  <footer class="site-footer">
+    <div class="page-container">
+      <p>Developed and researched by Claude AI (Anthropic) &middot; 2026 &middot; Conceived by Kevin Fine &middot; All external links open in the same tab</p>
+    </div>
+  </footer>
+
+</body>
+</html>
