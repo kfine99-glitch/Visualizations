@@ -69,10 +69,10 @@ img { display: block; max-width: 100%; }
   background: var(--white);
 }
 
-.flag-panel {
-  display: flex;
-  align-items: center;
-  align-self: center;
+.flag-panel img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
 }
 
 .flag-panel img {
