@@ -6,6 +6,49 @@
   <meta name="description" content="Bowie History Atlas — a source-linked visual history of Bowie, Maryland, and military history visualizations by Kevin Fine.">
   <title>Bowie History Atlas & Military History Visualizations</title>
   <link rel="stylesheet" href="bowie-style.css">
+  <style>
+    /* Description line inside viz and science cards */
+    .viz-desc {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 11px;
+      color: #52504c;
+      line-height: 1.45;
+      margin-top: 5px;
+    }
+    /* Science & Exploration section */
+    .sci-section-wrap {
+      background: #eef6f2;
+      border-top: 1px solid #9fd8be;
+      border-bottom: 1px solid #9fd8be;
+      padding: 22px 0 20px;
+    }
+    .sci-card {
+      background: #ffffff;
+      border: 1px solid #9fd8be;
+      border-left: 3px solid #0f6e56;
+      border-radius: 0 6px 6px 0;
+      padding: 10px 13px;
+      text-decoration: none;
+      display: block;
+      transition: background 0.12s;
+    }
+    .sci-card:hover { background: #e1f5ee; text-decoration: none; }
+    .sci-card .viz-category {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      color: #0f6e56;
+      letter-spacing: 0.03em;
+      margin-bottom: 2px;
+    }
+    .sci-card .viz-title {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      color: #1a1818;
+      line-height: 1.3;
+    }
+  </style>
 </head>
 <body>
 
@@ -20,10 +63,10 @@
         <h1>Bowie History Atlas</h1>
         <div class="site-subtitle">&amp; Military History Visualizations</div>
       </div>
-      <figure class="header-map" aria-label="Locator map showing Bowie in Prince George's County, Maryland">
-        <img src="bowie-md-locator.svg" alt="Locator map" width="175" style="display:block;">
-        <figcaption>Prince George's County, MD</figcaption>
-      </figure> 
+	<figure class="header-map" aria-label="Locator map showing Bowie in Prince George's County, Maryland">
+	  <img src="bowie-md-locator.svg" alt="Locator map" width="175" style="display:block;">
+	  <figcaption>Prince George's County, MD</figcaption>
+	</figure>
     </div>
   </header>
 
@@ -88,59 +131,79 @@
       </div>
     </div>
 
-    <!-- Visualizations section — full-width band -->
+    <!-- Military History Visualizations — full-width band -->
     <div class="viz-section-wrap">
       <div class="page-container">
         <div class="section-label">Military History Visualizations &mdash; interactive study tools</div>
         <div class="viz-grid">
 
-          <a href="solar-system-explorer.html" class="viz-card">
-            <div class="viz-category">Space &amp; Science</div>
-            <div class="viz-title">Solar System Explorer</div>
-          </a>
-
           <a href="us-aircraft.html" class="viz-card">
             <div class="viz-category">US Military &middot; 1917&ndash;present</div>
             <div class="viz-title">Aircraft Evolution</div>
+            <div class="viz-desc">Maps 81+ aircraft families across eight lanes — fighters, naval aviation, bombers, transports, rotary wing, and UAVs — with lineage connections tracing design descent from WWI biplanes through the F-35 and MQ-9 Reaper.</div>
           </a>
 
           <a href="us-ground-vehicles.html" class="viz-card">
             <div class="viz-category">US Military &middot; 1915&ndash;present</div>
             <div class="viz-title">Ground Vehicle Evolution</div>
+            <div class="viz-desc">Traces 94+ vehicles across ten lanes — from WWI motorcycles through the full Sherman&ndash;Patton&ndash;Abrams tank line, Bradley IFV, self-propelled artillery, MRAPs, and the HIMARS rocket system — with Lend-Lease and conflict-era filters.</div>
           </a>
 
           <a href="us-naval-vessels.html" class="viz-card">
             <div class="viz-category">US Military &middot; 1895&ndash;2030</div>
             <div class="viz-title">Naval Vessel Evolution</div>
+            <div class="viz-desc">A 135-year survey of American sea power across twelve lanes — battleships, carriers, submarines, destroyers, amphibious ships, and Coast Guard cutters — with cyan lines tracing the nuclear propulsion lineage from USS Nautilus forward.</div>
           </a>
 
           <a href="us-weapons-systems.html" class="viz-card">
             <div class="viz-category">US Military &middot; 1890&ndash;present</div>
             <div class="viz-title">Weapons Systems Evolution</div>
+            <div class="viz-desc">Charts 115 weapons systems across fourteen lanes spanning all four services and SOCOM, from Krag bayonets and revolvers through the M4A1, Barrett .50-cal, Javelin anti-tank missile, TOW, and MANPADS, with branch and era filters.</div>
           </a>
 
           <a href="rochambeau-map.html" class="viz-card">
             <div class="viz-category">Campaign &middot; 1781</div>
             <div class="viz-title">Washington&ndash;Rochambeau March to Yorktown</div>
+            <div class="viz-desc">Visualizes the 680-mile Franco-American march from Providence to Yorktown across six parallel elements — including the Du Plessis artillery train through Bowie — with 61 georeferenced camps linked to primary sources and a live Leaflet map.</div>
           </a>
 
           <a href="pow-camps.html" class="viz-card">
             <div class="viz-category">Civil War &middot; 1861&ndash;1865</div>
             <div class="viz-title">POW Camps</div>
+            <div class="viz-desc">Comparative Gantt timeline of 22 Union and Confederate prison camps color-coded by mortality rate — from Johnson&rsquo;s Island at 2.7% to Andersonville at 28.7% — showing how the collapse of the Dix-Hill exchange cartel turned facilities into death camps.</div>
           </a>
 
           <a href="DC_forts.html" class="viz-card">
             <div class="viz-category">Civil War &middot; 1861&ndash;1865</div>
             <div class="viz-title">Defenses of Washington</div>
+            <div class="viz-desc">Maps the ring of 68 earthen forts and 93 batteries built to protect the Union capital, with a clickable marker for each installation carrying full historical narrative drawn from NPS records and contemporary accounts.</div>
           </a>
 
           <a href="american-military-conflicts.html" class="viz-card">
             <div class="viz-category">Conflicts &middot; 1607&ndash;present</div>
             <div class="viz-title">American Military Conflicts</div>
+            <div class="viz-desc">A 417-year Gantt timeline of 88 named conflicts from the Anglo-Powhatan Wars through the present, with 36 b&eacute;zier-curve conflict-chain connections tracing causal relationships and filters for era, adversary type, and outcome.</div>
           </a>
 
         </div>
         <p class="viz-note">Each visualization opens as a standalone interactive page &middot; use your browser&rsquo;s Back button to return here &middot; browser zoom (Ctrl&thinsp;+&thinsp;/&thinsp;&minus;) works best for the military timelines</p>
+      </div>
+    </div>
+
+    <!-- Science & Exploration Visualizations -->
+    <div class="sci-section-wrap">
+      <div class="page-container">
+        <div class="section-label">Science &amp; Exploration &mdash; interactive study tools</div>
+        <div class="viz-grid">
+
+          <a href="solar-system-explorer.html" class="sci-card">
+            <div class="viz-category">Space &middot; Simulation</div>
+            <div class="viz-title">Solar System Explorer</div>
+            <div class="viz-desc">An interactive heliocentric simulator covering all eight planets with realistic orbital periods, 14 moons, and 12 historic deep-space probes from Pioneer and Voyager through Parker Solar Probe — with time controls, date search, and camera focus on any object.</div>
+          </a>
+
+        </div>
+        <p class="viz-note">Future non-military visualizations will be added to this section</p>
       </div>
     </div>
 
