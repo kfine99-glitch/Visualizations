@@ -67,6 +67,7 @@ img { display: block; max-width: 100%; }
   grid-template-columns: auto 1fr;
   border-bottom: 3px solid var(--gold);
   background: var(--white);
+  height: 100px;
 }
 
 .flag-panel {
@@ -625,7 +626,7 @@ img { display: block; max-width: 100%; }
    RESPONSIVE
    ══════════════════════════════════════════════════════════════ */
 @media (max-width: 840px) {
-  .site-header { grid-template-columns: auto 1fr; }
+  .site-header { grid-template-columns: auto 1fr; height: 82px; }
   .header-text h1 { font-size: 24px; }
   .chapter-layout { grid-template-columns: 1fr; }
   .chapter-sidebar { position: static; min-height: unset; border-right: none; border-bottom: 1px solid var(--border); padding: 14px 16px; }
