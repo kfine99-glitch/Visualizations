@@ -84,7 +84,7 @@ img { display: block; max-width: 100%; }
 .header-content {
   padding: 18px 28px 16px;
   display: flex;
-  align-items: stretch;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 20px;
 }
@@ -114,12 +114,9 @@ img { display: block; max-width: 100%; }
   color: var(--text-sec);
 }
 
-.header-text {
-  align-self: center;
-}
-
 .header-map {
   flex-shrink: 0;
+  align-self: stretch;
   display: flex;
   flex-direction: column;
   align-items: center;
