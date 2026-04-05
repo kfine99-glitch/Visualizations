@@ -64,7 +64,7 @@ img { display: block; max-width: 100%; }
    ══════════════════════════════════════════════════════════════ */
 .site-header {
   display: grid;
-  grid-template-columns: 108px 1fr;
+  grid-template-columns: auto 1fr;
   border-bottom: 3px solid var(--gold);
   background: var(--white);
 }
@@ -76,9 +76,8 @@ img { display: block; max-width: 100%; }
 }
 
 .flag-panel img {
-  width: 100%;
+  width: auto;
   height: 100%;
-  object-fit: cover;
   display: block;
 }
 
@@ -613,7 +612,7 @@ img { display: block; max-width: 100%; }
    RESPONSIVE
    ══════════════════════════════════════════════════════════════ */
 @media (max-width: 840px) {
-  .site-header { grid-template-columns: 90px 1fr; }
+  .site-header { grid-template-columns: auto 1fr; }
   .header-text h1 { font-size: 24px; }
   .chapter-layout { grid-template-columns: 1fr; }
   .chapter-sidebar { position: static; min-height: unset; border-right: none; border-bottom: 1px solid var(--border); padding: 14px 16px; }
