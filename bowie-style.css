@@ -84,7 +84,7 @@ img { display: block; max-width: 100%; }
 .header-content {
   padding: 18px 28px 16px;
   display: flex;
-  align-items: flex-start;
+  align-items: stretch;
   justify-content: space-between;
   gap: 20px;
 }
@@ -114,7 +114,23 @@ img { display: block; max-width: 100%; }
   color: var(--text-sec);
 }
 
-.header-map { flex-shrink: 0; }
+.header-text {
+  align-self: center;
+}
+
+.header-map {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.header-map img {
+  flex: 1;
+  min-height: 0;
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
 .header-map svg { display: block; }
 .header-map figcaption {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
