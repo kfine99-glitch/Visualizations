@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Bowie Family Tree – Prince George’s County, Maryland · Bowie History Atlas">
+  <title>Bowie Family Tree · Bowie History Atlas</title>
+  <link rel="stylesheet" href="bowie-style.css">
+  <style>
+    .family-tree { max-width: 1000px; margin: 40px auto; padding: 20px; }
+    .tree-container { 
+      background: #f9f7f2; 
+      border: 1px solid #d4c9b8; 
+      border-radius: 8px; 
+      padding: 30px; 
+      line-height: 1.6; 
+    }
+    .tree ul { list-style: none; padding-left: 20px; }
+    .tree li { margin: 12px 0; position: relative; }
+    .tree li::before { 
+      content: "├─"; 
+      position: absolute; 
+      left: -20px; 
+      color: #8b6f47; 
+    }
+    .tree li:last-child::before { content: "└─"; }
+    .branch { font-weight: 600; color: #3a2f1f; }
+    .note { font-size: 0.95em; color: #666; margin-top: 30px; }
+  </style>
+</head>
+<body>
+
+  <!-- Site Header (same as your other pages) -->
+  <header class="site-header">
+    <div class="flag-panel">
+      <img src="maryland-flag.svg" alt="Maryland state flag">
+    </div>
+    <div class="header-content">
+      <div class="header-text">
+        <div class="site-label">Prince George's County, Maryland</div>
+        <h1>Bowie History Atlas</h1>
+        <div class="site-subtitle">&amp; Military History Visualizations</div>
+      </div>
+      <figure class="header-map">
+        <img src="bowie-md-locator.svg" alt="Locator map" width="175">
+        <figcaption>Prince George's County, MD</figcaption>
+      </figure>
+    </div>
+  </header>
+
+  <div class="page-container" style="max-width:1100px; margin:40px auto; padding:0 20px;">
+    <h2>Bowie Family Tree<br><small>Prince George’s County, Maryland</small></h2>
+    
+    <p>The Bowie family of Prince George’s County descends from <strong>John Bowie Sr.</strong> (c. 1688–1759), who arrived from Scotland around 1705–1706 and married Mary Mullikin. Two main branches are central to the history of Bowie, Maryland:</p>
+    
+    <div class="tree-container">
+      <div class="tree">
+        <ul>
+          <li><span class="branch">John Bowie Sr.</span> (c. 1688–1759) m. Mary Mullikin
+            <ul>
+              <li><span class="branch">Capt. William Bowie</span> (1721–1791) of Mattaponi m. Margaret Sprigg
+                <ul>
+                  <li><strong>Governor Robert Bowie</strong> (1750–1818) of Mattaponi — the governor whose farm was looted in 1814, triggering the events that led to “The Star-Spangled Banner”</li>
+                </ul>
+              </li>
+              <li><span class="branch">Walter Bowie</span> (of “Darnell’s Grove” / Willow Grove)
+                <ul>
+                  <li><span class="branch">William Bowie “of Walter” / Fairview</span> (c. 1776–1826) m. Kitty Beanes Duckett
+                    <ul>
+                      <li><strong>Col. William Duckett Bowie</strong> (1803–1873) of Fairview</li>
+                      <li><strong>Oden Bowie</strong> (1826–1894) — born at Fairview; 34th Governor of Maryland; the railroad junction and later the City of Bowie were named in his honor in 1880</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="note"><strong>Note on name reuse:</strong> The Bowie family frequently reused the same first names (Robert, William, Walter, Thomas) across generations and branches. Always check dates and estates (Mattaponi vs. Fairview) when reading sources. The two governors — Robert Bowie (Mattaponi) and Oden Bowie (Fairview) — are from different lines but part of the same extended family that dominated local politics and landownership for two centuries.</p>
+
+    <p><a href="bowie-colonial.html">← Return to Colonial Origins chapter</a></p>
+  </div>
+
+  <!-- Chapter Footer (simple) -->
+  <div class="chapter-footer">
+    <div class="chapter-footer-inner">
+      <a href="bowie-colonial.html">← Colonial Origins</a>
+      <span>Bowie Family Tree · Bowie History Atlas</span>
+    </div>
+  </div>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="page-container">
+      <p>Conceived and researched by Kevin Fine · 2026 · Bowie History Atlas</p>
+    </div>
+  </footer>
+
+</body>
+</html>
