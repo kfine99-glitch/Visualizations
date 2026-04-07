@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Updated April 7, 2026 -->
   <url>
     <loc>https://kfine99-glitch.github.io/Visualizations/</loc>
+    <lastmod>2026-04-07</lastmod>
   </url>
   <url>
     <loc>https://kfine99-glitch.github.io/Visualizations/solar-system-explorer.html</loc>
@@ -22,30 +24,47 @@
     <loc>https://kfine99-glitch.github.io/Visualizations/american-military-conflicts.html</loc>
   </url>
   <url>
-  <loc>https://kfine99-glitch.github.io/Visualizations/rochambeau-map.html</loc>
+    <loc>https://kfine99-glitch.github.io/Visualizations/rochambeau-map.html</loc>
   </url>
   <url>
-  <loc>https://kfine99-glitch.github.io/Visualizations/pow-camps.html</loc>
+    <loc>https://kfine99-glitch.github.io/Visualizations/pow-camps.html</loc>
+  </url>
+  
+  <!-- Bowie pages – all updated today (April 7, 2026) -->
+  <url>
+    <loc>https://kfine99-glitch.github.io/Visualizations/bowie-colonial.html</loc>
+    <lastmod>2026-04-07</lastmod>
   </url>
   <url>
-  <loc>https://kfine99-glitch.github.io/Visualizations/bowie-colonial.html</loc>
+    <loc>https://kfine99-glitch.github.io/Visualizations/bowie-railroad.html</loc>
+    <lastmod>2026-04-07</lastmod>
   </url>
   <url>
-  <loc>https://kfine99-glitch.github.io/Visualizations/bowie-railroad.html</loc>
+    <loc>https://kfine99-glitch.github.io/Visualizations/bowie-woodwards.html</loc>
+    <lastmod>2026-04-07</lastmod>
   </url>
   <url>
-  <loc>https://kfine99-glitch.github.io/Visualizations/bowie-woodwards.html</loc>
+    <loc>https://kfine99-glitch.github.io/Visualizations/bowie-modern.html</loc>
+    <lastmod>2026-04-07</lastmod>
   </url>
   <url>
-  <loc>https://kfine99-glitch.github.io/Visualizations/bowie-modern.html</loc>
+    <loc>https://kfine99-glitch.github.io/Visualizations/bowie-people.html</loc>
+    <lastmod>2026-04-07</lastmod>
   </url>
   <url>
-  <loc>https://kfine99-glitch.github.io/Visualizations/bowie-people.html</loc>
+    <loc>https://kfine99-glitch.github.io/Visualizations/bowie-racing.html</loc>
+    <lastmod>2026-04-07</lastmod>
   </url>
   <url>
-  <loc>https://kfine99-glitch.github.io/Visualizations/bowie-racing.html</loc>
+    <loc>https://kfine99-glitch.github.io/Visualizations/bowie-levitt-sections.html</loc>
+    <lastmod>2026-04-07</lastmod>
   </url>
   <url>
-  <loc>https://kfine99-glitch.github.io/Visualizations/DC_forts</loc>
+    <loc>https://kfine99-glitch.github.io/Visualizations/bowie-family-tree.html</loc>
+    <lastmod>2026-04-07</lastmod>
+  </url>
+
+  <url>
+    <loc>https://kfine99-glitch.github.io/Visualizations/DC_forts</loc>
   </url>
 </urlset>
