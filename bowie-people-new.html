@@ -471,7 +471,7 @@
     </div>
   </footer>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  <script>
     (function () {
       var sections = document.querySelectorAll('.section-block[id]');
       var links    = document.querySelectorAll('.sidebar-link');
@@ -492,4 +492,9 @@
 
       sections.forEach(function (s) { observer.observe(s); });
 
-      // Also ha
+      // Also handle click: immediately highlight the clicked link
+      links.forEach(function (a) {
+        a.addEventListener('click', function () { setActive(a.getAttribute('href').slice(1)); });
+      });
+    })();
+  </script>
