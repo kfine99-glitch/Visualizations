@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="People &amp; Places — Eva Cassidy, Paul Reed Smith, Ricky Arnold, Kathie Lee Gifford, JC Chasez, the Sports Junkies, David Matthew Jenkins, Six Flags America, Allen Pond Park, Belt Woods, and personal essays · Bowie History Atlas">
+  <title>People &amp; Places · Bowie History Atlas</title>
+  <link rel="stylesheet" href="bowie-style.css">
+  <style>
+    /* ── Sidebar: zone category dividers ── */
+    .sidebar-zone-divider {
+      margin: 20px 0 8px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(200, 168, 100, 0.30);
+      font-family: 'Orbitron', 'Courier New', monospace;
+      font-size: 8.5px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(200, 168, 100, 0.55);
+      padding-left: 2px;
+    }
+
+    /* ── Sidebar: Essay links ── */
+    .sidebar-link.essay-link {
+      font-style: italic;
+      padding-left: 10px;
+      border-left: 2px solid transparent;
+      transition: border-color 0.2s;
+    }
+    .sidebar-link.essay-link:hover,
+    .sidebar-link.essay-link.active {
+      border-left-color: rgba(200, 168, 100, 0.55);
+    }
+
+    /* ── Main pane: zone threshold markers ── */
+    .zone-threshold {
+      margin: 60px 0 44px;
+      position: relative;
+    }
+    .zone-threshold-rule {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .zone-threshold-rule::before,
+    .zone-threshold-rule::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(200, 168, 100, 0.30);
+    }
+    .zone-threshold-diamond {
+      width: 7px;
+      height: 7px;
+      background: rgba(200, 168, 100, 0.55);
+      transform: rotate(45deg);
+      flex-shrink: 0;
+    }
+    .zone-threshold h2 {
+      font-family: 'Orbitron', 'Courier New', monospace;
+      font-size: 1.35rem;
+      letter-spacing: 0.08em;
+      color: #c8a864;
+      margin: 0 0 14px;
+      text-transform: uppercase;
+    }
+    .zone-threshold-desc {
+      font-style: italic;
+      color: var(--text-sec, #9ca3af);
+      font-size: 14px;
+      line-height: 1.75;
+      max-width: 620px;
+      margin: 0;
+      padding-left: 2px;
+    }
+
+    /* ── Essay section-blocks ── */
+    .section-block.essay-section {
+      border-left: 3px solid rgba(200, 168, 100, 0.40);
+      padding-left: 22px;
+      background: rgba(200, 168, 100, 0.018);
+    }
+
+    /* ── Sidebar scrolling on tablets & mobile ── */
+    .chapter-sidebar {
+      overflow-y: auto;
+      max-height: calc(100vh - 220px);
+      scrollbar-width: thin;
+    }
+    .chapter-sidebar::-webkit-scrollbar {
+      width: 6px;
+    }
+    .chapter-sidebar::-webkit-scrollbar-thumb {
+      background-color: rgba(200, 168, 100, 0.55);
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════ SITE HEADER ═══════════════════ -->
+  <header class="site-header">
+    <div class="flag-panel">
+      <img src="maryland-flag.svg" alt="Maryland state flag — black and gold Calvert arms quarters with red and white Crossland cross quarters">
+    </div>
+    <div class="header-content">
+      <div class="header-text">
+        <div class="site-label">Prince George's County, Maryland</div>
+        <h1>Bowie History Atlas</h1>
+        <div class="site-subtitle">&amp; Military History Visualizations</div>
+      </div>
+      <figure class="header-map" aria-label="Locator map showing Bowie in Prince George's County, Maryland">
+        <img src="bowie-md-locator.svg" alt="Locator map" width="175" style="display:block;">
+        <figcaption>Prince George's County, MD</figcaption>
+      </figure>
+    </div>
+  </header>
+
+  <!-- ═══════════════════ CHAPTER NAV ═══════════════════ -->
+  <nav class="chapter-nav" aria-label="Chapter navigation">
+    <ul>
+      <li class="nav-home"><a href="index.html">&#8592; Home</a></li>
+      <li><a href="bowie-colonial.html">1 &middot; Colonial Origins</a></li>
+      <li><a href="bowie-railroad.html">2 &middot; Railroad Era</a></li>
+      <li><a href="bowie-racing.html">3 &middot; Racing &amp; Horses</a></li>
+      <li><a href="bowie-woodwards.html">4 &middot; The Woodwards</a></li>
+      <li><a href="bowie-modern.html">5 &middot; Modern Bowie</a></li>
+      <li class="nav-active"><a href="bowie-people.html">6 &middot; People &amp; Places</a></li>
+      <li><a href="personal-essays.html">Essays</a></li>
+    </ul>
+  </nav>
+
+  <!-- ═══════════════════ CHAPTER HEADER ═══════════════════ -->
+  <div class="chapter-header">
+    <div class="page-container">
+      <div class="ch-eyebrow">Chapter 6 &middot; ongoing</div>
+      <h2>People &amp; Places</h2>
+      <p class="ch-desc">Musicians, a guitar legend, an astronaut, a talk show host, a pop star, and a federal colleague &mdash; gathered under People. The amusement park that five identities couldn&rsquo;t save, the park at the heart of fifty Bowie summers, one of the last old-growth forests on the Atlantic coast &mdash; gathered under Places. The author&rsquo;s <a href="personal-essays.html" style="color:inherit; text-decoration:underline;">Personal Essays</a> &mdash; memoirs, career reflections, music, and childhood memories &mdash; now have their own dedicated page.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ CHAPTER LAYOUT ═══════════════════ -->
+  <main>
+    <div class="chapter-layout">
+
+      <!-- SIDEBAR -->
+      <aside class="chapter-sidebar">
+        <div class="sidebar-heading">Sections</div>
+        <a href="#eva-cassidy" class="sidebar-link active">Eva Cassidy</a>
+        <a href="#prs" class="sidebar-link">Paul Reed Smith</a>
+        <a href="#ricky-arnold" class="sidebar-link">Ricky Arnold</a>
+        <a href="#kathie-lee" class="sidebar-link">Kathie Lee Gifford</a>
+        <a href="#jc-chasez" class="sidebar-link">JC Chasez</a>
+        <a href="#sports-junkies" class="sidebar-link">The Sports Junkies</a>
+        <a href="#david-jenkins" class="sidebar-link">David Matthew Jenkins</a>
+        <div class="sidebar-zone-divider">Places</div>
+        <a href="#six-flags" class="sidebar-link">Six Flags America</a>
+        <a href="#allen-pond" class="sidebar-link">Allen Pond Park</a>
+        <a href="#belt-woods" class="sidebar-link">Belt Woods</a>
+      </aside>
+
+      <!-- MAIN READING PANE -->
+      <div class="chapter-main">
+
+        <!-- ── Eva Cassidy ── -->
+        <section class="section-block" id="eva-cassidy">
+          <div class="section-kicker">1963&ndash;1996 &middot; Singer &middot; Bowie High School</div>
+          <h3>Eva Cassidy &mdash; &ldquo;one of the greatest voices of her generation&rdquo;</h3>
+          <div class="content-tags">
+            <span class="tag">Bowie born &amp; died</span>
+            <span class="tag">Bowie High School</span>
+            <span class="tag">Melanoma &middot; age 33</span>
+            <span class="tag">BBC Radio 2 &middot; posthumous fame</span>
+            <span class="tag">Songbird &middot; UK No. 1</span>
+          </div>
+          <p>Eva Marie Cassidy was born in Washington in 1963 and moved to Bowie at age nine, growing up in a deeply musical family. Her father was a teacher, sculptor, and musician; her mother a German horticulturist. She attended Bowie High School, where she sang with a local band called Stonehenge, and spent years working as a plant propagator at Behnke Nurseries in Largo while playing the Washington club circuit. As a teenager she played country music with her brother Dan and a bassist at Wild World &mdash; the amusement park on Central Avenue that would become Six Flags America &mdash; before launching her recording career.</p>
+          <p>Cassidy refused to be categorized. Record companies wanted to sign her only if she committed to a single genre, a condition she rejected outright. Her repertoire crossed jazz, blues, folk, gospel, and pop in a voice the <em>Guardian</em> later described as one of the greatest of her generation. In 1992 she recorded <em>The Other Side</em>, a duet album with <a href="https://en.wikipedia.org/wiki/Chuck_Brown" target="_blank" rel="noopener noreferrer">Chuck Brown</a> &mdash; the &ldquo;Godfather of Go-Go,&rdquo; the foundational figure behind Washington DC&rsquo;s own indigenous music genre, which blended funk, jazz, and R&amp;B into a sound built on continuous live performance and call-and-response. Brown opened doors for Cassidy to larger venues like Wolf Trap and the Kennedy Center. In 1996 her live album <em>Live at Blues Alley</em> was released locally. She was virtually unknown outside the DC area when she died. Chuck Brown died in 2012; Washington honors him today with the <a href="https://en.wikipedia.org/wiki/Chuck_Brown_Memorial_Park" target="_blank" rel="noopener noreferrer">Chuck Brown Memorial Park</a> in the Langdon neighborhood and the <a href="https://www.gogomuseumcafe.com/" target="_blank" rel="noopener noreferrer">Go-Go Museum &amp; Caf&eacute;</a> in Anacostia, which opened in February 2025.</p>
+          <p>In the summer of 1996, a hip pain that Cassidy had attributed to painting murals proved to be melanoma that had spread to her lungs and bones. Her friends in the Washington music community organized a benefit tribute concert for her at <strong>The Bayou</strong>, a large Georgetown nightclub, on September 17, 1996. The club was packed with Eva&rsquo;s friends and fans. Performers including Mary Ann Redmond, Ron Holloway, and many others took the stage to express their affection for her. Then guitarist Keith Grimes stepped to the microphone: <em>&ldquo;Ladies and gentlemen, please join me in welcoming to the stage &mdash; Eva Cassidy.&rdquo;</em> She moved slowly to the stage, leaning on a walker, wearing a hat to cover the hair she had lost to chemotherapy. She sat on her stool and sang <a href="https://youtu.be/pPAGH0AT-os" target="_blank" rel="noopener noreferrer">&ldquo;What a Wonderful World&rdquo;</a> &mdash; the same song she had closed with at Blues Alley nine months earlier. The concert raised $10,000, money it was hoped would allow her to travel or record one last album. She made no further public appearances. She died on November 2, 1996 at her family&rsquo;s home in Bowie. She was 33.</p>
+          <p>Two years after her death, BBC Radio 2 broadcasters Mike Harding and Terry Wogan played her versions of <a href="https://youtu.be/9UVjjcOUJLE" target="_blank" rel="noopener noreferrer">&ldquo;Fields of Gold&rdquo;</a> and <a href="https://youtu.be/2rd8VktT8xY" target="_blank" rel="noopener noreferrer">&ldquo;Over the Rainbow&rdquo;</a> to British audiences. The response was overwhelming; her compilation album <em>Songbird</em> reached No.&nbsp;1 on the UK chart in 2001. In May 2001, ABC News Nightline broadcast a documentary about Cassidy &mdash; a personal labor of love from correspondent Dave Marash, who had become a devoted fan. That weekend, all five of Cassidy&rsquo;s albums simultaneously occupied Amazon.com&rsquo;s top five best-seller positions. The Nightline episode was rebroadcast three times, and executive producer Leroy Sievers called it &ldquo;probably the most popular Nightline ever.&rdquo; Her recordings have since sold more than ten million copies. Figure skating champion Michelle Kwan used Cassidy&rsquo;s version of <a href="https://youtu.be/9UVjjcOUJLE" target="_blank" rel="noopener noreferrer">&ldquo;Fields of Gold&rdquo;</a> for her exhibition program at the 2002 Winter Olympics in Salt Lake City.</p>
+          <p>In 2004, at the gala opening of the <a href="bowie-modern.html#bowie-center">Bowie Center for the Performing Arts</a>, the Bowie Regional Arts Vision Association dedicated the Star&rsquo;s Dressing Room to Eva. Following a tribute, Chuck Brown took the stage and performed his duet &ldquo;with&rdquo; Eva as her photographs and videos appeared in the background &mdash; a full circle that connected Bowie&rsquo;s own concert hall to the voice it had produced, and to the man whose music had first given her a stage. Bowie High School, where her busing-era experience is documented in her biography, produced one of the most celebrated voices of the late 20th century, largely in silence while she was alive.</p>
+          <div class="source-links">
+            Sources: <a href="https://en.wikipedia.org/wiki/Eva_Cassidy" target="_blank" rel="noopener noreferrer">Wikipedia: Eva Cassidy</a> &middot;
+            <a href="https://evacassidy.org/fact-sheet/" target="_blank" rel="noopener noreferrer">Eva Cassidy official fact sheet</a> &middot;
+            <a href="https://wamu.org/story/22/08/22/eva-cassidy/" target="_blank" rel="noopener noreferrer">WAMU: Eva Cassidy</a> &middot;
+            <a href="https://evacassidy.org/what-a-wonderful-world/" target="_blank" rel="noopener noreferrer">evacassidy.org: The Bayou benefit concert, September 17, 1996</a> &middot;
+            <a href="https://washingtonian.com/2002/05/01/songbird/" target="_blank" rel="noopener noreferrer">Washingtonian: Songbird &mdash; the Eva Cassidy story</a> &middot;
+            <a href="https://en.wikipedia.org/wiki/Chuck_Brown" target="_blank" rel="noopener noreferrer">Wikipedia: Chuck Brown</a> &middot;
+            <a href="https://www.gogomuseumcafe.com/" target="_blank" rel="noopener noreferrer">Go-Go Museum &amp; Caf&eacute;, Anacostia</a> &middot;
+            <a href="https://youtu.be/XEqzTlZdfSo" target="_blank" rel="noopener noreferrer">Documentary: Eva Cassidy &mdash; One Night That Changed Everything (2021)</a> &middot;
+            <a href="https://youtu.be/tKowGakjJQI" target="_blank" rel="noopener noreferrer">ABC News Nightline: The Eva Cassidy Story, May 21, 2001 &mdash; correspondent Dave Marash (third-party upload; note: the video title incorrectly attributes this to the BBC &mdash; it is an ABC News production)</a>
+          </div>
+        </section>
+        
+        <!-- ── Paul Reed Smith ── -->
+        <section class="section-block" id="prs">
+          <div class="section-kicker">b. 1956 &middot; Luthier &amp; entrepreneur &middot; Bowie High School class of 1974</div>
+          <h3>Paul Reed Smith &mdash; founder of PRS Guitars</h3>
+          <div class="content-tags">
+            <span class="tag">Bowie High School &middot; 1974</span>
+            <span class="tag">PRS Guitars &middot; est. 1985</span>
+            <span class="tag">3rd largest guitar brand</span>
+          </div>
+          <p>Paul Reed Smith grew up in Bowie and attended Bowie High School, where he built his first instrument &mdash; an electric bass &mdash; in shop class and took every woodworking course the school offered. He graduated in 1974 and enrolled at St. Mary&rsquo;s College of Maryland, where he built his first guitar as an extra-credit art project, earned an A, and decided that was what he would do with his life.</p>
+          <p>Smith hustled his guitars backstage at concerts, landing early sales to Derek St. Holmes of the Ted Nugent Band and, famously, Carlos Santana &mdash; who has been a signature endorser ever since. PRS Guitars was formally founded in Annapolis in 1985. By 2024 it had become the third-best-selling guitar brand in the world behind Fender and Gibson, with Santana, John Mayer, and Mark Tremonti among its signature artists. Smith still returns to Bowie High School to give clinics.</p>
+          <div class="source-links">
+            Sources: <a href="https://en.wikipedia.org/wiki/Paul_Reed_Smith" target="_blank" rel="noopener noreferrer">Wikipedia: Paul Reed Smith</a> &middot;
+            <a href="http://bowieliving.blogspot.com/2011/02/early-paul-reed-smith-band.html" target="_blank" rel="noopener noreferrer">Bowie Living: Early PRS band</a> &middot;
+            <a href="https://prsguitars.com" target="_blank" rel="noopener noreferrer">PRS Guitars</a>
+          </div>
+        </section>
+
+        <!-- ── Ricky Arnold ── -->
+        <section class="section-block" id="ricky-arnold">
+          <div class="section-kicker">b. 1963 &middot; Astronaut &amp; educator &middot; Bowie High School class of 1981</div>
+          <h3>Richard &ldquo;Ricky&rdquo; Arnold &mdash; NASA Mission Specialist</h3>
+          <div class="content-tags">
+            <span class="tag">Bowie High School &middot; 1981</span>
+            <span class="tag">STS-119 &middot; 2009</span>
+            <span class="tag">ISS Expeditions 55/56 &middot; 2018</span>
+            <span class="tag">209 days in space</span>
+          </div>
+          <p>Richard Robert Arnold II was born in Cheverly and raised in Bowie, graduating from Bowie High School in 1981. He earned a B.S. from Frostburg State and an M.S. in marine and environmental science from the University of Maryland, then spent years teaching science and mathematics at international schools in Morocco, Saudi Arabia, Indonesia, and Romania before NASA selected him as a Mission Specialist-Educator in 2004.</p>
+          <p>Arnold flew twice to the International Space Station: on Space Shuttle Discovery&rsquo;s STS-119 mission in 2009 (which delivered the final solar arrays to the ISS) and on Soyuz MS-08 for Expedition 55/56 in 2018, spending 197 days aboard. During the 2018 mission he connected to schoolchildren through live video downlinks, completing lesson plans that Christa McAuliffe had prepared for the Challenger mission in 1986. He logged 209 total days in space across five spacewalks totaling 32 hours and 4 minutes. Arnold was inducted into the Prince George&rsquo;s County Public Schools Hall of Fame in 2020 and retired from NASA in 2025.</p>
+          <div class="source-links">
+            Sources: <a href="https://en.wikipedia.org/wiki/Richard_R._Arnold" target="_blank" rel="noopener noreferrer">Wikipedia: Richard R. Arnold</a> &middot;
+            <a href="https://www.nasa.gov/wp-content/uploads/2016/01/arnold-rr.pdf" target="_blank" rel="noopener noreferrer">NASA biography (PDF)</a>
+          </div>
+        </section>
+
+        <!-- ── Kathie Lee Gifford ── -->
+        <section class="section-block" id="kathie-lee">
+          <div class="section-kicker">b. 1953 &middot; Television host &middot; Bowie High School</div>
+          <h3>Kathie Lee Gifford &mdash; talk show host</h3>
+          <div class="content-tags">
+            <span class="tag">Bowie High School</span>
+            <span class="tag">Live with Regis and Kathie Lee &middot; 1985&ndash;2000</span>
+            <span class="tag">Today show &middot; 2008&ndash;2019</span>
+          </div>
+          <p>Born Kathryn Lee Epstein in Paris to American parents, Kathie Lee Gifford grew up in Bowie and attended Bowie High School, where she was a member of a folk group. She went on to become one of American daytime television&rsquo;s most recognizable personalities, co-hosting <em>Live with Regis and Kathie Lee</em> from 1985 to 2000 and later the <em>Today</em> show&rsquo;s fourth hour from 2008 to 2019. She is also a singer, songwriter, playwright, and author.</p>
+          <div class="source-links">
+            Sources: <a href="https://en.wikipedia.org/wiki/Kathie_Lee_Gifford" target="_blank" rel="noopener noreferrer">Wikipedia: Kathie Lee Gifford</a>
+          </div>
+        </section>
+
+        <!-- ── JC Chasez ── -->
+        <section class="section-block" id="jc-chasez">
+          <div class="section-kicker">b. 1976 &middot; Singer &amp; performer &middot; Bowie High School</div>
+          <h3>JC Chasez &mdash; *NSYNC</h3>
+          <div class="content-tags">
+            <span class="tag">Bowie High School</span>
+            <span class="tag">Mickey Mouse Club</span>
+            <span class="tag">*NSYNC &middot; 70M+ records sold</span>
+          </div>
+          <p>Joshua Scott Chasez was born in Washington DC and grew up in Bowie, attending Robert Goddard Middle School and then Bowie High School. At 15 he was cast in <em>The Mickey Mouse Club</em> on Disney Channel, where he met and befriended Justin Timberlake. He went on to become a founding member of *NSYNC, one of the best-selling pop groups of the late 1990s and early 2000s, with global sales exceeding 70 million records. He has since worked as a songwriter and record producer.</p>
+          <div class="source-links">
+            Sources: <a href="https://en.wikipedia.org/wiki/JC_Chasez" target="_blank" rel="noopener noreferrer">Wikipedia: JC Chasez</a>
+          </div>
+        </section>
+
+        <!-- ── Sports Junkies ── -->
+        <section class="section-block" id="sports-junkies">
+          <div class="section-kicker">b. various &middot; Sports radio hosts &middot; 106.7 The Fan</div>
+          <h3>The Sports Junkies &mdash; Washington sports radio</h3>
+          <div class="content-tags">
+            <span class="tag">106.7 The Fan</span>
+            <span class="tag">Morning drive</span>
+            <span class="tag">Washington DC sports radio</span>
+            <span class="tag">Bowie connection</span>
+          </div>
+          <p>The Sports Junkies &mdash; John Auville, Eric &ldquo;E.B.&rdquo; Bickel, Jason &ldquo;Lurch&rdquo; Bishop, and John-Paul Flaim &mdash; have hosted the morning drive sports talk show on 106.7 The Fan in Washington for more than 25 years, consistently rated number one among DC men aged 18&ndash;49. Bickel grew up in Bowie, across the street from fellow Junkie John-Paul Flaim, and in the same neighborhood as John Auville &mdash; making the show a Bowie product in more ways than one.</p>
+          <div class="source-links">
+            Sources: <a href="https://en.wikipedia.org/wiki/The_Sports_Junkies" target="_blank" rel="noopener noreferrer">Wikipedia: The Sports Junkies</a>
+          </div>
+        </section>
+
+        <!-- ── David Matthew Jenkins ── -->
+        <section class="section-block" id="david-jenkins">
+          <div class="section-kicker">1947&ndash;2019 &middot; Bowie resident &middot; Federal colleague</div>
+          <h3>David Matthew Jenkins &mdash; a Bowie life</h3>
+          <div class="content-tags">
+            <span class="tag">DuVal High School &middot; class of 1965</span>
+            <span class="tag">Univ. of Maryland &middot; Delta Sigma Phi</span>
+            <span class="tag">ACF &middot; federal service</span>
+            <span class="tag">Buckingham Drive &middot; Bowie</span>
+          </div>
+          <p style="font-size:14px; color:var(--text-sec); margin-bottom:16px;">A personal tribute to a former Bowie resident and longtime federal colleague.</p>
+          <p>David Matthew Jenkins was born on March 10, 1947, and moved to Bowie as a teenager, where his father, Edward L. Jenkins, settled the family on Buckingham Drive &mdash; a street that remains one of my regular walking routes today; one of the first families to move into what was then a brand-new Levitt neighborhood. David graduated from <strong>DuVal High School</strong>, Lanham, Maryland, class of 1965. His senior yearbook photo survives on Classmates.com: a young man in jacket and tie, looking about 16 at the time it was taken in 1964.</p>
+          <p>Edward Jenkins lived on Buckingham Drive until shortly before his death. Once a week, David would leave work, take the Metro and then the Metrobus &mdash; the stop was directly across the street from his father&rsquo;s house &mdash; to check on him. The same neighborhood he had helped frame and wire and roof as a summer laborer for Levitt &amp; Sons became the place he returned to as a son, by bus, on a weekday evening.</p>
+          <p>After graduating DuVal, David attended the <strong>University of Maryland</strong> in College Park, where he was a member of the <strong>Delta Sigma Phi</strong> fraternity. He went on to a long career as an IT contractor and federal employee with the Administration for Children and Families, where he served first as my colleague and later as my supervisor over many years.</p>
+          <p>His obituary describes him as an accomplished golfer, cyclist, and athlete, and a committed advocate for both animal and human rights. In the months before his death he was baptized at McLean Bible Church in Montgomery County, Maryland. He and his wife Wendy, and their dog Mya, said &ldquo;The Lord&rsquo;s Prayer&rdquo; together each morning. He died on December 28, 2019, in Portland, Maine, where he had retired.</p>
+          <div class="source-links">
+            Sources: <a href="https://www.dignitymemorial.com/obituaries/portland-me/david-jenkins-8978303" target="_blank" rel="noopener noreferrer">Obituary &middot; Dignity Memorial, Portland, ME</a> &middot;
+            <a href="https://www.classmates.com/yearbooks/DuVal-High-School/1000254900" target="_blank" rel="noopener noreferrer">DuVal 1965 yearbook &middot; Classmates.com</a>
+          </div>
+        </section>
+
+        <!-- ══════════════════════════════════════════════════════
+             PLACES — zone threshold
+             ══════════════════════════════════════════════════════ -->
+        <div class="zone-threshold">
+          <div class="zone-threshold-rule">
+            <div class="zone-threshold-diamond"></div>
+          </div>
+          <h2>Places</h2>
+          <p class="zone-threshold-desc">Three landmarks of local life &mdash; an amusement park that outlasted five identities, the park at the heart of fifty Bowie summers, and one of the last old-growth forests on the Atlantic coast. Six Flags and Allen Pond include personal accounts from the author&rsquo;s own experience of them; Belt Woods is pure conservation history.</p>
+        </div>
+
+        <!-- ── Six Flags ── -->
+        <section class="section-block" id="six-flags">
+          <div class="section-kicker">From safari to roller coasters &middot; 1974&ndash;2025</div>
+          <h3>Six Flags America &mdash; five names, 51 years, one closing day</h3>
+          <p style="font-size:14px; color:var(--text-sec); margin-bottom:16px;">Just outside the Bowie city limits on Central Avenue, a 515-acre property outlasted five identities and became one of the most emotionally charged amusement parks in the mid-Atlantic &mdash; beloved by locals, dismissed by enthusiasts, and genuinely irreplaceable to the generations who grew up with it.</p>
+
+          <h4>The five names</h4>
+          <div class="content-tags">
+            <span class="tag">Ross Perot &middot; 1974</span>
+            <span class="tag">Jim Fowler &middot; Wild Kingdom</span>
+            <span class="tag">Wild World &middot; 1981</span>
+            <span class="tag">Adventure World &middot; 1992</span>
+            <span class="tag">Six Flags &middot; 1999&ndash;2025</span>
+          </div>
+          <p><strong>The Wildlife Preserve (1974&ndash;1977).</strong> Opened July 15, 1974 as a drive-through safari on corn and tobacco fields in Woodmore, backed by Texas billionaire Ross Perot and Irish animal trainers Frank and William Stephenson. ABC Television&rsquo;s attractions division took it over, projecting 850,000 visitors a year. It never came close. ABC called it a $4 million annual liability and walked away after two seasons. In 1976, 350 animals were sold to zoos.</p>
+          <p><strong>Wild Country (1978&ndash;1980).</strong> Jim Fowler, host of <em>Mutual of Omaha&rsquo;s Wild Kingdom</em>, bought the property and reopened it with a narrated train safari and petting zoo. Financial difficulties closed it again before a full season could run.</p>
+          <p><strong>Wild World (1981&ndash;1992).</strong> Local businessmen invested $11 million, added flat rides, a wave pool, and water slides. The animal safari closed for good in 1983. In 1986, The Wild One &mdash; a 1917 wooden coaster relocated from the defunct Paragon Park in Massachusetts &mdash; was rebuilt here and became the park&rsquo;s signature ride. Wild World became the region&rsquo;s summer destination through the 1980s. Eva Cassidy, who grew up in Bowie, performed six days a week at Wild World with her brother Dan in a working band in summer 1983.</p>
+          <p><strong>Adventure World (1992&ndash;1999).</strong> Acquired by Premier Parks, renamed, and systematically expanded with steel coasters and a proper water park. Batman and Joker&rsquo;s Jinx were added; the park became a genuine regional theme park.</p>
+          <p><strong>Six Flags America (1999&ndash;2025).</strong> After Premier Parks acquired Six Flags Inc. in 1998, the park was rebranded the tenth Six Flags park in 1999. Superman: Ride of Steel, a 197-foot Intamin hypercoaster, became the flagship attraction. The park ran for 26 years under the Six Flags name before closing permanently on November 2, 2025, at the end of the season following the 2024 Six Flags / Cedar Fair merger. As the last visitors left, they passed a sign quoting Porky Pig: <em>&ldquo;That&rsquo;s all, folks.&rdquo;</em></p>
+
+          <h4>Enthusiast critique vs. what locals knew</h4>
+          <p>Among roller coaster enthusiasts, Six Flags America accumulated a well-documented reputation as one of the weakest parks in the chain &mdash; unreliable operations, aging hand-me-down coasters, minimal investment, and a layout described bluntly as &ldquo;all concrete.&rdquo; The enthusiast critique never matched the local experience. The park&rsquo;s own trip reports consistently noted happy families and genuine affection from DC-area residents who had grown up with Wild World, Adventure World, and Six Flags as their summer park. The park existed outside Bowie&rsquo;s city limits in Woodmore, but everyone in Bowie considered it theirs &mdash; close enough to ride to on a summer day, familiar enough to feel like a neighborhood institution.</p>
+          <p style="font-style:italic; color:var(--text-sec); border-left:3px solid var(--gold); padding-left:14px; margin-top:24px;"><strong style="font-style:normal;">A personal note.</strong> I attended the park through every one of its five iterations &mdash; Wildlife Preserve, Wild Country, Wild World, Adventure World, and Six Flags America. For many years I bought season parking and ticket passes and would stop at Six Flags nearly every weekday during the season on the way home from work, and often on weekends too, just to ride Superman Ride of Steel over and over again for about an hour. I usually looked very out of place, wearing casual business clothes &mdash; Dockers and oxford shirts &mdash; while most everyone else was dressed for a full day at the park. I would often marvel at riders screaming on the downhills while I, completely and thoroughly used to the ride, rode impassively admiring the scenery. I eventually stopped riding Superman after the fatal accident on an identical Ride of Steel coaster at Darien Lake in New York, where a disabled rider was ejected and killed. After that, the restraint system was redesigned, and for tall people like me it was no longer comfortable. Before those changes, the ride felt so comfortable to me that I could almost have fallen asleep on it.</p>
+          <p>For the generations who grew up in Bowie during those 51 years, the park was simply part of the landscape, as much a marker of summer as the cicadas and the heat. The 515-acre property on Central Avenue has been put up for sale for redevelopment. Nothing has been announced. Roller coaster enthusiasts are campaigning to preserve or relocate The Wild One &mdash; 108 years old at closing &mdash; before demolition.</p>
+          <div class="source-links">
+            Sources: <a href="https://en.wikipedia.org/wiki/Six_Flags_America" target="_blank" rel="noopener noreferrer">Wikipedia: Six Flags America</a> &middot;
+            <a href="https://wtop.com/prince-georges-county/2025/11/thats-all-folks-six-flag-americas-last-day/" target="_blank" rel="noopener noreferrer">WTOP: Six Flags America&rsquo;s last day</a> &middot;
+            <a href="https://www.incrediblecoasters.com/OfficialSixFlagsAmericaPage.html" target="_blank" rel="noopener noreferrer">Incrediblecoasters: Six Flags America review</a>
+          </div>
+        </section>
+
+        <!-- ── Allen Pond Park ── -->
+        <section class="section-block" id="allen-pond">
+          <div class="section-kicker">A farm, a fisherman&rsquo;s request &middot; 1965&ndash;present</div>
+          <h3>Allen Pond Park &mdash; fifty years of Bowie summers</h3>
+          <p style="font-size:14px; color:var(--text-sec); margin-bottom:16px;">The 85-acre park at the geographic heart of Belair at Bowie began with a farmer&rsquo;s simple condition of sale &mdash; and has been the emotional center of the city ever since.</p>
+          <div class="content-tags">
+            <span class="tag">James Allen &middot; tobacco &amp; cattle farm</span>
+            <span class="tag">Sold to Levitt &middot; 1965</span>
+            <span class="tag">Setera Amphitheater &middot; late 1960s</span>
+            <span class="tag">Opportunity Park &middot; nation&rsquo;s first fully accessible playground</span>
+          </div>
+
+          <h4>A farmer&rsquo;s request</h4>
+          <p>Allen Pond Park has been the emotional center of Bowie since the city&rsquo;s first subdivision was staked out. Its 85 acres sit at the geographic heart of Belair at Bowie, and its history begins not with a city council vote or a developer&rsquo;s master plan, but with a farmer&rsquo;s simple request.</p>
+          <p>The land was owned by <strong>James Allen</strong>, a tobacco and cattle farmer who ran his operation on the property before Levitt&rsquo;s crews arrived to transform the surrounding countryside into a suburb. Allen had created the pond himself as a fishing attraction, selling annual access shares for ten dollars apiece. When <a href="https://en.wikipedia.org/wiki/Levitt_%26_Sons" target="_blank" rel="noopener noreferrer">Levitt &amp; Sons</a> purchased the property in 1965, Allen&rsquo;s price of sale came with a condition: the pond and the land around it were to become a park for the community. Levitt honored it. The <strong>Robert V. Setera Amphitheater</strong> &mdash; the stage that anchors the park to this day &mdash; was built by the Levitt Company itself in the late 1960s, incorporated into the original park design as a community gathering space from the very beginning.</p>
+
+          <h4>Growing up at Allen Pond</h4>
+          <p style="font-size:14px; color:var(--text-sec); margin-bottom:16px;">What follows is a personal account of the park as experienced growing up in Bowie in the 1970s and &rsquo;80s.</p>
+          <p>For me, growing up in Bowie through the 1970s and &rsquo;80s, Allen Pond was simply part of the landscape of summer. I walked the perimeter path around the pond regularly &mdash; it runs a little under half a mile and still does. The highlight of the circuit was the island: a small wooded rise in the pond, reached by a wooden footbridge, with a gazebo perched at the top of a hill. Getting there meant climbing a set of steps cut into the earth from railroad ties &mdash; broad, dark, irregular risers held in place by stakes, the kind of rough landscaping that was everywhere in parks of that era. As a small child, those steps felt like a genuine climb, a small summit. From the top, the whole park spread out below.</p>
+          <p>On the far side of the park from the parking lot, past the boathouse where you could rent paddle boats and buy refreshments, sat a railroad caboose &mdash; a fixture of those years, the kind of thing that existed in parks of that era without explanation or ceremony, and that I accepted as simply part of the landscape. The caboose has since moved on, and its full story turns out to be a genuine piece of Bowie railroad history. It was <strong>Norfolk &amp; Western CF Class Caboose #518-303</strong>, built at the N&amp;W East End Shops in Roanoke, Virginia, in April 1922. After nearly fifty years of service it was retired to a scrap yard, rescued, and presented to the City of Bowie in 1972 by Hilda Richstone. Historical signage at the <a href="https://kfine99-glitch.github.io/Visualizations/bowie-railroad.html#bp-railroad" target="_blank" rel="noopener noreferrer">Bowie Railroad Museum</a> notes that while not conclusive, the caboose is very likely the actual &ldquo;Bowie Caboose&rdquo; &mdash; one that saw active service on the Pope&rsquo;s Creek line running from Bowie to Southern Maryland, at a time when the Pennsylvania Railroad controlled the Norfolk &amp; Western. The caboose sat at Allen Pond Park until a fire damaged it in the late 1970s. It was relocated to the Railroad Museum in 2000 and restored on the exterior, where it remains today. [<a href="https://kfine99-glitch.github.io/Visualizations/bowie-caboose.jpg" target="_blank" rel="noopener noreferrer">Historical sign photo</a>]</p>
+          <p>The Sunday evening concerts at the Setera Amphitheater were a summer ritual &mdash; described more fully in the <a href="bowie-modern.html#growing-up">Growing Up in Bowie</a> section of Chapter 5 &mdash; and those concerts continue unchanged to this day, free of charge every Sunday from Memorial Day through Labor Day at 6&nbsp;p.m. The <a href="https://www.cityofbowie.org/Facilities/Facility/Details/Bowie-Ice-Arena-9" target="_blank" rel="noopener noreferrer">Bowie Ice Arena</a> sits at the edge of the park, adjacent to the main parking lot. I went occasionally as a child &mdash; ice skating was never a particular interest &mdash; but its presence made Allen Pond feel like more than just a park. It was a complex, a year-round destination, which in a suburb of that era was not something to take for granted.</p>
+
+          <h4>The Fourth of July &mdash; a tradition on the move</h4>
+          <p>The Fourth of July was the year&rsquo;s main event. Bowie&rsquo;s fireworks tradition had started at the Bowie Race Track &mdash; the logical venue when the track was the city&rsquo;s largest open gathering space &mdash; and moved to Allen Pond as the city grew. For years, the park on the Fourth was a genuine community spectacle: families camping out in the summer heat with blankets and lawn chairs, the concert lawn packed, the night sky reflecting off the water. That era ended in the early 2010s, when Mayor G. Fred Robinson moved the event to Prince George&rsquo;s Stadium. The official reasons were crowd growth that had outrun the park&rsquo;s capacity, persistent traffic problems no revised plan had solved, and unauthorized fireworks creating public safety concerns. It was the fourth venue in the city&rsquo;s fireworks history. The stadium offered capacity and controlled entry points; it could never offer what Allen Pond had.</p>
+          <p>The park has not been entirely immune to the pressures of suburban development. Townhouses were built close to the park&rsquo;s edge over the years &mdash; a compression I found disheartening, the sensation of watching an open park become a walled one, of losing the sky at the margins. But the core 85 acres remained intact.</p>
+
+          <h4>New additions &mdash; and a notable first</h4>
+          <p>Over the decades, new amenities have accumulated on the grounds. The <strong>Bowie Skate Park</strong> &mdash; a lighted 10,000-square-foot concrete facility for skateboarding and inline skating &mdash; added a younger constituency to the park&rsquo;s regular users. More significantly, <strong>Opportunity Park</strong> became the nation&rsquo;s first completely accessible playground, constructed before the ADA had even established guidelines for what such a facility should look like. It includes fully ramped equipment for school-age children, a tot lot with forgiving surfaces, tactile elements designed for the visually impaired, and a wheelchair-accessible Nature and Sensory Trail with seven interactive stations.</p>
+
+          <h4>A footnote the official histories omit</h4>
+          <p>In May 1993, piranhas turned up in the pond. A flesh-eating fish exceeding 11 inches was pulled from Allen Pond and reported to the <em>Baltimore Sun</em> &mdash; the apparent product of a released pet. The pond had been stocked with bass and crappie. The piranha was presumably the only one of its kind, and presumably unsuccessful. It remains the most exotic entry in the park&rsquo;s otherwise calm aquatic record.</p>
+
+          <div class="source-links">
+            Sources: <a href="https://en.wikipedia.org/wiki/Allen_Pond_Park" target="_blank" rel="noopener noreferrer">Wikipedia: Allen Pond Park</a> &middot;
+            <a href="https://www.cityofbowie.org/2960/Allen-Pond-Park" target="_blank" rel="noopener noreferrer">City of Bowie: Allen Pond Park</a> &middot;
+            <a href="https://www.cityofbowie.org/111/Summer-Concerts" target="_blank" rel="noopener noreferrer">City of Bowie: Summer Concerts</a> &middot;
+            <a href="https://www.cityofbowie.org/107/Parks" target="_blank" rel="noopener noreferrer">City of Bowie: Parks</a> &middot;
+            <a href="http://bowieliving.blogspot.com/2013/04/no-more-fourth-of-july-fireworks-at.html" target="_blank" rel="noopener noreferrer">Bowie Living: No more Fourth of July fireworks at Allen Pond</a> &middot;
+            <a href="https://mdkidadventures.wordpress.com/2021/06/28/allen-pond-park/" target="_blank" rel="noopener noreferrer">Maryland Kid Adventures: Opportunity Park</a> &middot;
+            <a href="https://www.chesapeakefamily.com/visitallenpondpark/" target="_blank" rel="noopener noreferrer">Chesapeake Family: Allen Pond Park</a>
+          </div>
+        </section>
+
+        <!-- ── Belt Woods ── -->
+        <section class="section-block" id="belt-woods">
+          <div class="section-kicker">Old-growth forest &middot; conservation</div>
+          <h3>Belt Woods &mdash; one of the last virgin hardwood forests on the Atlantic coast</h3>
+          <p style="font-size:14px; color:var(--text-sec); margin-bottom:16px;">Eight miles east of Washington, a 624-acre farm contains what is often described as the last stand of old-growth hardwood forest on the Atlantic Coastal Plain &mdash; saved from development by a coalition that included the City of Bowie.</p>
+
+          <h4>Seton Belt&rsquo;s 1944 wish &mdash; and what happened to it</h4>
+          <div class="content-tags">
+            <span class="tag">Seton Belt &middot; 1870&ndash;1959</span>
+            <span class="tag">North Woods logged &middot; 1981</span>
+            <span class="tag">National Natural Landmark &middot; 1974</span>
+            <span class="tag">200-year-old trees &middot; 140+ ft</span>
+          </div>
+          <p>The Belt Woods are the legacy of Seton Belt (1870&ndash;1959), a semi-reclusive banker and gentleman farmer descended from 17th-century settlers in Prince George&rsquo;s County. Belt owned 3,200 acres on six farms. In his 1944 will, he stipulated that the trees on his home farm should never be cut down and the 624-acre property never sold. He left it to St. Barnabas&rsquo; Episcopal Church.</p>
+          <p>The church and its bank broke the will in court. The North Woods &mdash; with their enormous old white oaks and tulip poplars &mdash; fell to the chainsaw in 1981, logged for veneer. The forester hired by the bank reportedly said the trees had nothing left to do but &ldquo;die and fall over.&rdquo; The logging shocked conservationists and triggered an 18-year battle with the Episcopal Diocese of Washington. National Geographic had chosen the forest to photograph a story on what America looked like before Columbus arrived.</p>
+          <p>In 1984, the state of Maryland purchased 110 acres of the surviving South Woods, designated them a Natural Environmental Area, and the South Woods were named a National Natural Landmark. The South Woods contains 200-year-old trees over 140 feet tall &mdash; the tallest accurately measured white oak in Maryland (143.7 feet) and the tallest accurately measured tuliptrees in Maryland (159.9 feet) are both here. The bird density is among the highest on the East Coast: wood thrush, red-eyed vireo, Kentucky warbler, and dozens of neotropical songbird species nest in concentrations rarely found this close to a major metropolitan area.</p>
+
+          <h4>The $4.65 million rescue &mdash; and the City of Bowie&rsquo;s unlikely role</h4>
+          <div class="content-tags">
+            <span class="tag">$4.65M purchase &middot; 1997</span>
+            <span class="tag">Bowie contributed $500K outside city limits</span>
+            <span class="tag">625 acres protected</span>
+            <span class="tag">Maryland State Wildland &middot; 1997</span>
+          </div>
+          <p>In the mid-1990s, the Diocese approved plans to develop 649 housing units on the remaining 515 acres. Pamela Cooper of the Western Shore Conservancy, who had walked the woods in early spring 1992 and heard hundreds of migratory songbirds arriving from the tropics, formed a conservation coalition determined to stop it.</p>
+          <p>The purchase coalition assembled in 1997, with a total price of $4.65 million. Maryland provided the largest share: $2.5 million from the state&rsquo;s Program Open Space, plus $500,000 in bonds. Prince George&rsquo;s County contributed $500,000. <strong>The City of Bowie contributed $500,000</strong> &mdash; and this contribution is particularly notable because Belt Woods lies outside the city limits, in an unincorporated area of Prince George&rsquo;s County. The city had no legal obligation and no direct jurisdictional interest. It contributed because the forest mattered to the community, and because the city had established a pattern of investing in conservation beyond its borders when the cause was significant enough. The Nature Conservancy, the Abell Foundation, the National Fish and Wildlife Foundation, the Trust for Public Land, and the Western Shore Conservancy raised the remainder.</p>
+          <p>The Maryland General Assembly designated 610 acres as the Belt Woods Wildland in October 1997. The property is managed by the Maryland Park Service. There are no trails and access is currently limited to scientific research and permitted deer hunting. The forest is not open to casual visitors &mdash; it exists as a protected ecological reserve in a suburban landscape that would otherwise have swallowed it entirely.</p>
+          <div class="source-links">
+            Sources: <a href="https://en.wikipedia.org/wiki/Belt_Woods" target="_blank" rel="noopener noreferrer">Wikipedia: Belt Woods</a> &middot;
+            <a href="https://dnr.maryland.gov/publiclands/pages/southern/beltwoods.aspx" target="_blank" rel="noopener noreferrer">Maryland DNR: Belt Woods</a> &middot;
+            <a href="https://cnsmaryland.org/1997/02/07/maryland-old-growth-forest-deeded-to-state/" target="_blank" rel="noopener noreferrer">CNS Maryland: Old-growth forest saved (1997)</a> &middot;
+            <a href="https://www.tpl.org/our-work/belt-woods" target="_blank" rel="noopener noreferrer">Trust for Public Land: Belt Woods</a>
+          </div>
+        </section>
+
+        <!-- ══════════════════════════════════════════════════════
+             ESSAYS — moved to dedicated page
+             ══════════════════════════════════════════════════════ -->
+        <div class="zone-threshold">
+          <div class="zone-threshold-rule">
+            <div class="zone-threshold-diamond"></div>
+          </div>
+          <h2>Personal Essays</h2>
+          <p class="zone-threshold-desc">The author&rsquo;s personal essays &mdash; first-person accounts, professional memoirs, tributes, and opinions &mdash; have moved to their own dedicated page. Nine essays covering a father who was a certified genius, a federal career&rsquo;s worth of unpaid overtime, the golden decade of the story song, a sick Welsh musician named Ren, childhood summers, two years on a school bus, and ideas held by people insulated from their consequences.</p>
+          <a href="personal-essays.html" style="
+            display: inline-block;
+            margin-top: 22px;
+            padding: 11px 26px;
+            background: rgba(200, 168, 100, 0.12);
+            border: 1px solid rgba(200, 168, 100, 0.45);
+            border-radius: 4px;
+            color: #c8a864;
+            font-family: 'Orbitron', 'Courier New', monospace;
+            font-size: 11px;
+            letter-spacing: 0.10em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: background 0.15s, border-color 0.15s;
+          " onmouseover="this.style.background='rgba(200,168,100,0.22)'; this.style.borderColor='rgba(200,168,100,0.75)';"
+             onmouseout="this.style.background='rgba(200,168,100,0.12)'; this.style.borderColor='rgba(200,168,100,0.45)';">
+            Read the Personal Essays &rarr;
+          </a>
+        </div>
+
+      </div><!-- end chapter-main -->
+    </div><!-- end chapter-layout -->
+  </main>
+
+  <!-- ═══════════════════ CHAPTER FOOTER ═══════════════════ -->
+  <div class="chapter-footer">
+    <div class="chapter-footer-inner">
+      <a href="bowie-modern.html">&#8592; Chapter 5 &middot; Modern Bowie</a>
+      <span class="footer-home">Chapter 6 of 6 &middot; <a href="index.html">Bowie History Atlas</a></span>
+      <a href="index.html">Return to Home &middot; Bowie History Atlas &#8594;</a>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ SITE FOOTER ═══════════════════ -->
+  <footer class="site-footer">
+    <div class="page-container">
+      <p>Conceived and researched by Kevin Fine &middot;
+         Developed with assistance from Claude AI (Anthropic), Grok, and Perplexity &middot;
+         2026 &middot;
+         Corrections, suggestions, or additional sources are welcome via
+         <a href="https://github.com/kfine99-glitch/Visualizations/issues"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="color: #0066cc; text-decoration: underline;">GitHub Issues</a>.</p>
+    </div>
+  </footer>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    (function () {
+      var sections = document.querySelectorAll('.section-block[id]');
+      var links    = document.querySelectorAll('.sidebar-link');
+      if (!sections.length || !links.length) return;
+
+      function setActive(id) {
+        links.forEach(function (a) {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+        });
+      }
+
+      // Intersection Observer — fires when a section enters the "reading zone"
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) setActive(entry.target.id);
+        });
+      }, { rootMargin: '-15% 0px -75% 0px', threshold: 0 });
+
+      sections.forEach(function (s) { observer.observe(s); });
+
+      // Also ha
