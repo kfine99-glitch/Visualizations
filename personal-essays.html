@@ -588,6 +588,7 @@
         });
       }
 
+      // Intersection Observer — fires when a section enters the "reading zone"
       var observer = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
           if (entry.isIntersecting) setActive(entry.target.id);
@@ -596,11 +597,10 @@
 
       sections.forEach(function (s) { observer.observe(s); });
 
-      // Hash-based navigation
-      if (location.hash) {
-        var target = document.querySelector(location.hash);
-        if (target) { setTimeout(function () { target.scrollIntoView(); }, 100); }
-      }
+      // Also handle click: immediately highlight the clicked link
+      links.forEach(function (a) {
+        a.addEventListener('click', function () { setActive(a.getAttribute('href').slice(1)); });
+      });
     })();
   </script>
 </body>
