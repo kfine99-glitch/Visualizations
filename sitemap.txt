@@ -58,9 +58,8 @@
   </url>
   <url>
     <loc>https://kfine99-glitch.github.io/Visualizations/personal-essays.html</loc>
-    <lastmod>2026-04-11</lastmod>
+    <lastmod>2026-04-12</lastmod>
   </url>
-
   <url>
     <loc>https://kfine99-glitch.github.io/Visualizations/bowie-racing.html</loc>
     <lastmod>2026-04-11</lastmod>
