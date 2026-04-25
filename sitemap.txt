@@ -50,7 +50,7 @@
   </url>
   <url>
     <loc>https://kfine99-glitch.github.io/Visualizations/bowie-modern.html</loc>
-    <lastmod>2026-04-11</lastmod>
+    <lastmod>2026-04-25</lastmod>
   </url>
   <url>
     <loc>https://kfine99-glitch.github.io/Visualizations/bowie-people.html</loc>
