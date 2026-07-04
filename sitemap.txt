@@ -38,31 +38,31 @@
   </url>
   <url>
     <loc>https://kfine99-glitch.github.io/Visualizations/bowie-colonial.html</loc>
-    <lastmod>2026-07-03</lastmod>
+    <lastmod>2026-07-04</lastmod>
   </url>
   <url>
     <loc>https://kfine99-glitch.github.io/Visualizations/bowie-railroad.html</loc>
-    <lastmod>2026-07-01</lastmod>
+    <lastmod>2026-07-04</lastmod>
   </url>
   <url>
     <loc>https://kfine99-glitch.github.io/Visualizations/bowie-woodwards.html</loc>
-    <lastmod>2026-07-01</lastmod>
+    <lastmod>2026-07-04</lastmod>
   </url>
   <url>
     <loc>https://kfine99-glitch.github.io/Visualizations/bowie-modern.html</loc>
-    <lastmod>2026-07-01</lastmod>
+    <lastmod>2026-07-04</lastmod>
   </url>
   <url>
     <loc>https://kfine99-glitch.github.io/Visualizations/bowie-people.html</loc>
-    <lastmod>2026-07-01</lastmod>
+    <lastmod>2026-07-04</lastmod>
   </url>
   <url>
     <loc>https://kfine99-glitch.github.io/Visualizations/personal-essays.html</loc>
-    <lastmod>2026-04-24</lastmod>
+    <lastmod>2026-07-04</lastmod>
   </url>
   <url>
     <loc>https://kfine99-glitch.github.io/Visualizations/bowie-racing.html</loc>
-    <lastmod>2026-04-25</lastmod>
+    <lastmod>2026-07-04</lastmod>
   </url>
   <url>
     <loc>https://kfine99-glitch.github.io/Visualizations/bowie-levitt-sections.html</loc>
